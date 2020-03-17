@@ -1,22 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Alert} from 'react-native';
+import { View } from 'react-native';
+import { TOnlyOneMessageIteration } from 'src/MessangerStack/types';
+import { TLibraryInputData } from 'src/global/types';
 
-declare var global: {HermesInternal: null | {}};
-
-const App = () => {
+export const StartAConversation = (libraryInputData: TLibraryInputData) => {
   React.useEffect(() => {
-    Alert.alert('App started');
+    const createdMessanger = () => (
+      
+    )
+
   }, []);
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'green',
-      }}
-    />
-  );
+  return <View />;
 };
-
-export default App;
