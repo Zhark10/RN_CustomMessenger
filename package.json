@@ -12,6 +12,22 @@
     "react": "16.9.0",
     "react-native": "0.61.5"
   },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "react native",
+    "mobile",
+    "ios",
+    "android",
+    "quiz",
+    "animation",
+    "messanger",
+    "custom-messanger",
+    "custom messanger",
+    "bubble"
+  ],
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
