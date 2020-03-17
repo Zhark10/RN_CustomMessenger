@@ -1,5 +1,5 @@
 {
-  "name": "CustomMessangerByZhark10",
+  "name": "custom-messanger-react-native",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -40,5 +40,17 @@
     "metro-react-native-babel-preset": "^0.56.0",
     "react-test-renderer": "16.9.0",
     "typescript": "^3.7.3"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zhark10/custom-messanger-react-native.git"
+  },
+  "author": "Zharavin Arkady",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zhark10/custom-messanger-react-native/issues"
+  },
+  "homepage": "https://github.com/Zhark10/custom-messanger-react-native#readme",
+  "description": ""
 }
