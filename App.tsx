@@ -4,23 +4,15 @@ import React, {FC} from 'react';
 import {View, Alert} from 'react-native';
 import {TLibraryInputData} from './src/global/types';
 import {Messanger} from './src/MessangerStack';
-import {AnswerType} from 'src/MessangerStack/types';
+import {AnswerType} from './src/MessangerStack/types';
+console.disableYellowBox = true;
 
 const StartChat = (libraryInputData: TLibraryInputData) => {
   const ViewForChat = (): React.ReactNode => {
-    const [isShowedMessanger, toShowMessanger] = React.useState(false);
     const createdMessanger = <Messanger {...libraryInputData} />;
-
-    React.useEffect(() => {
-      toShowMessanger(true);
-    }, []);
-
-    React.useEffect(() => {}, [isShowedMessanger]);
-
-    return isShowedMessanger ? createdMessanger : <></>;
+    return createdMessanger;
   };
-
-  ViewForChat();
+  return ViewForChat();
 };
 
 const example: TLibraryInputData = {
@@ -37,14 +29,14 @@ const example: TLibraryInputData = {
     messages: [
       {
         botMessage: {
-          text: 'hi, man! How are you?',
+          text: 'Hi, man! What`s your name?',
         },
         actionAfterAnswer: () => Alert.alert('Answer sended'),
-        myAnswerType: AnswerType.INPUT,
+        myAnswerType: AnswerType.TIMEPICKER,
       },
       {
         botMessage: {
-          text: 'hi, man! How are you?',
+          text: 'How are you?',
         },
         actionAfterAnswer: () => Alert.alert('Answer sended'),
         myAnswerType: AnswerType.INPUT,
@@ -57,4 +49,6 @@ const example: TLibraryInputData = {
   },
 };
 
-export const StartAConversation = StartChat(example);
+const StartAConversation = () => StartChat(example);
+
+export default StartAConversation;

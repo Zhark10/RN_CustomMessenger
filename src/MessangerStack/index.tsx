@@ -9,16 +9,18 @@ export const Messanger: FC<TLibraryInputData> = libraryInputData => {
   const selectAnswerField = React.useCallback((): React.ReactNode => {
     const currentMessageType =
       libraryInputData.messangerData.messages[0].myAnswerType;
-    const randomView = <View />;
+    const randomView = () => (
+      <View style={{width: 50, height: 50, backgroundColor: 'green'}} />
+    );
 
-    const answerFields: any = {
+    const answerFields = {
       [AnswerType.INPUT]: randomView,
       [AnswerType.BUTTON]: randomView,
       [AnswerType.PHOTO]: randomView,
       [AnswerType.CHOICE]: randomView,
       [AnswerType.TIMEPICKER]: randomView,
     };
-    const AnswerField: any = answerFields[currentMessageType];
+    const AnswerField = answerFields[currentMessageType];
     return <AnswerField />;
   }, [libraryInputData.messangerData.messages]);
 
@@ -28,7 +30,7 @@ export const Messanger: FC<TLibraryInputData> = libraryInputData => {
         position: 'absolute',
         height: screenHeight,
         width: screenWidth,
-        backgroundColor: '#FFF',
+        backgroundColor: 'red',
       }}>
       {selectAnswerField()}
     </View>
