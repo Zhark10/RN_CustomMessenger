@@ -1,7 +1,7 @@
 import {Alert} from 'react-native';
 import {AnswerType} from '../src/MessangerStack/types';
 import {StartChat} from '../App';
-import {TLibraryInputData} from '../src/global/types';
+import {TLibraryInputData} from '../src/utils/types';
 
 const example: TLibraryInputData = {
   messangerData: {
@@ -19,15 +19,15 @@ const example: TLibraryInputData = {
         botMessage: {
           text: 'Hi, man! What`s your name?',
         },
-        actionAfterAnswer: () => Alert.alert('Answer sended'),
         myAnswerType: AnswerType.TIMEPICKER,
+        actionAfterAnswer: () => Alert.alert('Answer sended'),
       },
       {
         botMessage: {
           text: 'How are you?',
         },
-        actionAfterAnswer: () => Alert.alert('Answer sended'),
         myAnswerType: AnswerType.INPUT,
+        actionAfterAnswer: () => Alert.alert('Answer sended'),
       },
     ],
   },

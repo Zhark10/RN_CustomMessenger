@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {FC} from 'react';
 import {View} from 'react-native';
-import {TLibraryInputData} from '../global/types';
+import {TLibraryInputData} from '../utils/types';
 import {AnswerType} from './types';
-import {screenHeight, screenWidth} from '../../src/global/screen';
+import {screenHeight, screenWidth} from '../utils/screen';
 
-export const Messanger: FC<TLibraryInputData> = libraryInputData => {
+export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const selectAnswerField = React.useCallback((): React.ReactNode => {
     const currentMessageType =
       libraryInputData.messangerData.messages[0].myAnswerType;
