@@ -1,11 +1,10 @@
 export type TOnlyOneMessageIteration = {
-  myMessage: IMessage;
   botMessage: IMessage | IMessage[];
-  type: ActionTypes;
+  myAnswerType: AnswerType;
   actionAfterAnswer: () => void;
 };
 
-export enum ActionTypes {
+export enum AnswerType {
   INPUT = 'INPUT',
   CHOICE = 'CHOICE',
   BUTTON = 'BUTTON',
