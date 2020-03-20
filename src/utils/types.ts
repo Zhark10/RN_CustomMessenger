@@ -1,13 +1,15 @@
-import {TOnlyOneMessageIteration} from 'src/MessangerStack/types';
+import {TOnlyOneMessageIteration} from './../MessangerStack/types';
 
 export type TLibraryInputData = {
-  messangerData: TMessangerData;
+  viewStyles: TViewStyles;
+  messages: TOnlyOneMessageIteration[];
   events: TMessangerEvents;
 };
 
-export type TMessangerData = {
-  messages: TOnlyOneMessageIteration[];
-  backgroundColor: string;
+export type TViewStyles = {
+  headerBackgroundColor: string;
+  headerTitleColor: string;
+  chatBackgroundColor: string;
   bubblesConfigForMe: {
     textColor: string;
     backgroundColor: string;

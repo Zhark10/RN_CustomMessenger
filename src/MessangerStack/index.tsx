@@ -7,8 +7,7 @@ import {screenHeight, screenWidth} from '../utils/screen';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const selectAnswerField = React.useCallback((): React.ReactNode => {
-    const currentMessageType =
-      libraryInputData.messangerData.messages[0].myAnswerType;
+    const currentMessageType = libraryInputData.messages[0].myAnswerType;
     const randomView = () => (
       <View style={{width: 50, height: 50, backgroundColor: 'green'}} />
     );
@@ -22,7 +21,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     };
     const AnswerField = answerFields[currentMessageType];
     return <AnswerField />;
-  }, [libraryInputData.messangerData.messages]);
+  }, [libraryInputData.messages]);
 
   return (
     <View
