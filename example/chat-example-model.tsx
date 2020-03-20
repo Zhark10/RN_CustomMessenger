@@ -1,6 +1,6 @@
 import {Alert} from 'react-native';
 import {AnswerType} from '../src/MessangerStack/types';
-import {StartChat} from '../App';
+import {OfflineMessanger} from '../App';
 import {TLibraryInputData} from '../src/utils/types';
 
 const example: TLibraryInputData = {
@@ -31,12 +31,12 @@ const example: TLibraryInputData = {
       },
     ],
   },
-  navigation: {
-    startConversationCallback: () => Alert.alert('Chat started'),
-    endConversationCallback: () => Alert.alert('Chat ended'),
+  events: {
+    startConversationEvent: () => Alert.alert('Chat started'),
+    endConversationEvent: () => Alert.alert('Chat ended'),
   },
 };
 
-const StartAConversation = () => StartChat(example);
+const StartAConversation = () => OfflineMessanger(example);
 
 export default StartAConversation;

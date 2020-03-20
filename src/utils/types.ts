@@ -2,7 +2,7 @@ import {TOnlyOneMessageIteration} from 'src/MessangerStack/types';
 
 export type TLibraryInputData = {
   messangerData: TMessangerData;
-  navigation: TMessangerEvent;
+  events: TMessangerEvents;
 };
 
 export type TMessangerData = {
@@ -18,7 +18,7 @@ export type TMessangerData = {
   };
 };
 
-export type TMessangerEvent = {
-  startConversationCallback: () => void;
-  endConversationCallback: () => void;
+export type TMessangerEvents = {
+  startConversationEvent: () => void;
+  endConversationEvent: () => void;
 };

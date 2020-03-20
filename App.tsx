@@ -4,14 +4,10 @@ import {MessangerStack} from './src/MessangerStack';
 import ChatProvider from './src/store/ChatProvider';
 console.disableYellowBox = true;
 
-export const StartChat = (libraryInputData: TLibraryInputData) => {
-  const ViewForChat = (): React.ReactNode => {
-    const createdMessanger = (
-      <ChatProvider>
-        <MessangerStack {...libraryInputData} />;
-      </ChatProvider>
-    );
-    return createdMessanger;
-  };
-  return ViewForChat();
-};
+const OfflineMessanger = (libraryInputData: TLibraryInputData) => (
+  <ChatProvider>
+    <MessangerStack {...libraryInputData} />
+  </ChatProvider>
+);
+
+export {OfflineMessanger};
