@@ -5,18 +5,25 @@ import {useAnswerFieldAnimation} from './AnswerAnimWrapperHook';
 import {getAnswerSize} from '../../utils/answer-panel-size-detect';
 import {ChatInput} from '../answer-panels/ChatInput/ChatInput';
 import {TLibraryInputData} from '../../utils/types';
-import {useCurrentMessageInfo} from '../../utils/current-message-info';
+import {
+  useCurrentMessageInfo,
+  TUseAnswerFieldAnimation,
+} from '../../utils/current-message-info';
 
 export interface IAnswer {
   libraryInputData: TLibraryInputData;
+  currentMessageInfo: TUseAnswerFieldAnimation;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
   const Component: FC<TLibraryInputData> = libraryInputData => {
     const [answerFieldVisible, setAnswerFieldVisible] = React.useState(false);
-    const {currentChatBotQuestion} = useCurrentMessageInfo(libraryInputData);
-    const answerSize = getAnswerSize(currentChatBotQuestion.myAnswerType, 0);
+    const currentMessageInfo = useCurrentMessageInfo(libraryInputData);
+    const answerSize = getAnswerSize(
+      currentMessageInfo.currentChatBotQuestion.myAnswerType,
+      0,
+    );
     const answerFieldAnimation = useAnswerFieldAnimation(
       answerFieldVisible,
       answerSize,
@@ -33,6 +40,7 @@ const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
         {
           <AnswerView
             libraryInputData={libraryInputData}
+            currentMessageInfo={currentMessageInfo}
             setAnswerFieldVisible={setAnswerFieldVisible}
           />
         }
