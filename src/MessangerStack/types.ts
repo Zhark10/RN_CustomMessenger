@@ -7,9 +7,10 @@ export type TOnlyOneMessageIteration = {
 export enum AnswerType {
   INPUT = 'INPUT',
   CHOICE = 'CHOICE',
-  BUTTON = 'BUTTON',
+  MULTICHOICE = 'MULTICHOICE',
+  ONLY_BUTTON = 'ONLY_BUTTON',
   PHOTO = 'PHOTO',
-  TIMEPICKER = 'TIMEPICKER',
+  DATEPICKER = 'DATEPICKER',
 }
 
 export interface IMessage {

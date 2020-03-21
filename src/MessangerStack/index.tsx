@@ -29,10 +29,11 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
 
     const answerFields = {
       [AnswerType.INPUT]: randomView,
-      [AnswerType.BUTTON]: randomView,
+      [AnswerType.MULTICHOICE]: randomView,
       [AnswerType.PHOTO]: randomView,
       [AnswerType.CHOICE]: randomView,
-      [AnswerType.TIMEPICKER]: randomView,
+      [AnswerType.DATEPICKER]: randomView,
+      [AnswerType.ONLY_BUTTON]: randomView,
     };
     const AnswerField = answerFields[currentChatBotQuestion.myAnswerType];
     return <AnswerField />;

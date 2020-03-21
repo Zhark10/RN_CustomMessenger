@@ -1,7 +1,7 @@
-import { Alert } from 'react-native';
-import { AnswerType } from '../src/MessangerStack/types';
-import { OfflineMessanger } from '../App';
-import { TLibraryInputData } from '../src/utils/types';
+import {Alert} from 'react-native';
+import {AnswerType} from '../src/MessangerStack/types';
+import {OfflineMessanger} from '../App';
+import {TLibraryInputData} from '../src/utils/types';
 
 const example: TLibraryInputData = {
   viewStyles: {
@@ -38,6 +38,20 @@ const example: TLibraryInputData = {
         text: 'I`m really nice to meet you, dude! Why would I give you that?',
       },
       myAnswerType: AnswerType.INPUT,
+      actionAfterAnswer: () => Alert.alert('Answer sended'),
+    },
+    {
+      botMessage: {
+        text: 'Nice! What`s your gender?',
+      },
+      myAnswerType: AnswerType.MULTICHOICE,
+      actionAfterAnswer: () => Alert.alert('Answer sended'),
+    },
+    {
+      botMessage: {
+        text: 'Thanks! You born...',
+      },
+      myAnswerType: AnswerType.DATEPICKER,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
