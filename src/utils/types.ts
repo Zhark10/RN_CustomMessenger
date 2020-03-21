@@ -1,4 +1,4 @@
-import {TOnlyOneMessageIteration} from './../MessangerStack/types';
+import {TOnlyOneMessageIteration} from '../types';
 
 export type TLibraryInputData = {
   viewStyles: TViewStyles;

@@ -1,5 +1,5 @@
 import {Alert} from 'react-native';
-import {AnswerType} from '../src/MessangerStack/types';
+import {AnswerType} from '../src/types';
 import {OfflineMessanger} from '../App';
 import {TLibraryInputData} from '../src/utils/types';
 

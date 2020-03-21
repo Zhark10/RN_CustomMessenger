@@ -2,16 +2,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {FC, useContext} from 'react';
 import {View} from 'react-native';
-import {TLibraryInputData} from '../utils/types';
+import {TLibraryInputData} from './utils/types';
 import {AnswerType} from './types';
-import {screenHeight, screenWidth} from '../utils/screen';
-import {ChatContext} from '../store/ChatProvider';
+import {screenHeight, screenWidth} from './utils/screen';
+import {useCurrentMessageInfo} from './utils/current-message-info';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
-  const {
-    currentMessage: [messageIndex],
-  } = useContext(ChatContext)!;
-  const currentChatBotQuestion = libraryInputData.messages[messageIndex];
+  const {currentChatBotQuestion, messageIndex} = useCurrentMessageInfo(
+    libraryInputData,
+  );
 
   React.useEffect(() => {
     const isLastMessageInModel =
@@ -23,7 +22,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   }, [messageIndex]);
 
   const selectAnswerField = React.useCallback((): React.ReactNode => {
-    const randomView = () => (
+    const randomView: any = () => (
       <View style={{width: 50, height: 50, backgroundColor: 'green'}} />
     );
 
@@ -36,7 +35,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       [AnswerType.ONLY_BUTTON]: randomView,
     };
     const AnswerField = answerFields[currentChatBotQuestion.myAnswerType];
-    return <AnswerField />;
+    return <AnswerField {...libraryInputData} />;
   }, []);
 
   return (
