@@ -1,13 +1,20 @@
 import * as React from 'react';
 import {createContext, useState} from 'react';
-import {TStore} from './TChatProvider';
+import {
+  TStore,
+  TMessageIndexNumber,
+  TMessageAddedInStack,
+  TSavedOneIterationAnswer,
+} from './TChatProvider';
 
 export const ChatContext = createContext<TStore | null>(null);
 
 export default ({children}: any) => {
-  const [messages, refreshMessages] = useState<>();
-  const [messageIndex, setNewMessageIndex] = useState<number>(0);
-  const [savedChatInfo, refreshChatInfo] = useState();
+  const [messages, refreshMessages] = useState<TMessageAddedInStack[]>([]);
+  const [messageIndex, setNewMessageIndex] = useState<TMessageIndexNumber>(0);
+  const [savedChatInfo, refreshChatInfo] = useState<TSavedOneIterationAnswer[]>(
+    [],
+  );
 
   const store: TStore = {
     messageStack: [messages, refreshMessages],
