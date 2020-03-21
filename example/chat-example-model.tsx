@@ -1,7 +1,7 @@
-import {Alert} from 'react-native';
-import {AnswerType} from '../src/MessangerStack/types';
-import {OfflineMessanger} from '../App';
-import {TLibraryInputData} from '../src/utils/types';
+import { Alert } from 'react-native';
+import { AnswerType } from '../src/MessangerStack/types';
+import { OfflineMessanger } from '../App';
+import { TLibraryInputData } from '../src/utils/types';
 
 const example: TLibraryInputData = {
   viewStyles: {
@@ -19,10 +19,25 @@ const example: TLibraryInputData = {
   },
   messages: [
     {
+      botMessage: [
+        {
+          text: 'Hi, man!',
+        },
+        {
+          text: 'You got into my application!',
+        },
+        {
+          text: 'What`s your name? (nickname)',
+        },
+      ],
+      myAnswerType: AnswerType.INPUT,
+      actionAfterAnswer: () => Alert.alert('Answer sended'),
+    },
+    {
       botMessage: {
-        text: 'Hi, man! What`s your name?',
+        text: 'I`m really nice to meet you, dude! Why would I give you that?',
       },
-      myAnswerType: AnswerType.TIMEPICKER,
+      myAnswerType: AnswerType.INPUT,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
