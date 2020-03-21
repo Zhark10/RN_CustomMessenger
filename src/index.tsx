@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {FC, useContext} from 'react';
+import React, {FC} from 'react';
 import {View} from 'react-native';
 import {TLibraryInputData} from './utils/types';
 import {AnswerType} from './types';
 import {screenHeight, screenWidth} from './utils/screen';
-import {useCurrentMessageInfo} from './utils/current-message-info';
+import {useChatMiddleware} from './utils/current-message-info';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
-  const {currentChatBotQuestion, messageIndex} = useCurrentMessageInfo(
+  const {currentChatBotQuestion, messageIndex} = useChatMiddleware(
     libraryInputData,
   );
 

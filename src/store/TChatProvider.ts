@@ -10,7 +10,7 @@ type TStateManager<TDataForSave> = [
 ];
 
 export type TMessageIndexNumber = number;
-export type TSavedOneIterationAnswer = number | string;
+export type TSavedOneIterationAnswer = string;
 export type TMessageAddedInStack = {
   id: number;
   sender: 'me' | 'chatBot';

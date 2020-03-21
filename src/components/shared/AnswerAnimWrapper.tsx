@@ -6,20 +6,20 @@ import {getAnswerSize} from '../../utils/answer-panel-size-detect';
 import {ChatInput} from '../answer-panels/ChatInput/ChatInput';
 import {TLibraryInputData} from '../../utils/types';
 import {
-  useCurrentMessageInfo,
-  TUseAnswerFieldAnimation,
+  useChatMiddleware,
+  TUseChatMiddleware,
 } from '../../utils/current-message-info';
 
 export interface IAnswer {
   libraryInputData: TLibraryInputData;
-  currentMessageInfo: TUseAnswerFieldAnimation;
+  currentMessageInfo: TUseChatMiddleware;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
   const Component: FC<TLibraryInputData> = libraryInputData => {
     const [answerFieldVisible, setAnswerFieldVisible] = React.useState(false);
-    const currentMessageInfo = useCurrentMessageInfo(libraryInputData);
+    const currentMessageInfo = useChatMiddleware(libraryInputData);
     const answerSize = getAnswerSize(
       currentMessageInfo.currentChatBotQuestion.myAnswerType,
       0,
