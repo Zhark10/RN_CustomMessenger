@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import React, {FC, useContext, useEffect} from 'react';
+import React, {FC, useContext} from 'react';
 import {View} from 'react-native';
 import {TLibraryInputData} from '../utils/types';
 import {AnswerType} from './types';
@@ -9,12 +9,18 @@ import {ChatContext} from '../store/ChatProvider';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const {
-    currentMessage: [message, selectMessage],
+    currentMessage: [messageIndex],
   } = useContext(ChatContext)!;
+  const currentChatBotQuestion = libraryInputData.messages[messageIndex];
 
-  useEffect(() => {
-    selectMessage!(libraryInputData.messages[0]);
-  }, []);
+  React.useEffect(() => {
+    const isLastMessageInModel =
+      messageIndex === (libraryInputData.messages.length = 1);
+
+    if (isLastMessageInModel) {
+      libraryInputData.events.endConversationEvent();
+    }
+  }, [messageIndex]);
 
   const selectAnswerField = React.useCallback((): React.ReactNode => {
     const randomView = () => (
@@ -28,7 +34,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       [AnswerType.CHOICE]: randomView,
       [AnswerType.TIMEPICKER]: randomView,
     };
-    const AnswerField = answerFields[message];
+    const AnswerField = answerFields[currentChatBotQuestion.myAnswerType];
     return <AnswerField />;
   }, []);
 
@@ -40,7 +46,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
         width: screenWidth,
         backgroundColor: 'red',
       }}>
-      {selectAnswerField(message)}
+      {selectAnswerField()}
     </View>
   );
 };

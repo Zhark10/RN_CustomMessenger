@@ -4,7 +4,7 @@ export type TStore = {
   chatInfo: TStateManager<TSavedOneIterationAnswer[]>;
 };
 
-type TStateManager<T> = (React.Dispatch<React.SetStateAction<T>>)[];
+type TStateManager<S> = [S, React.Dispatch<React.SetStateAction<S>>];
 
 export type TMessageIndexNumber = number;
 export type TSavedOneIterationAnswer = number | string;
