@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import {TextInput, TouchableOpacity, View, Alert} from 'react-native';
 import {ChatInputStyles} from './ChatInputStyles';
 import {IAnswer} from '../../../components/shared/AnswerAnimWrapper';
 

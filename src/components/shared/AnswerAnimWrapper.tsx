@@ -9,23 +9,22 @@ import {
   useChatMiddleware,
   TUseChatMiddleware,
 } from '../../utils/current-message-info';
+import {ChatMultichoice} from '../answer-panels/ChatMultichoice/ChatMultichoice';
 
 export interface IAnswer {
   libraryInputData: TLibraryInputData;
-  currentMessageInfo: TUseChatMiddleware;
-  setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  chatMiddleware: TUseChatMiddleware;
 }
 
 const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
-  const Component: FC<TLibraryInputData> = libraryInputData => {
-    const [answerFieldVisible, setAnswerFieldVisible] = React.useState(true);
+  const Component: FC<IAnswer> = ({libraryInputData, chatMiddleware}) => {
     const currentMessageInfo = useChatMiddleware(libraryInputData);
     const answerSize = getAnswerSize(
       currentMessageInfo.currentChatBotQuestion.myAnswerType,
       0,
     );
     const answerFieldAnimation = useAnswerFieldAnimation(
-      answerFieldVisible,
+      chatMiddleware.answerFieldVisible,
       answerSize,
     );
 
@@ -37,11 +36,10 @@ const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
             height: answerFieldAnimation.offsetValue,
           },
         ]}>
-        {answerFieldVisible && (
+        {chatMiddleware.answerFieldVisible && (
           <AnswerView
             libraryInputData={libraryInputData}
-            currentMessageInfo={currentMessageInfo}
-            setAnswerFieldVisible={setAnswerFieldVisible}
+            chatMiddleware={chatMiddleware}
           />
         )}
       </Animated.View>
@@ -52,4 +50,5 @@ const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
 
 export const AnswerView = {
   Input: AnswerAnimHOC(ChatInput),
+  Multichoice: AnswerAnimHOC(ChatMultichoice),
 };

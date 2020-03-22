@@ -1,7 +1,7 @@
-import {Alert} from 'react-native';
-import {AnswerType} from '../src/types';
-import {OfflineMessanger} from '../App';
-import {TLibraryInputData} from '../src/utils/types';
+import { Alert } from 'react-native';
+import { AnswerType } from '../src/types';
+import { OfflineMessanger } from '../App';
+import { TLibraryInputData } from '../src/utils/types';
 
 const example: TLibraryInputData = {
   viewStyles: {
@@ -35,16 +35,16 @@ const example: TLibraryInputData = {
     },
     {
       botMessage: {
-        text: 'I`m really nice to meet you, dude! Why would I give you that?',
+        text: 'Nice! What`s your gender?',
       },
-      myAnswerType: AnswerType.INPUT,
+      myAnswerType: AnswerType.MULTICHOICE,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
       botMessage: {
-        text: 'Nice! What`s your gender?',
+        text: 'I`m really nice to meet you, dude! Why would I give you that?',
       },
-      myAnswerType: AnswerType.MULTICHOICE,
+      myAnswerType: AnswerType.INPUT,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {

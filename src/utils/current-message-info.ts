@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {TOnlyOneMessageIteration} from './../types';
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import {ChatContext} from '../store/ChatProvider';
 import {TLibraryInputData} from './types';
 import {TSavedOneIterationAnswer} from '../store/TChatProvider';
@@ -9,13 +9,19 @@ export type TUseChatMiddleware = {
   currentChatBotQuestion: TOnlyOneMessageIteration;
   messageIndex: number;
   sendAnswer: (answer: TSavedOneIterationAnswer) => void;
+  answerFieldVisible: boolean;
+  setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const useChatMiddleware = (libraryInputData: TLibraryInputData) => {
+export const useChatMiddleware = (
+  libraryInputData: TLibraryInputData,
+): TUseChatMiddleware => {
   const {
     currentMessage: [messageIndex, setNewMessageIndex],
     chatInfo: [_, refreshChatInfo],
   } = useContext(ChatContext)!;
+
+  const [answerFieldVisible, setAnswerFieldVisible] = useState(true);
   const currentChatBotQuestion = libraryInputData.messages[messageIndex];
 
   const sendAnswer = (answer: TSavedOneIterationAnswer) => {
@@ -27,5 +33,7 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData) => {
     currentChatBotQuestion,
     messageIndex,
     sendAnswer,
+    answerFieldVisible,
+    setAnswerFieldVisible,
   };
 };
