@@ -6,12 +6,11 @@ const {Value, timing} = Animated;
 export const useAnswerFieldAnimation = (
   answerFieldVisible: boolean,
   answerHeight: number,
-  to?: number,
 ): {offsetValue: Animated.Value<number>} => {
   const [offsetValue] = React.useState(new Value(-500));
 
   const scaleConfig = {
-    toValue: answerFieldVisible ? answerHeight : to || 0,
+    toValue: answerFieldVisible ? answerHeight : 0,
     duration: 350,
     easing: Easing.inOut(Easing.ease),
   };

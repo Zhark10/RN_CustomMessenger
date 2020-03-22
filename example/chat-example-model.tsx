@@ -1,7 +1,7 @@
-import { Alert } from 'react-native';
-import { AnswerType } from '../src/types';
-import { OfflineMessanger } from '../App';
-import { TLibraryInputData } from '../src/utils/types';
+import {Alert} from 'react-native';
+import {AnswerType} from '../src/types';
+import {OfflineMessanger} from '../App';
+import {TLibraryInputData} from '../src/utils/types';
 
 const example: TLibraryInputData = {
   viewStyles: {

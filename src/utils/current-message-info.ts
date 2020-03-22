@@ -21,7 +21,7 @@ export const useChatMiddleware = (
     chatInfo: [_, refreshChatInfo],
   } = useContext(ChatContext)!;
 
-  const [answerFieldVisible, setAnswerFieldVisible] = useState(true);
+  const [answerFieldVisible, setAnswerFieldVisible] = useState(false);
   const currentChatBotQuestion = libraryInputData.messages[messageIndex];
 
   const sendAnswer = (answer: TSavedOneIterationAnswer) => {

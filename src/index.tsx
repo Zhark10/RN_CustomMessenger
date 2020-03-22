@@ -4,13 +4,48 @@ import React, {FC} from 'react';
 import {KeyboardAvoidingView, View} from 'react-native';
 import {TLibraryInputData} from './utils/types';
 import {AnswerType} from './types';
-import {useChatMiddleware} from './utils/current-message-info';
-import {AnswerView} from './components/shared/AnswerAnimWrapper';
+import {
+  useChatMiddleware,
+  TUseChatMiddleware,
+} from './utils/current-message-info';
 import {isIos} from './utils/platform';
+import {ChatInput} from './components/answer-panels/ChatInput/ChatInput';
+import {ChatMultichoice} from './components/answer-panels/ChatMultichoice/ChatMultichoice';
+import {getAnswerSize} from './utils/answer-panel-size-detect';
+import {useAnswerFieldAnimation} from './components/shared/AnswerAnimWrapperHook';
+import {AnswerAnimWrapperStyles} from './components/shared/AnswerAnimWrapperStyles';
+import Animated from 'react-native-reanimated';
+
+export interface IAnswer {
+  libraryInputData: TLibraryInputData;
+  chatMiddleware: TUseChatMiddleware;
+}
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
-  const {messageIndex, currentChatBotQuestion} = chatMiddleware;
+  const {
+    messageIndex,
+    currentChatBotQuestion,
+    answerFieldVisible,
+    setAnswerFieldVisible,
+  } = chatMiddleware;
+  const answerSize = getAnswerSize(
+    chatMiddleware.currentChatBotQuestion.myAnswerType,
+    0,
+  );
+  const answerFieldAnimation = useAnswerFieldAnimation(
+    answerFieldVisible,
+    answerSize,
+  );
+
+  const props: IAnswer = {chatMiddleware, libraryInputData};
+
+  React.useEffect(() => {
+    const setVisibleByTime = setTimeout(() => {
+      setAnswerFieldVisible(true);
+    }, 2000);
+    return () => clearTimeout(setVisibleByTime);
+  }, []);
 
   React.useEffect(() => {
     const isLastMessageInModel =
@@ -23,34 +58,29 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
 
   const selectAnswerField = React.useCallback((): React.ReactNode => {
     const answerFields = {
-      [AnswerType.INPUT]: AnswerView.Input,
-      [AnswerType.MULTICHOICE]: AnswerView.Multichoice,
-      [AnswerType.PHOTO]: AnswerView.Input,
-      [AnswerType.CHOICE]: AnswerView.Input,
-      [AnswerType.DATEPICKER]: AnswerView.Input,
-      [AnswerType.ONLY_BUTTON]: AnswerView.Input,
+      [AnswerType.INPUT]: ChatInput,
+      [AnswerType.MULTICHOICE]: ChatMultichoice,
+      [AnswerType.PHOTO]: ChatInput,
+      [AnswerType.CHOICE]: ChatInput,
+      [AnswerType.DATEPICKER]: ChatInput,
+      [AnswerType.ONLY_BUTTON]: ChatInput,
     };
     const AnswerField = answerFields[currentChatBotQuestion.myAnswerType];
-    return (
-      <AnswerField
-        chatMiddleware={chatMiddleware}
-        libraryInputData={libraryInputData}
-      />
-    );
+    return <AnswerField {...props} />;
   }, []);
 
   return (
     <KeyboardAvoidingView
       behavior={isIos ? 'padding' : undefined}
-      style={{
-        flex: 1,
-      }}>
-      <View
-        style={{
-          flex: 1,
-        }}
-      />
-      {selectAnswerField()}
+      style={{flex: 1}}>
+      <View style={{flex: 1}} />
+      <Animated.View
+        style={[
+          AnswerAnimWrapperStyles.main,
+          {height: answerFieldAnimation.offsetValue},
+        ]}>
+        {answerFieldVisible && selectAnswerField()}
+      </Animated.View>
     </KeyboardAvoidingView>
   );
 };
