@@ -1,5 +1,7 @@
+import {TUseChatMiddleware} from './utils/current-message-info';
+import {TLibraryInputData} from './utils/types';
 export type TOnlyOneMessageIteration = {
-  botMessage: IMessage | IMessage[];
+  botMessage: IMessage[];
   myAnswerType: AnswerType;
   actionAfterAnswer: () => void;
 };
@@ -17,4 +19,9 @@ export interface IMessage {
   text: string;
   picture?: string;
   emoji?: string;
+}
+
+export interface IAnswer {
+  libraryInputData: TLibraryInputData;
+  chatMiddleware: TUseChatMiddleware;
 }

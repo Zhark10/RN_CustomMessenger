@@ -4,6 +4,7 @@ import {useContext, useState} from 'react';
 import {ChatContext} from '../store/ChatProvider';
 import {TLibraryInputData} from './types';
 import {TSavedOneIterationAnswer} from '../store/TChatProvider';
+import React from 'react';
 
 export type TUseChatMiddleware = {
   currentChatBotQuestion: TOnlyOneMessageIteration;
@@ -25,6 +26,7 @@ export const useChatMiddleware = (
   const currentChatBotQuestion = libraryInputData.messages[messageIndex];
 
   const sendAnswer = (answer: TSavedOneIterationAnswer) => {
+    setAnswerFieldVisible(false);
     refreshChatInfo(currentState => [...currentState, ...answer]);
     setNewMessageIndex(current => current + 1);
   };

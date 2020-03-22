@@ -3,11 +3,8 @@
 import React, {FC} from 'react';
 import {KeyboardAvoidingView, View} from 'react-native';
 import {TLibraryInputData} from './utils/types';
-import {AnswerType} from './types';
-import {
-  useChatMiddleware,
-  TUseChatMiddleware,
-} from './utils/current-message-info';
+import {AnswerType, IAnswer} from './types';
+import {useChatMiddleware} from './utils/current-message-info';
 import {isIos} from './utils/platform';
 import {ChatInput} from './components/answer-panels/ChatInput/ChatInput';
 import {ChatMultichoice} from './components/answer-panels/ChatMultichoice/ChatMultichoice';
@@ -15,11 +12,6 @@ import {getAnswerSize} from './utils/answer-panel-size-detect';
 import {useAnswerFieldAnimation} from './components/shared/AnswerAnimWrapperHook';
 import {AnswerAnimWrapperStyles} from './components/shared/AnswerAnimWrapperStyles';
 import Animated from 'react-native-reanimated';
-
-export interface IAnswer {
-  libraryInputData: TLibraryInputData;
-  chatMiddleware: TUseChatMiddleware;
-}
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
@@ -29,10 +21,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     answerFieldVisible,
     setAnswerFieldVisible,
   } = chatMiddleware;
-  const answerSize = getAnswerSize(
-    chatMiddleware.currentChatBotQuestion.myAnswerType,
-    0,
-  );
+  const answerSize = getAnswerSize(currentChatBotQuestion.myAnswerType, 0);
   const answerFieldAnimation = useAnswerFieldAnimation(
     answerFieldVisible,
     answerSize,
@@ -45,11 +34,11 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       setAnswerFieldVisible(true);
     }, 2000);
     return () => clearTimeout(setVisibleByTime);
-  }, []);
+  }, [answerFieldVisible]);
 
   React.useEffect(() => {
     const isLastMessageInModel =
-      messageIndex === (libraryInputData.messages.length = 1);
+      messageIndex === libraryInputData.messages.length - 1;
 
     if (isLastMessageInModel) {
       libraryInputData.events.endConversationEvent();

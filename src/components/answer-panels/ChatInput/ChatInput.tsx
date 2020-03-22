@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {TextInput, TouchableOpacity, View} from 'react-native';
 import {ChatInputStyles} from './ChatInputStyles';
-import {IAnswer} from '../../../components/shared/AnswerAnimWrapper';
+import {IAnswer} from 'src/types';
 
 const Input: FC<IAnswer> = ({chatMiddleware}) => {
   const [text, setText] = React.useState('');
