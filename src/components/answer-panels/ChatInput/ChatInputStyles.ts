@@ -15,6 +15,10 @@ export const ChatInputStyles = StyleSheet.create({
     fontSize: 16,
   },
   touchable: {
-    padding: 8,
+    marginRight: 16,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: 'green',
   },
 });

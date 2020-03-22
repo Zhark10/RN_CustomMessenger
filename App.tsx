@@ -4,6 +4,7 @@ import {TLibraryInputData} from './src/utils/types';
 import {MessangerStack} from './src';
 import ChatProvider from './src/store/ChatProvider';
 import {SafeAreaView} from 'react-native';
+
 console.disableYellowBox = true;
 
 const OfflineMessanger = (libraryInputData: TLibraryInputData) => (

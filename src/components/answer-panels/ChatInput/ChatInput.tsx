@@ -5,7 +5,7 @@ import {IAnswer} from '../../../components/shared/AnswerAnimWrapper';
 
 const Input: FC<IAnswer> = ({
   libraryInputData,
-  currentMessageInfo: {nextQuestionRequest},
+  currentMessageInfo: {sendAnswer},
 }) => {
   const [text, setText] = React.useState('');
   const isValidated = text.length > 0 && text.length < 50;
@@ -14,9 +14,9 @@ const Input: FC<IAnswer> = ({
     setText,
   ]);
 
-  const sendAnswer = React.useCallback(() => {
-    sendAnswer();
-  }, [nextQuestionRequest]);
+  const onPress = React.useCallback(() => {
+    sendAnswer(text);
+  }, [sendAnswer, text]);
 
   return (
     <View style={ChatInputStyles.main}>
@@ -24,7 +24,7 @@ const Input: FC<IAnswer> = ({
       <TouchableOpacity
         activeOpacity={1}
         disabled={!isValidated}
-        onPress={sendAnswer}>
+        onPress={onPress}>
         <View style={ChatInputStyles.touchable} />
       </TouchableOpacity>
     </View>

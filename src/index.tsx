@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {FC} from 'react';
-import {View} from 'react-native';
+import {View, KeyboardAvoidingView} from 'react-native';
 import {TLibraryInputData} from './utils/types';
 import {AnswerType} from './types';
-import {screenHeight, screenWidth} from './utils/screen';
 import {useChatMiddleware} from './utils/current-message-info';
+import {AnswerView} from './components/shared/AnswerAnimWrapper';
+import {isIos} from './utils/platform';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const {currentChatBotQuestion, messageIndex} = useChatMiddleware(
@@ -27,7 +28,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     );
 
     const answerFields = {
-      [AnswerType.INPUT]: randomView,
+      [AnswerType.INPUT]: AnswerView.Input,
       [AnswerType.MULTICHOICE]: randomView,
       [AnswerType.PHOTO]: randomView,
       [AnswerType.CHOICE]: randomView,
@@ -39,14 +40,12 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   }, []);
 
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior={isIos ? 'padding' : undefined}
       style={{
-        position: 'absolute',
-        height: screenHeight,
-        width: screenWidth,
-        backgroundColor: 'red',
+        flex: 1,
       }}>
       {selectAnswerField()}
-    </View>
+    </KeyboardAvoidingView>
   );
 };

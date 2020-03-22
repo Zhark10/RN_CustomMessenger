@@ -18,7 +18,7 @@ export interface IAnswer {
 
 const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
   const Component: FC<TLibraryInputData> = libraryInputData => {
-    const [answerFieldVisible, setAnswerFieldVisible] = React.useState(false);
+    const [answerFieldVisible, setAnswerFieldVisible] = React.useState(true);
     const currentMessageInfo = useChatMiddleware(libraryInputData);
     const answerSize = getAnswerSize(
       currentMessageInfo.currentChatBotQuestion.myAnswerType,
@@ -37,13 +37,13 @@ const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
             height: answerFieldAnimation.offsetValue,
           },
         ]}>
-        {
+        {answerFieldVisible && (
           <AnswerView
             libraryInputData={libraryInputData}
             currentMessageInfo={currentMessageInfo}
             setAnswerFieldVisible={setAnswerFieldVisible}
           />
-        }
+        )}
       </Animated.View>
     );
   };
@@ -51,5 +51,5 @@ const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
 };
 
 export const AnswerView = {
-  input: AnswerAnimHOC(ChatInput),
+  Input: AnswerAnimHOC(ChatInput),
 };
