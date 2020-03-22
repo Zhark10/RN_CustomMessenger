@@ -5,10 +5,7 @@ import {useAnswerFieldAnimation} from './AnswerAnimWrapperHook';
 import {getAnswerSize} from '../../utils/answer-panel-size-detect';
 import {ChatInput} from '../answer-panels/ChatInput/ChatInput';
 import {TLibraryInputData} from '../../utils/types';
-import {
-  useChatMiddleware,
-  TUseChatMiddleware,
-} from '../../utils/current-message-info';
+import {TUseChatMiddleware} from '../../utils/current-message-info';
 import {ChatMultichoice} from '../answer-panels/ChatMultichoice/ChatMultichoice';
 
 export interface IAnswer {
@@ -18,9 +15,8 @@ export interface IAnswer {
 
 const AnswerAnimHOC = (AnswerView: React.FC<IAnswer>) => {
   const Component: FC<IAnswer> = ({libraryInputData, chatMiddleware}) => {
-    const currentMessageInfo = useChatMiddleware(libraryInputData);
     const answerSize = getAnswerSize(
-      currentMessageInfo.currentChatBotQuestion.myAnswerType,
+      chatMiddleware.currentChatBotQuestion.myAnswerType,
       0,
     );
     const answerFieldAnimation = useAnswerFieldAnimation(

@@ -1,12 +1,9 @@
 import React, {FC} from 'react';
-import {TextInput, TouchableOpacity, View, Alert} from 'react-native';
+import {TextInput, TouchableOpacity, View} from 'react-native';
 import {ChatInputStyles} from './ChatInputStyles';
 import {IAnswer} from '../../../components/shared/AnswerAnimWrapper';
 
-const Input: FC<IAnswer> = ({
-  libraryInputData,
-  currentMessageInfo: {sendAnswer},
-}) => {
+const Input: FC<IAnswer> = ({chatMiddleware}) => {
   const [text, setText] = React.useState('');
   const isValidated = text.length > 0 && text.length < 50;
 
@@ -15,8 +12,8 @@ const Input: FC<IAnswer> = ({
   ]);
 
   const onPress = React.useCallback(() => {
-    sendAnswer(text);
-  }, [sendAnswer, text]);
+    chatMiddleware.sendAnswer(text);
+  }, [chatMiddleware, text]);
 
   return (
     <View style={ChatInputStyles.main}>
