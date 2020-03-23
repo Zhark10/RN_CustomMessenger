@@ -17,22 +17,22 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
   const {
     messageIndex,
-    currentChatBotQuestion,
+    currentChatBotQuestion: {myAnswerType},
     answerFieldVisible,
     setAnswerFieldVisible,
   } = chatMiddleware;
-  const answerSize = getAnswerSize(currentChatBotQuestion.myAnswerType, 0);
+
+  const answerSize = getAnswerSize(myAnswerType, 0);
   const answerFieldAnimation = useAnswerFieldAnimation(
     answerFieldVisible,
     answerSize,
   );
 
-  const props: IAnswer = {chatMiddleware, libraryInputData};
-
   React.useEffect(() => {
-    const setVisibleByTime = setTimeout(() => {
-      setAnswerFieldVisible(true);
-    }, 2000);
+    const setVisibleByTime = setTimeout(
+      () => setAnswerFieldVisible(true),
+      2000,
+    );
     return () => clearTimeout(setVisibleByTime);
   }, [answerFieldVisible]);
 
@@ -45,7 +45,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     }
   }, [messageIndex]);
 
-  const selectAnswerField = React.useCallback((): React.ReactNode => {
+  const selectAnswerField = (): React.ReactNode => {
     const answerFields = {
       [AnswerType.INPUT]: ChatInput,
       [AnswerType.MULTICHOICE]: ChatMultichoice,
@@ -54,9 +54,10 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       [AnswerType.DATEPICKER]: ChatInput,
       [AnswerType.ONLY_BUTTON]: ChatInput,
     };
-    const AnswerField = answerFields[currentChatBotQuestion.myAnswerType];
-    return <AnswerField {...props} />;
-  }, []);
+    const AnswerField = answerFields[myAnswerType];
+    const chatProps: IAnswer = {chatMiddleware, libraryInputData};
+    return <AnswerField {...chatProps} />;
+  };
 
   return (
     <KeyboardAvoidingView

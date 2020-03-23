@@ -7,7 +7,7 @@ export const ChatMultichoiceStyles = StyleSheet.create({
     height: 100,
     width: '100%',
     flexDirection: 'row',
-    borderWidth: 1,
+    borderWidth: 10,
     borderRadius: 16,
     margin: 16,
   },
