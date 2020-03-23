@@ -22,6 +22,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     currentChatBotQuestion: {myAnswerType},
     answerFieldVisible,
     setAnswerFieldVisible,
+    savedChatInfo,
   } = chatMiddleware;
 
   const answerSize = getAnswerSize(myAnswerType, 0);
@@ -43,7 +44,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       messageIndex === libraryInputData.messages.length - 1;
 
     if (isLastMessageInModel) {
-      libraryInputData.events.endConversationEvent();
+      libraryInputData.events.endConversationEvent(savedChatInfo);
     }
   }, [messageIndex]);
 

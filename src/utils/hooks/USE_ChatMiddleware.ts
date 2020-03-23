@@ -2,7 +2,7 @@
 import {TOnlyOneMessageIteration} from '../../types';
 import {useContext, useState} from 'react';
 import {ChatContext} from '../../store/ChatProvider';
-import {TLibraryInputData} from '../../types/T_LibraryInputData';
+import {TLibraryInputData, TOutputData} from '../../types/T_LibraryInputData';
 import React from 'react';
 
 export type TUseChatMiddleware = {
@@ -11,7 +11,7 @@ export type TUseChatMiddleware = {
   sendAnswer: (answer: string) => void;
   answerFieldVisible: boolean;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  savedChatInfo: 
+  savedChatInfo: TOutputData;
 };
 
 export const useChatMiddleware = (
