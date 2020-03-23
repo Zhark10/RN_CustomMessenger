@@ -10,10 +10,10 @@ import {isIos} from './utils/helpers/platform';
 import {ChatInput} from './components/answer-panels/ChatInput/ChatInput';
 import {ChatMultichoice} from './components/answer-panels/ChatMultichoice/ChatMultichoice';
 import {getAnswerSize} from './utils/helpers/answer-panel-size-detect';
-import {AnswerAnimWrapperStyles} from './components/shared/S_AnswerAnimWrapper';
 
 import {useChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
 import {useAnswerFieldAnimation} from './utils/hooks/USE_AnswerFieldAnimation';
+import {MainStyles} from './styles';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
@@ -68,10 +68,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       style={{flex: 1}}>
       <View style={{flex: 1}} />
       <Animated.View
-        style={[
-          AnswerAnimWrapperStyles.main,
-          {height: answerFieldAnimation.offsetValue},
-        ]}>
+        style={[MainStyles.main, {height: answerFieldAnimation.offsetValue}]}>
         {answerFieldVisible && selectAnswerField()}
       </Animated.View>
     </KeyboardAvoidingView>

@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const AnswerAnimWrapperStyles = StyleSheet.create({
+export const MainStyles = StyleSheet.create({
   main: {
     borderTopRightRadius: 16,
     borderTopLeftRadius: 16,

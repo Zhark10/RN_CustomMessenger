@@ -4,8 +4,7 @@ export const ChatMultichoiceStyles = StyleSheet.create({
   main: {
     height: 100,
     width: '100%',
-    margin: 16,
-    marginTop: 32,
+    padding: 16,
   },
   checkboxBlock: {
     flexDirection: 'row',
