@@ -1,17 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import React, {FC} from 'react';
+import Animated from 'react-native-reanimated';
 import {KeyboardAvoidingView, View} from 'react-native';
-import {TLibraryInputData} from './utils/types';
+
+import {TLibraryInputData} from './types/types';
 import {AnswerType, IAnswer} from './types';
-import {useChatMiddleware} from './utils/current-message-info';
-import {isIos} from './utils/platform';
+import {isIos} from './utils/helpers/platform';
 import {ChatInput} from './components/answer-panels/ChatInput/ChatInput';
 import {ChatMultichoice} from './components/answer-panels/ChatMultichoice/ChatMultichoice';
-import {getAnswerSize} from './utils/answer-panel-size-detect';
-import {useAnswerFieldAnimation} from './components/shared/AnswerAnimWrapperHook';
+import {getAnswerSize} from './utils/helpers/answer-panel-size-detect';
 import {AnswerAnimWrapperStyles} from './components/shared/AnswerAnimWrapperStyles';
-import Animated from 'react-native-reanimated';
+
+import {useChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
+import {useAnswerFieldAnimation} from './utils/hooks/USE_AnswerFieldAnimation';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);

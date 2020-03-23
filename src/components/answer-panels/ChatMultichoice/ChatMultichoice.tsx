@@ -1,12 +1,23 @@
 import React, {FC} from 'react';
-import {View, Text} from 'react-native';
+import {View, CheckBox, Text} from 'react-native';
 import {ChatMultichoiceStyles} from './ChatMultichoiceStyles';
-import {IAnswer} from '../../../../src/types';
+import {IAnswer} from '../../../types';
 
 const Multichoice: FC<IAnswer> = ({libraryInputData, chatMiddleware}) => {
   return (
     <View style={ChatMultichoiceStyles.main}>
-      <Text>{chatMiddleware.currentChatBotQuestion.myAnswerType}</Text>
+      <View style={ChatMultichoiceStyles.checkboxBlock}>
+        <CheckBox value={true} disabled={false} />
+        <Text style={ChatMultichoiceStyles.checkboxText}>Male</Text>
+      </View>
+      <View style={ChatMultichoiceStyles.checkboxBlock}>
+        <CheckBox value={true} disabled={false} />
+        <Text style={ChatMultichoiceStyles.checkboxText}>Female</Text>
+      </View>
+      <View style={ChatMultichoiceStyles.checkboxBlock}>
+        <CheckBox value={true} disabled={false} />
+        <Text style={ChatMultichoiceStyles.checkboxText}>Other</Text>
+      </View>
     </View>
   );
 };

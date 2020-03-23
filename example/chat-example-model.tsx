@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 import {Alert} from 'react-native';
 import {AnswerType} from '../src/types';
 import {OfflineMessanger} from '../App';
-import {TLibraryInputData} from '../src/utils/types';
+import {TLibraryInputData} from '../src/types/types';
 
 const example: TLibraryInputData = {
   viewStyles: {

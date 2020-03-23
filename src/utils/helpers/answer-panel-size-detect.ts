@@ -1,4 +1,4 @@
-import {AnswerType} from './../types';
+import {AnswerType} from '../../types';
 
 export const getAnswerSize = (
   type: AnswerType,

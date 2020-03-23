@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {TOnlyOneMessageIteration} from './../types';
+import {TOnlyOneMessageIteration} from '../../types';
 import {useContext, useState} from 'react';
-import {ChatContext} from '../store/ChatProvider';
-import {TLibraryInputData} from './types';
-import {TSavedOneIterationAnswer} from '../store/TChatProvider';
+import {ChatContext} from '../../store/ChatProvider';
+import {TLibraryInputData} from '../../types/types';
+import {TSavedOneIterationAnswer} from '../../store/TChatProvider';
 import React from 'react';
 
 export type TUseChatMiddleware = {

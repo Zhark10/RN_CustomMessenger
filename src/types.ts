@@ -1,5 +1,5 @@
-import {TUseChatMiddleware} from './utils/current-message-info';
-import {TLibraryInputData} from './utils/types';
+import {TUseChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
+import {TLibraryInputData} from './types/types';
 export type TOnlyOneMessageIteration = {
   botMessage: IMessage[];
   myAnswerType: AnswerType;
