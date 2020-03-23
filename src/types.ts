@@ -1,9 +1,10 @@
 import {TUseChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
-import {TLibraryInputData} from './types/types';
+import {TLibraryInputData} from './types/T_LibraryInputData';
 export type TOnlyOneMessageIteration = {
+  keyForFormData: string;
   botMessage: IMessage[];
   myAnswerType: AnswerType;
-  actionAfterAnswer: () => void;
+  actionAfterAnswer: (answerText: string) => void;
 };
 
 export enum AnswerType {

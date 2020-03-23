@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {TextInput, TouchableOpacity, View} from 'react-native';
-import {ChatInputStyles} from './ChatInputStyles';
+import {ChatInputStyles} from './S_ChatInput';
 import {IAnswer} from 'src/types';
 
 const Input: FC<IAnswer> = ({chatMiddleware}) => {

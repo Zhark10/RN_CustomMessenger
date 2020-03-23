@@ -5,15 +5,15 @@ import {
   TMessageIndexNumber,
   TMessageAddedInStack,
   TSavedOneIterationAnswer,
-} from './TChatProvider';
+} from './T_ChatProvider';
 
 export const ChatContext = createContext<TStore | null>(null);
 
 export default ({children}: any) => {
   const [messages, refreshMessages] = useState<TMessageAddedInStack[]>([]);
   const [messageIndex, setNewMessageIndex] = useState<TMessageIndexNumber>(0);
-  const [savedChatInfo, refreshChatInfo] = useState<TSavedOneIterationAnswer[]>(
-    [],
+  const [savedChatInfo, refreshChatInfo] = useState<TSavedOneIterationAnswer>(
+    {},
   );
 
   const store: TStore = {

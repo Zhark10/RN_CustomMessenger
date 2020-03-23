@@ -1,7 +1,7 @@
 export type TStore = {
   messageStack: TStateManager<TMessageAddedInStack[]>;
   currentMessage: TStateManager<TMessageIndexNumber>;
-  chatInfo: TStateManager<TSavedOneIterationAnswer[]>;
+  chatInfo: TStateManager<TSavedOneIterationAnswer>;
 };
 
 type TStateManager<TDataForSave> = [
@@ -10,7 +10,7 @@ type TStateManager<TDataForSave> = [
 ];
 
 export type TMessageIndexNumber = number;
-export type TSavedOneIterationAnswer = string;
+export type TSavedOneIterationAnswer = {[keyForFormData: string]: string};
 export type TMessageAddedInStack = {
   id: number;
   sender: 'me' | 'chatBot';

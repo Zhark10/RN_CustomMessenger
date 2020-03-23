@@ -12,8 +12,8 @@ export const getAnswerSize = (
   const values = {
     [AnswerType.INPUT]: 80,
     [AnswerType.MULTICHOICE]: 200,
+    [AnswerType.DATEPICKER]: 200,
     [AnswerType.CHOICE]: heightforChoice,
-    [AnswerType.DATEPICKER]: 306,
     [AnswerType.ONLY_BUTTON]: 144,
     [AnswerType.PHOTO]: 144,
   };

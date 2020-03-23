@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {View, CheckBox, Text} from 'react-native';
-import {ChatMultichoiceStyles} from './ChatMultichoiceStyles';
+import {ChatMultichoiceStyles} from './S_ChatMultichoice';
 import {IAnswer} from '../../../types';
 
 const Multichoice: FC<IAnswer> = ({libraryInputData, chatMiddleware}) => {

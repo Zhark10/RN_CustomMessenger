@@ -2,16 +2,16 @@
 import {TOnlyOneMessageIteration} from '../../types';
 import {useContext, useState} from 'react';
 import {ChatContext} from '../../store/ChatProvider';
-import {TLibraryInputData} from '../../types/types';
-import {TSavedOneIterationAnswer} from '../../store/TChatProvider';
+import {TLibraryInputData} from '../../types/T_LibraryInputData';
 import React from 'react';
 
 export type TUseChatMiddleware = {
   currentChatBotQuestion: TOnlyOneMessageIteration;
   messageIndex: number;
-  sendAnswer: (answer: TSavedOneIterationAnswer) => void;
+  sendAnswer: (answer: string) => void;
   answerFieldVisible: boolean;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  savedChatInfo: 
 };
 
 export const useChatMiddleware = (
@@ -19,15 +19,18 @@ export const useChatMiddleware = (
 ): TUseChatMiddleware => {
   const {
     currentMessage: [messageIndex, setNewMessageIndex],
-    chatInfo: [_, refreshChatInfo],
+    chatInfo: [savedChatInfo, refreshChatInfo],
   } = useContext(ChatContext)!;
 
   const [answerFieldVisible, setAnswerFieldVisible] = useState(false);
   const currentChatBotQuestion = libraryInputData.messages[messageIndex];
 
-  const sendAnswer = (answer: TSavedOneIterationAnswer) => {
+  const sendAnswer = (answer: string) => {
     setAnswerFieldVisible(false);
-    refreshChatInfo(currentState => [...currentState, ...answer]);
+    refreshChatInfo(currentState => ({
+      ...currentState,
+      [currentChatBotQuestion.keyForFormData]: answer,
+    }));
     setNewMessageIndex(current => current + 1);
   };
 
@@ -37,5 +40,6 @@ export const useChatMiddleware = (
     sendAnswer,
     answerFieldVisible,
     setAnswerFieldVisible,
+    savedChatInfo,
   };
 };

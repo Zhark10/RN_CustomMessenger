@@ -4,13 +4,13 @@ import React, {FC} from 'react';
 import Animated from 'react-native-reanimated';
 import {KeyboardAvoidingView, View} from 'react-native';
 
-import {TLibraryInputData} from './types/types';
+import {TLibraryInputData} from './types/T_LibraryInputData';
 import {AnswerType, IAnswer} from './types';
 import {isIos} from './utils/helpers/platform';
 import {ChatInput} from './components/answer-panels/ChatInput/ChatInput';
 import {ChatMultichoice} from './components/answer-panels/ChatMultichoice/ChatMultichoice';
 import {getAnswerSize} from './utils/helpers/answer-panel-size-detect';
-import {AnswerAnimWrapperStyles} from './components/shared/AnswerAnimWrapperStyles';
+import {AnswerAnimWrapperStyles} from './components/shared/S_AnswerAnimWrapper';
 
 import {useChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
 import {useAnswerFieldAnimation} from './utils/hooks/USE_AnswerFieldAnimation';

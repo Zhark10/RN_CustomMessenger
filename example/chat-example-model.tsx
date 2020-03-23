@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 import {Alert} from 'react-native';
 import {AnswerType} from '../src/types';
 import {OfflineMessanger} from '../App';
-import {TLibraryInputData} from '../src/types/types';
+import {TLibraryInputData} from '../src/types/T_LibraryInputData';
 
 const example: TLibraryInputData = {
   viewStyles: {
@@ -21,6 +21,7 @@ const example: TLibraryInputData = {
   },
   messages: [
     {
+      keyForFormData: 'name',
       botMessage: [
         {
           text: 'Hi, man!',
@@ -36,6 +37,7 @@ const example: TLibraryInputData = {
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
+      keyForFormData: 'gender',
       botMessage: [
         {
           text: 'Nice! What`s your gender?',
@@ -45,6 +47,7 @@ const example: TLibraryInputData = {
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
+      keyForFormData: 'some_text',
       botMessage: [
         {
           text: 'I`m really nice to meet you, dude! Why would I give you that?',
@@ -54,21 +57,13 @@ const example: TLibraryInputData = {
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
+      keyForFormData: 'date',
       botMessage: [
         {
           text: 'Thanks! You born...',
         },
       ],
       myAnswerType: AnswerType.DATEPICKER,
-      actionAfterAnswer: () => Alert.alert('Answer sended'),
-    },
-    {
-      botMessage: [
-        {
-          text: 'How are you?',
-        },
-      ],
-      myAnswerType: AnswerType.INPUT,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
   ],
