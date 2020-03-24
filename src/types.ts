@@ -1,19 +1,17 @@
 import {TUseChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
 import {TLibraryInputData} from './types/T_LibraryInputData';
 export type TOnlyOneMessageIteration = {
-  keyForFormData: string;
   botMessage: IMessage[];
   myAnswer: IAnswer;
-  actionAfterAnswer: (answerText: string) => void;
 };
 
-export enum EAnswerType {
-  INPUT = 'INPUT',
-  CHOICE = 'CHOICE',
-  MULTICHOICE = 'MULTICHOICE',
-  PHOTO = 'PHOTO',
-  DATEPICKER = 'DATEPICKER',
-}
+export const EAnswerType = {
+  INPUT: 'INPUT',
+  CHOICE: 'CHOICE',
+  MULTICHOICE: 'MULTICHOICE',
+  PHOTO: 'PHOTO',
+  DATEPICKER: 'DATEPICKER',
+};
 
 export interface IMessage {
   text: string;
@@ -22,28 +20,31 @@ export interface IMessage {
 }
 
 export interface IInputAnswer {
-  buttonIcon: string;
+  keyForFormData: string;
+  buttonFunc: (inputText: string) => void;
 }
 
 export interface IChoiceAnswer {
-  buttonTitle: string;
-  buttonFunc: (buttonTitle: string) => void;
+  keyForFormData: string;
+  checkboxTitles: string[];
+  buttonFunc: (selectedValue: string) => void;
 }
 
 export interface IMultichoiceAnswer {
+  keyForFormData: string;
   checkboxTitles: string[];
-  buttonFunc: (selectedCheckboxes: string[]) => void;
+  buttonFunc: (selectedValues: string[]) => void;
 }
 
 export interface IInputPhoto {
+  keyForFormData: string;
   numbersOfPhoto: 'two' | 'one';
-  buttonFunc: (photoBlobs: [string]) => void;
+  buttonFunc: (photos: any[]) => void;
 }
 
 export interface IAnswer {
-  myAnswerType: EAnswerType;
   INPUT?: IInputAnswer;
-  CHOICE?: IChoiceAnswer[];
+  CHOICE?: IChoiceAnswer;
   MULTICHOICE?: IMultichoiceAnswer;
   PHOTO?: IInputPhoto;
   DATEPICKER?: IInputAnswer;

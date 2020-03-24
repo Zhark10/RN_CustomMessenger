@@ -14,20 +14,27 @@ import {getAnswerSize} from './utils/helpers/answer-panel-size-detect';
 import {useChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
 import {useAnswerFieldAnimation} from './utils/hooks/USE_AnswerFieldAnimation';
 import {MainStyles} from './styles';
+import {ChatChoice} from './components/answer-panels/ChatChoice/ChatChoice';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
   const {
     messageIndex,
-    currentChatBotQuestion: {
-      myAnswer: {myAnswerType},
-    },
+    currentChatBotQuestion: {myAnswer},
     answerFieldVisible,
     setAnswerFieldVisible,
     savedChatInfo,
   } = chatMiddleware;
+  const myAnswerType = Object.keys(myAnswer)[0];
+  const isChoice = myAnswerType === EAnswerType.CHOICE;
+  const isMultichoice = myAnswerType === EAnswerType.MULTICHOICE;
+  const numberOfButtons = isChoice
+    ? myAnswer.CHOICE!.checkboxTitles!.length
+    : isMultichoice
+    ? myAnswer.MULTICHOICE!.checkboxTitles!.length
+    : 0;
 
-  const answerSize = getAnswerSize(myAnswerType, 0);
+  const answerSize = getAnswerSize(myAnswerType, numberOfButtons);
   const answerFieldAnimation = useAnswerFieldAnimation(
     answerFieldVisible,
     answerSize,
@@ -54,8 +61,8 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     const answerFields = {
       [EAnswerType.INPUT]: ChatInput,
       [EAnswerType.MULTICHOICE]: ChatMultichoice,
+      [EAnswerType.CHOICE]: ChatChoice,
       [EAnswerType.PHOTO]: ChatInput,
-      [EAnswerType.CHOICE]: ChatInput,
       [EAnswerType.DATEPICKER]: ChatInput,
     };
     const AnswerField = answerFields[myAnswerType];

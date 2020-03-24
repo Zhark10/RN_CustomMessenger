@@ -1,7 +1,7 @@
 import {EAnswerType} from '../../types';
 
 export const getAnswerSize = (
-  type: EAnswerType,
+  type: string,
   numberOfButtons: number,
 ): number => {
   const heightforChoice =

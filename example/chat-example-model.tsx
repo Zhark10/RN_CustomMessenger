@@ -1,7 +1,5 @@
-/* eslint-disable react/react-in-jsx-scope */
 import React, {FC} from 'react';
 import {Alert} from 'react-native';
-import {EAnswerType} from '../src/types';
 import {OfflineMessanger} from '../App';
 import {TLibraryInputData} from '../src/types/T_LibraryInputData';
 
@@ -21,7 +19,6 @@ const example: TLibraryInputData = {
   },
   messages: [
     {
-      keyForFormData: 'name',
       botMessage: [
         {
           text: 'Hi, man!',
@@ -33,38 +30,52 @@ const example: TLibraryInputData = {
           text: 'What`s your name? (nickname)',
         },
       ],
-      myAnswerType: EAnswerType.INPUT,
-      actionAfterAnswer: () => Alert.alert('Answer sended'),
+      myAnswer: {
+        INPUT: {
+          keyForFormData: 'name',
+          buttonFunc: text => Alert.alert(text),
+        },
+      },
     },
     {
-      keyForFormData: 'gender',
       botMessage: [
         {
           text: 'Nice! What`s your gender?',
         },
       ],
-      myAnswerType: EAnswerType.MULTICHOICE,
-      actionAfterAnswer: () => Alert.alert('Answer sended'),
+      myAnswer: {
+        CHOICE: {
+          keyForFormData: 'gender',
+          checkboxTitles: ['male', 'female', 'other0', 'other1'],
+          buttonFunc: value => Alert.alert(value),
+        },
+      },
     },
     {
-      keyForFormData: 'some_text',
       botMessage: [
         {
           text: 'I`m really nice to meet you, dude! Why would I give you that?',
         },
       ],
-      myAnswerType: EAnswerType.INPUT,
-      actionAfterAnswer: () => Alert.alert('Answer sended'),
+      myAnswer: {
+        INPUT: {
+          keyForFormData: 'some_text',
+          buttonFunc: text => Alert.alert(text),
+        },
+      },
     },
     {
-      keyForFormData: 'date',
       botMessage: [
         {
           text: 'Thanks! You born...',
         },
       ],
-      myAnswerType: EAnswerType.DATEPICKER,
-      actionAfterAnswer: () => Alert.alert('Answer sended'),
+      myAnswer: {
+        DATEPICKER: {
+          keyForFormData: 'date',
+          buttonFunc: text => Alert.alert(text),
+        },
+      },
     },
   ],
   events: {
