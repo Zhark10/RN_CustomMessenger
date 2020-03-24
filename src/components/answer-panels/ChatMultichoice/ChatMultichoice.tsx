@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {View, CheckBox, Text, Alert} from 'react-native';
 import {ChatMultichoiceStyles} from './S_ChatMultichoice';
-import {IAnswer} from '../../../types';
+import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../../components/shared/buttons/ButtonComponent';
 
-const Multichoice: FC<IAnswer> = ({libraryInputData, chatMiddleware}) => {
+const Multichoice: FC<TChatProps> = ({libraryInputData, chatMiddleware}) => {
   return (
     <View style={ChatMultichoiceStyles.main}>
       <View style={ChatMultichoiceStyles.checkboxBlock}>

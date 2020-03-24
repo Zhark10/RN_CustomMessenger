@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React, {FC} from 'react';
 import {Alert} from 'react-native';
-import {AnswerType} from '../src/types';
+import {EAnswerType} from '../src/types';
 import {OfflineMessanger} from '../App';
 import {TLibraryInputData} from '../src/types/T_LibraryInputData';
 
@@ -33,7 +33,7 @@ const example: TLibraryInputData = {
           text: 'What`s your name? (nickname)',
         },
       ],
-      myAnswerType: AnswerType.INPUT,
+      myAnswerType: EAnswerType.INPUT,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
@@ -43,7 +43,7 @@ const example: TLibraryInputData = {
           text: 'Nice! What`s your gender?',
         },
       ],
-      myAnswerType: AnswerType.MULTICHOICE,
+      myAnswerType: EAnswerType.MULTICHOICE,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
@@ -53,7 +53,7 @@ const example: TLibraryInputData = {
           text: 'I`m really nice to meet you, dude! Why would I give you that?',
         },
       ],
-      myAnswerType: AnswerType.INPUT,
+      myAnswerType: EAnswerType.INPUT,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
     {
@@ -63,7 +63,7 @@ const example: TLibraryInputData = {
           text: 'Thanks! You born...',
         },
       ],
-      myAnswerType: AnswerType.DATEPICKER,
+      myAnswerType: EAnswerType.DATEPICKER,
       actionAfterAnswer: () => Alert.alert('Answer sended'),
     },
   ],

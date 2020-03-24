@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {TOnlyOneMessageIteration} from '../types';
 
 export type TLibraryInputData = {

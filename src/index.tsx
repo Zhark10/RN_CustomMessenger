@@ -5,7 +5,7 @@ import Animated from 'react-native-reanimated';
 import {KeyboardAvoidingView, View} from 'react-native';
 
 import {TLibraryInputData} from './types/T_LibraryInputData';
-import {AnswerType, IAnswer} from './types';
+import {EAnswerType, TChatProps} from './types';
 import {isIos} from './utils/helpers/platform';
 import {ChatInput} from './components/answer-panels/ChatInput/ChatInput';
 import {ChatMultichoice} from './components/answer-panels/ChatMultichoice/ChatMultichoice';
@@ -19,7 +19,9 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
   const {
     messageIndex,
-    currentChatBotQuestion: {myAnswerType},
+    currentChatBotQuestion: {
+      myAnswer: {myAnswerType},
+    },
     answerFieldVisible,
     setAnswerFieldVisible,
     savedChatInfo,
@@ -50,15 +52,14 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
 
   const selectAnswerField = (): React.ReactNode => {
     const answerFields = {
-      [AnswerType.INPUT]: ChatInput,
-      [AnswerType.MULTICHOICE]: ChatMultichoice,
-      [AnswerType.PHOTO]: ChatInput,
-      [AnswerType.CHOICE]: ChatInput,
-      [AnswerType.DATEPICKER]: ChatInput,
-      [AnswerType.ONLY_BUTTON]: ChatInput,
+      [EAnswerType.INPUT]: ChatInput,
+      [EAnswerType.MULTICHOICE]: ChatMultichoice,
+      [EAnswerType.PHOTO]: ChatInput,
+      [EAnswerType.CHOICE]: ChatInput,
+      [EAnswerType.DATEPICKER]: ChatInput,
     };
     const AnswerField = answerFields[myAnswerType];
-    const chatProps: IAnswer = {chatMiddleware, libraryInputData};
+    const chatProps: TChatProps = {chatMiddleware, libraryInputData};
     return <AnswerField {...chatProps} />;
   };
 

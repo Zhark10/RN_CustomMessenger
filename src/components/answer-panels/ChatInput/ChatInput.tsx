@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import {TextInput, TouchableOpacity, View} from 'react-native';
 import {ChatInputStyles} from './S_ChatInput';
-import {IAnswer} from 'src/types';
+import {TChatProps} from 'src/types';
 
-const Input: FC<IAnswer> = ({chatMiddleware}) => {
+const Input: FC<TChatProps> = ({chatMiddleware}) => {
   const [text, setText] = React.useState('');
   const isValidated = text.length > 0 && text.length < 50;
 

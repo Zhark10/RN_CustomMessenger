@@ -1,7 +1,7 @@
-import {AnswerType} from '../../types';
+import {EAnswerType} from '../../types';
 
 export const getAnswerSize = (
-  type: AnswerType,
+  type: EAnswerType,
   numberOfButtons: number,
 ): number => {
   const heightforChoice =
@@ -10,12 +10,11 @@ export const getAnswerSize = (
       : numberOfButtons * 48 + (numberOfButtons + 1) * 16;
 
   const values = {
-    [AnswerType.INPUT]: 80,
-    [AnswerType.MULTICHOICE]: 200,
-    [AnswerType.DATEPICKER]: 200,
-    [AnswerType.CHOICE]: heightforChoice,
-    [AnswerType.ONLY_BUTTON]: 144,
-    [AnswerType.PHOTO]: 144,
+    [EAnswerType.INPUT]: 80,
+    [EAnswerType.MULTICHOICE]: 200,
+    [EAnswerType.DATEPICKER]: 200,
+    [EAnswerType.CHOICE]: heightforChoice,
+    [EAnswerType.PHOTO]: 144,
   };
   return values[type];
 };
