@@ -1,16 +1,35 @@
-import React, {FC} from 'react';
-import {View, CheckBox, Text, Alert} from 'react-native';
-import {ChatChoiceStyles} from './S_ChatChoice';
-import {TChatProps} from '../../../types';
-import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
+import React, { FC } from 'react';
+import { View, CheckBox, Text, Alert } from 'react-native';
+import { ChatChoiceStyles } from './S_ChatChoice';
+import { TChatProps } from '../../../types';
+import { ButtonComponent } from '../../shared/buttons/ButtonComponent';
 
-const Choice: FC<TChatProps> = ({libraryInputData, chatMiddleware}) => {
+type ICheckbox = {
+  key: string;
+  checked: boolean;
+};
+
+const Choice: FC<TChatProps> = ({ libraryInputData, chatMiddleware }) => {
+  const [selected, refreshSelected] = React.useState<ICheckbox[]>([]);
+
+  const onValueChange = (key: string) => {
+    if (selected.find(current => key === current.key)) {
+      refreshSelected([]);
+    } else {
+      refreshSelected([{checked: true, key}]);
+    }
+  };
+
   return (
     <View style={ChatChoiceStyles.main}>
       {chatMiddleware!.currentChatBotQuestion!.myAnswer!.CHOICE!.checkboxTitles!.map(
         title => (
-          <View style={ChatChoiceStyles.checkboxBlock}>
-            <CheckBox value={true} disabled={false} />
+          <View key={title} style={ChatChoiceStyles.checkboxBlock}>
+            <CheckBox
+              onValueChange={() => onValueChange(title)}
+              value={!!selected.find(current => title === current.key)}
+              disabled={false}
+            />
             <Text style={ChatChoiceStyles.checkboxText}>{title}</Text>
           </View>
         ),

@@ -2,12 +2,12 @@ import {EAnswerType} from '../../types';
 
 export const getAnswerSize = (
   type: string,
-  numberOfButtons: number,
+  numberOfCheckboxes: number,
 ): number => {
   const heightforChoice =
-    numberOfButtons === 1
+    numberOfCheckboxes === 1
       ? 80
-      : numberOfButtons * 48 + (numberOfButtons + 1) * 16;
+      : numberOfCheckboxes * 36 + (numberOfCheckboxes + 1) * 16;
 
   const values = {
     [EAnswerType.INPUT]: 80,
