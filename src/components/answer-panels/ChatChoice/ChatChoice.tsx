@@ -1,24 +1,23 @@
-import React, { FC } from 'react';
-import { View, CheckBox, Text, Alert } from 'react-native';
-import { ChatChoiceStyles } from './S_ChatChoice';
-import { TChatProps } from '../../../types';
-import { ButtonComponent } from '../../shared/buttons/ButtonComponent';
+import React, {FC} from 'react';
+import {View, CheckBox, Text} from 'react-native';
+import {ChatChoiceStyles} from './S_ChatChoice';
+import {TChatProps} from '../../../types';
+import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 
-type ICheckbox = {
-  key: string;
-  checked: boolean;
-};
+const Choice: FC<TChatProps> = ({chatMiddleware}) => {
+  const [selected, refreshSelected] = React.useState<string>('');
 
-const Choice: FC<TChatProps> = ({ libraryInputData, chatMiddleware }) => {
-  const [selected, refreshSelected] = React.useState<ICheckbox[]>([]);
-
-  const onValueChange = (key: string) => {
-    if (selected.find(current => key === current.key)) {
-      refreshSelected([]);
+  const onValueChange = (title: string) => {
+    if (selected === title) {
+      refreshSelected('');
     } else {
-      refreshSelected([{checked: true, key}]);
+      refreshSelected(title);
     }
   };
+
+  const onPress = React.useCallback(() => {
+    chatMiddleware.sendAnswer(selected);
+  }, [chatMiddleware, selected]);
 
   return (
     <View style={ChatChoiceStyles.main}>
@@ -27,7 +26,7 @@ const Choice: FC<TChatProps> = ({ libraryInputData, chatMiddleware }) => {
           <View key={title} style={ChatChoiceStyles.checkboxBlock}>
             <CheckBox
               onValueChange={() => onValueChange(title)}
-              value={!!selected.find(current => title === current.key)}
+              value={selected === title}
               disabled={false}
             />
             <Text style={ChatChoiceStyles.checkboxText}>{title}</Text>
@@ -39,7 +38,7 @@ const Choice: FC<TChatProps> = ({ libraryInputData, chatMiddleware }) => {
         fontFamily="Roboto"
         mainColor="red"
         secondColor="white"
-        onPress={() => Alert.alert('it`s pressed')}
+        onPress={onPress}
         type="light"
       />
     </View>
