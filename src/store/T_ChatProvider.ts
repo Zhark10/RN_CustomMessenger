@@ -12,7 +12,7 @@ type TStateManager<TDataForSave> = [
 export type TMessageIndexNumber = number;
 export type TSavedOneIterationAnswer = {[keyForFormData: string]: string};
 export type TMessageAddedInStack = {
-  id: number;
+  id: number | string;
   sender: 'me' | 'chatBot';
   text?: string;
   picture?: string;

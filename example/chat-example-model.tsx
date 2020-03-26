@@ -7,7 +7,7 @@ const example: TLibraryInputData = {
   viewStyles: {
     headerBackgroundColor: 'green',
     headerTitleColor: 'black',
-    chatBackgroundColor: 'white',
+    chatBackgroundColor: 'yellow',
     bubblesConfigForBot: {
       backgroundColor: 'red',
       textColor: 'white',

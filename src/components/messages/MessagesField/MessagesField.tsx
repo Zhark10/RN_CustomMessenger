@@ -4,30 +4,49 @@ import {TChatProps} from '../../../types';
 import {MessagesFieldStyles} from './S_MessagesField';
 import {ChatContext} from '../../../store/ChatProvider';
 
-const MessagesField: FC<TChatProps> = React.memo(({chatMiddleware}) => {
-  const {
-    messageStack: [messages, refreshMessages],
-  } = useContext(ChatContext)!;
-  const [index, setIndex] = React.useState(0);
+const MessagesField: FC<TChatProps> = React.memo(
+  ({chatMiddleware, libraryInputData}) => {
+    const {
+      messageStack: [messages, refreshMessages],
+    } = useContext(ChatContext)!;
+    const [index, setIndex] = React.useState(0);
+    const {viewStyles} = libraryInputData;
+    const {
+      setAnswerFieldVisible,
+      currentChatBotQuestion: {botMessage},
+    } = chatMiddleware;
 
-  const {setAnswerFieldVisible} = chatMiddleware;
+    React.useEffect(() => {
+      if (index < botMessage.length) {
+        refreshMessages(currentStack => [
+          ...currentStack,
+          {
+            id: botMessage[index].text,
+            sender: 'chatBot',
+            text: botMessage[index].text,
+          },
+        ]);
+        const timeToShowNextMessage = setTimeout(() => {
+          setIndex(currentIndex => currentIndex + 1);
+        }, 2000);
+        return () => clearTimeout(timeToShowNextMessage);
+      } else {
+        setAnswerFieldVisible(true);
+      }
+    }, [botMessage, index, refreshMessages, setAnswerFieldVisible]);
 
-  React.useEffect(() => {
-    if (messages.length && messages[messages.length - 1].sender === 'me') {
-      setAnswerFieldVisible(false);
-      // TODO: adapting for other message types
-      const wait = messages[messages.length - 1].text!.length * 50;
-      const timer = setTimeout(() => setIndex(0), wait);
-      return () => clearTimeout(timer);
-    }
-    return () => {};
-  }, [messages, setAnswerFieldVisible]);
-
-  return (
-    <View style={MessagesFieldStyles.main}>
-      <Text>{messages[0]}</Text>>
-    </View>
-  );
-});
+    return (
+      <View
+        style={[
+          MessagesFieldStyles.main,
+          {backgroundColor: viewStyles.chatBackgroundColor},
+        ]}>
+        {messages.map(message => (
+          <Text>{message.text}</Text>
+        ))}
+      </View>
+    );
+  },
+);
 
 export default MessagesField;

@@ -16,6 +16,7 @@ import {
   ChatChoice,
   ChatPhoto,
 } from './components/answers/exports';
+import MessagesField from './components/messages/MessagesField/MessagesField';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
@@ -26,6 +27,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     isLastMessageInModel,
   } = chatMiddleware;
 
+  const chatProps: TChatProps = {chatMiddleware, libraryInputData};
   const answerSize = getAnswerSize(myAnswer);
   const answerFieldAnimation = useAnswerFieldAnimation(
     answerFieldVisible,
@@ -50,7 +52,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       [EAnswerType.DATEPICKER]: ChatInput,
     };
     const AnswerField = answerFields[myAnswerType];
-    const chatProps: TChatProps = {chatMiddleware, libraryInputData};
     return <AnswerField {...chatProps} />;
   };
 
@@ -58,7 +59,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     <KeyboardAvoidingView
       behavior={isIos ? 'padding' : undefined}
       style={MainStyles.main}>
-      <View style={MainStyles.main} />
+      <MessagesField {...chatProps} />
       <Animated.View
         style={[MainStyles.anim, {height: answerFieldAnimation.offsetValue}]}>
         {answerFieldVisible && selectAnswerField()}
