@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {TOnlyOneMessageIteration} from '../../types';
 import {useContext, useState} from 'react';
 import {ChatContext} from '../../store/ChatProvider';
@@ -23,13 +22,17 @@ export const useChatMiddleware = (
   } = useContext(ChatContext)!;
 
   const [answerFieldVisible, setAnswerFieldVisible] = useState(false);
+
   const currentChatBotQuestion = libraryInputData.messages[messageIndex];
+  const myAnswerType = Object.keys(currentChatBotQuestion.myAnswer)[0];
+  const currentKeyForFormdata =
+    currentChatBotQuestion.myAnswer[myAnswerType].keyForFormData;
 
   const sendAnswer = (answer: string) => {
     setAnswerFieldVisible(false);
     refreshChatInfo(currentState => ({
       ...currentState,
-      [currentChatBotQuestion.keyForFormData]: answer,
+      [currentKeyForFormdata]: answer,
     }));
     setNewMessageIndex(current => current + 1);
   };

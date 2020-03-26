@@ -48,6 +48,7 @@ export interface IAnswer {
   MULTICHOICE?: IMultichoiceAnswer;
   PHOTO?: IInputPhoto;
   DATEPICKER?: IInputAnswer;
+  [key: string]: any;
 }
 
 export interface TChatProps {
