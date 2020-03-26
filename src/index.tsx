@@ -2,19 +2,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {FC} from 'react';
 import Animated from 'react-native-reanimated';
-import {KeyboardAvoidingView, View, Alert} from 'react-native';
+import {KeyboardAvoidingView, View} from 'react-native';
 
 import {TLibraryInputData} from './types/T_LibraryInputData';
 import {EAnswerType, TChatProps} from './types';
 import {isIos} from './utils/helpers/platform';
-import {ChatInput} from './components/answer-panels/ChatInput/ChatInput';
-import {ChatMultichoice} from './components/answer-panels/ChatMultichoice/ChatMultichoice';
 import {getAnswerSize} from './utils/helpers/answer-panel-size-detect';
 
 import {useChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
 import {useAnswerFieldAnimation} from './utils/hooks/USE_AnswerFieldAnimation';
 import {MainStyles} from './styles';
-import {ChatChoice} from './components/answer-panels/ChatChoice/ChatChoice';
+import { ChatInput, ChatMultichoice, ChatChoice, ChatPhoto } from './components/answer-panels/exports';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
@@ -62,7 +60,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       [EAnswerType.INPUT]: ChatInput,
       [EAnswerType.MULTICHOICE]: ChatMultichoice,
       [EAnswerType.CHOICE]: ChatChoice,
-      [EAnswerType.PHOTO]: ChatInput,
+      [EAnswerType.PHOTO]: ChatPhoto,
       [EAnswerType.DATEPICKER]: ChatInput,
     };
     const AnswerField = answerFields[myAnswerType];

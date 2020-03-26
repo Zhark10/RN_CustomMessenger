@@ -4,7 +4,7 @@ import {ChatChoiceStyles} from './S_ChatChoice';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 
-const Choice: FC<TChatProps> = ({chatMiddleware}) => {
+const ChatChoice: FC<TChatProps> = React.memo(({chatMiddleware}) => {
   const [selected, refreshSelected] = React.useState<string>('');
 
   const onValueChange = (title: string) => {
@@ -43,6 +43,6 @@ const Choice: FC<TChatProps> = ({chatMiddleware}) => {
       />
     </View>
   );
-};
+});
 
-export const ChatChoice = React.memo(Choice);
+export default ChatChoice;
