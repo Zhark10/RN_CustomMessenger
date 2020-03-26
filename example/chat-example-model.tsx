@@ -59,7 +59,7 @@ const example: TLibraryInputData = {
       ],
       myAnswer: {
         MULTICHOICE: {
-          keyForFormData: 'gender',
+          keyForFormData: 'selections',
           checkboxTitles: ['select_1', 'select_2', 'select_3', 'select_4'],
           buttonFunc: value => Alert.alert(value[0]),
         },

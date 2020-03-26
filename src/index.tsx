@@ -29,15 +29,8 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     savedChatInfo,
   } = chatMiddleware;
   const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
-  const isChoice = myAnswerType === EAnswerType.CHOICE;
-  const isMultichoice = myAnswerType === EAnswerType.MULTICHOICE;
-  const numberOfButtons = isChoice
-    ? myAnswer.CHOICE!.checkboxTitles!.length
-    : isMultichoice
-    ? myAnswer.MULTICHOICE!.checkboxTitles!.length
-    : 0;
 
-  const answerSize = getAnswerSize(myAnswerType, numberOfButtons);
+  const answerSize = getAnswerSize(myAnswer);
   const answerFieldAnimation = useAnswerFieldAnimation(
     answerFieldVisible,
     answerSize,

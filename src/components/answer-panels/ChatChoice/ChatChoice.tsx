@@ -20,6 +20,7 @@ const ChatChoice: FC<TChatProps> = React.memo(({chatMiddleware}) => {
   const onPress = React.useCallback(() => {
     chatMiddleware.sendAnswer(selected);
   }, [chatMiddleware, selected]);
+
   return (
     <View style={ChatChoiceStyles.main}>
       {values.map(title => (
