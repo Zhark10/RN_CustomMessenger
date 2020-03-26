@@ -1,31 +1,46 @@
 import React, {FC} from 'react';
-import {View, CheckBox, Text, Alert} from 'react-native';
+import {View, CheckBox, Text} from 'react-native';
 import {ChatMultichoiceStyles} from './S_ChatMultichoice';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../../components/shared/buttons/ButtonComponent';
 
 const ChatMultichoice: FC<TChatProps> = React.memo(
   ({libraryInputData, chatMiddleware}) => {
+    const [selected, refreshSelected] = React.useState<string[]>([]);
+    const values = chatMiddleware!.currentChatBotQuestion!.myAnswer!
+      .MULTICHOICE!.checkboxTitles!;
+
+    const onValueChange = (title: string) => {
+      if (selected.some(elem => elem === title)) {
+        refreshSelected(currentValues =>
+          currentValues.filter(value => value !== title),
+        );
+      } else {
+        refreshSelected(currentValues => [...currentValues, title]);
+      }
+    };
+
+    const onPress = React.useCallback(() => {
+      chatMiddleware.sendAnswer(selected);
+    }, [chatMiddleware, selected]);
     return (
       <View style={ChatMultichoiceStyles.main}>
-        <View style={ChatMultichoiceStyles.checkboxBlock}>
-          <CheckBox value={true} disabled={false} />
-          <Text style={ChatMultichoiceStyles.checkboxText}>Male</Text>
-        </View>
-        <View style={ChatMultichoiceStyles.checkboxBlock}>
-          <CheckBox value={true} disabled={false} />
-          <Text style={ChatMultichoiceStyles.checkboxText}>Female</Text>
-        </View>
-        <View style={ChatMultichoiceStyles.checkboxBlock}>
-          <CheckBox value={true} disabled={false} />
-          <Text style={ChatMultichoiceStyles.checkboxText}>Other</Text>
-        </View>
+        {values.map(title => (
+          <View key={title} style={ChatMultichoiceStyles.checkboxBlock}>
+            <CheckBox
+              onValueChange={() => onValueChange(title)}
+              value={selected.some(elem => elem === title)}
+              disabled={false}
+            />
+            <Text style={ChatMultichoiceStyles.checkboxText}>{title}</Text>
+          </View>
+        ))}
         <ButtonComponent
           title={'ОК'}
           fontFamily="Roboto"
           mainColor="red"
           secondColor="white"
-          onPress={() => Alert.alert('it`s pressed')}
+          onPress={onPress}
           type="light"
         />
       </View>

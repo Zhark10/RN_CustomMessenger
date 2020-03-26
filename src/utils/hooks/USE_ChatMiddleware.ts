@@ -7,7 +7,7 @@ import React from 'react';
 export type TUseChatMiddleware = {
   currentChatBotQuestion: TOnlyOneMessageIteration;
   messageIndex: number;
-  sendAnswer: (answer: string) => void;
+  sendAnswer: (answer: any) => void;
   answerFieldVisible: boolean;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
   savedChatInfo: TOutputData;
@@ -24,11 +24,13 @@ export const useChatMiddleware = (
   const [answerFieldVisible, setAnswerFieldVisible] = useState(false);
 
   const currentChatBotQuestion = libraryInputData.messages[messageIndex];
-  const myAnswerType = Object.keys(currentChatBotQuestion.myAnswer)[0];
+  const myAnswerType = Object.getOwnPropertyNames(
+    currentChatBotQuestion.myAnswer,
+  )[0];
   const currentKeyForFormdata =
     currentChatBotQuestion.myAnswer[myAnswerType].keyForFormData;
 
-  const sendAnswer = (answer: string) => {
+  const sendAnswer = (answer: any) => {
     setAnswerFieldVisible(false);
     refreshChatInfo(currentState => ({
       ...currentState,

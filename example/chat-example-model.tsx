@@ -54,6 +54,20 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
+          text: 'Please, select some values!',
+        },
+      ],
+      myAnswer: {
+        MULTICHOICE: {
+          keyForFormData: 'gender',
+          checkboxTitles: ['select_1', 'select_2', 'select_3', 'select_4'],
+          buttonFunc: value => Alert.alert(value[0]),
+        },
+      },
+    },
+    {
+      botMessage: [
+        {
           text: 'I`m really nice to meet you, dude! Why would I give you that?',
         },
       ],

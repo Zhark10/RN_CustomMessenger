@@ -12,7 +12,12 @@ import {getAnswerSize} from './utils/helpers/answer-panel-size-detect';
 import {useChatMiddleware} from './utils/hooks/USE_ChatMiddleware';
 import {useAnswerFieldAnimation} from './utils/hooks/USE_AnswerFieldAnimation';
 import {MainStyles} from './styles';
-import { ChatInput, ChatMultichoice, ChatChoice, ChatPhoto } from './components/answer-panels/exports';
+import {
+  ChatInput,
+  ChatMultichoice,
+  ChatChoice,
+  ChatPhoto,
+} from './components/answer-panels/exports';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
@@ -23,7 +28,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     setAnswerFieldVisible,
     savedChatInfo,
   } = chatMiddleware;
-  const myAnswerType = Object.keys(myAnswer)[0];
+  const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
   const isChoice = myAnswerType === EAnswerType.CHOICE;
   const isMultichoice = myAnswerType === EAnswerType.MULTICHOICE;
   const numberOfButtons = isChoice
