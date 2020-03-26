@@ -22,11 +22,9 @@ import {
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
   const {
-    messageIndex,
     currentChatBotQuestion: {myAnswer},
     answerFieldVisible,
     setAnswerFieldVisible,
-    savedChatInfo,
   } = chatMiddleware;
   const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
 
@@ -43,15 +41,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     );
     return () => clearTimeout(setVisibleByTime);
   }, [answerFieldVisible]);
-
-  React.useEffect(() => {
-    const isLastMessageInModel =
-      messageIndex === libraryInputData.messages.length - 1;
-
-    if (isLastMessageInModel) {
-      libraryInputData.events.endConversationEvent(savedChatInfo);
-    }
-  }, [messageIndex]);
 
   const selectAnswerField = (): React.ReactNode => {
     const answerFields = {

@@ -1,8 +1,9 @@
 import {EAnswerType, IAnswer} from '../../types';
 
 export const getAnswerSize = (myAnswer: IAnswer): number => {
-  const isChoice = myAnswer.myAnswerType === EAnswerType.CHOICE;
-  const isMultichoice = myAnswer.myAnswerType === EAnswerType.MULTICHOICE;
+  const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
+  const isChoice = myAnswerType === EAnswerType.CHOICE;
+  const isMultichoice = myAnswerType === EAnswerType.MULTICHOICE;
 
   const numberOfCheckboxes = isChoice
     ? myAnswer.CHOICE!.checkboxTitles!.length
@@ -27,5 +28,5 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
     [EAnswerType.CHOICE]: heightforChoice,
     [EAnswerType.PHOTO]: 144,
   };
-  return values[myAnswer.myAnswerType];
+  return values[myAnswerType];
 };

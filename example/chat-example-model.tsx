@@ -85,9 +85,10 @@ const example: TLibraryInputData = {
         },
       ],
       myAnswer: {
-        DATEPICKER: {
-          keyForFormData: 'date',
-          buttonFunc: text => Alert.alert(text),
+        PHOTO: {
+          keyForFormData: 'photo',
+          numbersOfPhoto: 'two',
+          buttonFunc: photo => Alert.alert(photo + ''),
         },
       },
     },

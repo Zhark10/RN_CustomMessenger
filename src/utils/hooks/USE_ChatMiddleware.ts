@@ -1,7 +1,7 @@
-import {TOnlyOneMessageIteration} from '../../types';
-import {useContext, useState} from 'react';
-import {ChatContext} from '../../store/ChatProvider';
-import {TLibraryInputData, TOutputData} from '../../types/T_LibraryInputData';
+import { TOnlyOneMessageIteration } from '../../types';
+import { useContext, useState } from 'react';
+import { ChatContext } from '../../store/ChatProvider';
+import { TLibraryInputData, TOutputData } from '../../types/T_LibraryInputData';
 import React from 'react';
 
 export type TUseChatMiddleware = {
@@ -11,6 +11,7 @@ export type TUseChatMiddleware = {
   answerFieldVisible: boolean;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
   savedChatInfo: TOutputData;
+  isLastMessageInModel: boolean;
 };
 
 export const useChatMiddleware = (
@@ -22,11 +23,14 @@ export const useChatMiddleware = (
   } = useContext(ChatContext)!;
 
   const [answerFieldVisible, setAnswerFieldVisible] = useState(false);
+  const isLastMessageInModel =
+    messageIndex === libraryInputData.messages.length - 1;
 
   const currentChatBotQuestion = libraryInputData.messages[messageIndex];
   const myAnswerType = Object.getOwnPropertyNames(
     currentChatBotQuestion.myAnswer,
   )[0];
+
   const currentKeyForFormdata =
     currentChatBotQuestion.myAnswer[myAnswerType].keyForFormData;
 
@@ -36,6 +40,11 @@ export const useChatMiddleware = (
       ...currentState,
       [currentKeyForFormdata]: answer,
     }));
+
+    if (isLastMessageInModel) {
+      libraryInputData.events.endConversationEvent(savedChatInfo);
+      return null;
+    }
     setNewMessageIndex(current => current + 1);
   };
 
@@ -46,5 +55,6 @@ export const useChatMiddleware = (
     answerFieldVisible,
     setAnswerFieldVisible,
     savedChatInfo,
+    isLastMessageInModel,
   };
 };
