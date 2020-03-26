@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react-native/no-inline-styles */
 import React, {FC} from 'react';
 import Animated from 'react-native-reanimated';
 import {KeyboardAvoidingView, View} from 'react-native';
@@ -25,7 +23,9 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     currentChatBotQuestion: {myAnswer},
     answerFieldVisible,
     setAnswerFieldVisible,
+    isLastMessageInModel,
   } = chatMiddleware;
+
   const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
 
   const answerSize = getAnswerSize(myAnswer);
@@ -40,7 +40,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       2000,
     );
     return () => clearTimeout(setVisibleByTime);
-  }, [answerFieldVisible]);
+  }, [answerFieldVisible, setAnswerFieldVisible]);
 
   const selectAnswerField = (): React.ReactNode => {
     const answerFields = {
@@ -58,12 +58,14 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   return (
     <KeyboardAvoidingView
       behavior={isIos ? 'padding' : undefined}
-      style={{flex: 1}}>
-      <View style={{flex: 1}} />
-      <Animated.View
-        style={[MainStyles.main, {height: answerFieldAnimation.offsetValue}]}>
-        {answerFieldVisible && selectAnswerField()}
-      </Animated.View>
+      style={MainStyles.main}>
+      <View style={MainStyles.main} />
+      {!isLastMessageInModel && (
+        <Animated.View
+          style={[MainStyles.anim, {height: answerFieldAnimation.offsetValue}]}>
+          {answerFieldVisible && selectAnswerField()}
+        </Animated.View>
+      )}
     </KeyboardAvoidingView>
   );
 };

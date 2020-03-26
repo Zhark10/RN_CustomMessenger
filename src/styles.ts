@@ -2,6 +2,9 @@ import {StyleSheet} from 'react-native';
 
 export const MainStyles = StyleSheet.create({
   main: {
+    flex: 1,
+  },
+  anim: {
     borderTopRightRadius: 16,
     borderTopLeftRadius: 16,
     backgroundColor: '#fff',
