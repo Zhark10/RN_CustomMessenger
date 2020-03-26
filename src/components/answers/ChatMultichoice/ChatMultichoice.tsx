@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {View, CheckBox, Text} from 'react-native';
 import {ChatMultichoiceStyles} from './S_ChatMultichoice';
 import {TChatProps} from '../../../types';
-import {ButtonComponent} from '../../../components/shared/buttons/ButtonComponent';
+import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 
 const ChatMultichoice: FC<TChatProps> = React.memo(
   ({libraryInputData, chatMiddleware}) => {

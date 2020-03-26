@@ -15,7 +15,7 @@ import {
   ChatMultichoice,
   ChatChoice,
   ChatPhoto,
-} from './components/answer-panels/exports';
+} from './components/answers/exports';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const chatMiddleware = useChatMiddleware(libraryInputData);
@@ -25,8 +25,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     setAnswerFieldVisible,
     isLastMessageInModel,
   } = chatMiddleware;
-
-  const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
 
   const answerSize = getAnswerSize(myAnswer);
   const answerFieldAnimation = useAnswerFieldAnimation(
@@ -40,9 +38,10 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       2000,
     );
     return () => clearTimeout(setVisibleByTime);
-  }, [answerFieldVisible, setAnswerFieldVisible]);
+  }, [answerFieldVisible, isLastMessageInModel, setAnswerFieldVisible]);
 
   const selectAnswerField = (): React.ReactNode => {
+    const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
     const answerFields = {
       [EAnswerType.INPUT]: ChatInput,
       [EAnswerType.MULTICHOICE]: ChatMultichoice,
@@ -60,12 +59,10 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       behavior={isIos ? 'padding' : undefined}
       style={MainStyles.main}>
       <View style={MainStyles.main} />
-      {!isLastMessageInModel && (
-        <Animated.View
-          style={[MainStyles.anim, {height: answerFieldAnimation.offsetValue}]}>
-          {answerFieldVisible && selectAnswerField()}
-        </Animated.View>
-      )}
+      <Animated.View
+        style={[MainStyles.anim, {height: answerFieldAnimation.offsetValue}]}>
+        {answerFieldVisible && selectAnswerField()}
+      </Animated.View>
     </KeyboardAvoidingView>
   );
 };

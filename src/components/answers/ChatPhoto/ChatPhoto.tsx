@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {ChatPhotoStyles} from './S_ChatPhoto';
-import {TChatProps} from 'src/types';
-import {ButtonComponent} from '../../../../src/components/shared/buttons/ButtonComponent';
+import {TChatProps} from '../../../types';
+import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 
 const ChatPhoto: FC<TChatProps> = React.memo(({chatMiddleware}) => {
   const onPress = React.useCallback(() => {
