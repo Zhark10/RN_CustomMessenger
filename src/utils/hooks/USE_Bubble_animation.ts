@@ -65,5 +65,5 @@ export const useTranslateYAnimation = (sender: ISender): Animation => {
 
 export const useBubbleAnimation = {
   scale: useScaleAnimation,
-  translate: useTranslateYAnimation,
+  translateY: useTranslateYAnimation,
 };

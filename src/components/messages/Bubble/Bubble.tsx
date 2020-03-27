@@ -1,29 +1,29 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {View, Text, ViewStyle, TextStyle} from 'react-native';
 import Animated from 'react-native-reanimated';
-import { isIos } from '../../../utils/helpers/platform';
-import { useBubbleAnimation } from 'src/utils/hooks/USE_Bubble_animation';
-import { ISender } from 'src/store/T_ChatProvider';
+import {DotsLoader} from 'react-native-indicator';
+import {isIos} from '../../../utils/helpers/platform';
+import {useBubbleAnimation} from '../../../utils/hooks/USE_Bubble_animation';
+import {TMessageAddedInStack} from '../../../store/T_ChatProvider';
 
-interface IQuizMessageProps {
-  answer?: string;
-  sender: ISender;
+interface IBubbleProps {
+  message: TMessageAddedInStack;
   isTyping?: boolean;
   isLastMessage?: boolean;
   wrapperStyles?: ViewStyle;
   messageTextStyles?: TextStyle;
 }
 
-export const QuizMessage: React.FC<IQuizMessageProps> = ({
-  answer,
-  sender,
+export const Bubble: React.FC<IBubbleProps> = ({
+  message: {sender, text},
   isTyping,
   isLastMessage,
   wrapperStyles = {},
   messageTextStyles = {},
 }) => {
-  const translateY = useBubbleAnimation.translate(sender);
-  const scale = useBubbleAnimation.useScaleAnimation();
+  const translateY = useBubbleAnimation.translateY(sender);
+  const scale = useBubbleAnimation.scale();
 
   const animationStyles =
     (isLastMessage || isTyping) &&
@@ -33,10 +33,10 @@ export const QuizMessage: React.FC<IQuizMessageProps> = ({
         }
       : {translateY: translateY.value});
 
-  const answerCapitalized = answer
-    ? answer.charAt(0).toUpperCase() + answer.slice(1)
+  const answerCapitalized = text
+    ? text.charAt(0).toUpperCase() + text.slice(1)
     : '';
-  const isAssistant = sender === 'assistant';
+  const isAssistant = sender === 'chatBot';
 
   return (
     <Animated.View
@@ -45,27 +45,6 @@ export const QuizMessage: React.FC<IQuizMessageProps> = ({
         bottom: scale.value,
         ...animationStyles,
       }}>
-      {isAssistant ? (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: -5,
-            left: 20,
-            minHeight: 45,
-          }}>
-          <TailForAssistantMessage />
-        </View>
-      ) : (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: -3,
-            marginHorizontal: 20,
-            right: 0,
-          }}>
-          <TailForMeMessage />
-        </View>
-      )}
       <View
         style={{
           maxWidth: '60%',
@@ -88,10 +67,10 @@ export const QuizMessage: React.FC<IQuizMessageProps> = ({
         ) : (
           <Text
             style={{
-              fontSize: fsize(14),
+              fontSize: 14,
               fontFamily: 'SFProText-Regular',
               paddingHorizontal: 16,
-              lineHeight: fsize(16),
+              lineHeight: 16,
               paddingVertical: 10,
               color: isAssistant ? 'rgba(0,0,0,.87)' : '#fff',
               alignSelf: 'center',
