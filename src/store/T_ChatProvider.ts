@@ -13,8 +13,10 @@ export type TMessageIndexNumber = number;
 export type TSavedOneIterationAnswer = {[keyForFormData: string]: string};
 export type TMessageAddedInStack = {
   id: number | string;
-  sender: 'me' | 'chatBot';
+  sender: ISender;
   text?: string;
   picture?: string;
   emoji?: string;
 };
+
+export type ISender = 'me' | 'chatBot';
