@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import Animated from 'react-native-reanimated';
-import {KeyboardAvoidingView, View} from 'react-native';
+import {KeyboardAvoidingView} from 'react-native';
 
 import {TLibraryInputData} from './types/T_LibraryInputData';
 import {EAnswerType, TChatProps} from './types';
@@ -23,8 +23,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const {
     currentChatBotQuestion: {myAnswer},
     answerFieldVisible,
-    setAnswerFieldVisible,
-    isLastMessageInModel,
   } = chatMiddleware;
 
   const chatProps: TChatProps = {chatMiddleware, libraryInputData};
@@ -33,14 +31,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     answerFieldVisible,
     answerSize,
   );
-
-  React.useEffect(() => {
-    const setVisibleByTime = setTimeout(
-      () => setAnswerFieldVisible(true),
-      2000,
-    );
-    return () => clearTimeout(setVisibleByTime);
-  }, [answerFieldVisible, isLastMessageInModel, setAnswerFieldVisible]);
 
   const selectAnswerField = (): React.ReactNode => {
     const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
