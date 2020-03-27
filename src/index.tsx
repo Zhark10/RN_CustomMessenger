@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import Animated from 'react-native-reanimated';
-import {KeyboardAvoidingView, View, Alert} from 'react-native';
+import {KeyboardAvoidingView} from 'react-native';
 
 import {TLibraryInputData} from './types/T_LibraryInputData';
 import {EAnswerType, TChatProps} from './types';

@@ -7,7 +7,6 @@ export const MessagesFieldStyles = StyleSheet.create({
   messageField: {
     flex: 1,
     justifyContent: 'flex-end',
-    paddingVertical: 16,
   },
   scrollViewContainer: {
     flex: 1,

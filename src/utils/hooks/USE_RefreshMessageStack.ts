@@ -16,7 +16,8 @@ export const useRefreshMessageStack = (
 
   React.useEffect(() => {
     if (index < botMessage.length) {
-      setTyping(true);
+      const timeToShowNextMessage = botMessage[index].text.length * 70;
+      // setTyping(true);
       refreshMessages(currentStack => [
         ...currentStack,
         {
@@ -25,7 +26,6 @@ export const useRefreshMessageStack = (
           text: botMessage[index].text,
         },
       ]);
-      const timeToShowNextMessage = botMessage[index].text.length * 70;
       const toShowNextMessage = setTimeout(() => {
         setIndex(currentIndex => currentIndex + 1);
       }, timeToShowNextMessage);

@@ -1,9 +1,8 @@
-import { Alert } from 'react-native';
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {TOnlyOneMessageIteration} from '../../types';
-import {useContext, useState} from 'react';
-import {ChatContext} from '../../store/ChatProvider';
-import {TLibraryInputData, TOutputData} from '../../types/T_LibraryInputData';
+import { TOnlyOneMessageIteration } from '../../types';
+import { useContext, useState } from 'react';
+import { ChatContext } from '../../store/ChatProvider';
+import { TLibraryInputData, TOutputData } from '../../types/T_LibraryInputData';
 import React from 'react';
 
 export type TUseChatMiddleware = {
@@ -41,27 +40,27 @@ export const useChatMiddleware = (
     (answer: any) => {
       setAnswerFieldVisible(false);
 
+      refreshChatInfo(currentState => ({
+        ...currentState,
+        [currentKeyForFormdata]: answer,
+      }));
+
+      refreshMessages(currentStack => [
+        ...currentStack,
+        {
+          id: answer,
+          sender: 'me',
+          text: answer,
+        },
+      ]);
+
+      if (isLastMessageInModel) {
+        libraryInputData.events.endConversationEvent(savedChatInfo);
+        return null;
+      }
       const timeout = setTimeout(() => {
-        refreshChatInfo(currentState => ({
-          ...currentState,
-          [currentKeyForFormdata]: answer,
-        }));
-
-        refreshMessages(currentStack => [
-          ...currentStack,
-          {
-            id: answer,
-            sender: 'me',
-            text: answer,
-          },
-        ]);
-
-        if (isLastMessageInModel) {
-          libraryInputData.events.endConversationEvent(savedChatInfo);
-          return null;
-        }
         setNewMessageIndex(current => current + 1);
-      }, 500);
+      }, answer.length * 90);
       return () => clearTimeout(timeout);
     },
     [
