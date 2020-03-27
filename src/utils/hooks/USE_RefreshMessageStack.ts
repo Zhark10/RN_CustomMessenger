@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {TUseChatMiddleware} from './USE_ChatMiddleware';
 import {TMessageAddedInStack} from '../../store/T_ChatProvider';
@@ -7,6 +8,7 @@ export const useRefreshMessageStack = (
   refreshMessages: React.Dispatch<React.SetStateAction<TMessageAddedInStack[]>>,
 ) => {
   const [index, setIndex] = React.useState(0);
+  const [typing, setTyping] = React.useState(false);
   const {
     setAnswerFieldVisible,
     currentChatBotQuestion: {botMessage},
@@ -14,6 +16,7 @@ export const useRefreshMessageStack = (
 
   React.useEffect(() => {
     if (index < botMessage.length) {
+      setTyping(true);
       refreshMessages(currentStack => [
         ...currentStack,
         {
@@ -30,5 +33,7 @@ export const useRefreshMessageStack = (
     } else {
       setAnswerFieldVisible(true);
     }
-  }, [botMessage, index, refreshMessages, setAnswerFieldVisible]);
+  }, [index]);
+
+  return typing;
 };

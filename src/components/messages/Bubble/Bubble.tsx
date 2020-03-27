@@ -1,14 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import {View, Text, ViewStyle, TextStyle} from 'react-native';
+import {View, Text, ViewStyle, TextStyle, Alert} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {DotsLoader} from 'react-native-indicator';
 import {isIos} from '../../../utils/helpers/platform';
 import {useBubbleAnimation} from '../../../utils/hooks/USE_Bubble_animation';
 import {TMessageAddedInStack} from '../../../store/T_ChatProvider';
+import {TViewStyles} from '../../../types/T_LibraryInputData';
 
 interface IBubbleProps {
-  message: TMessageAddedInStack;
+  message?: TMessageAddedInStack;
+  viewStyles: TViewStyles;
   isTyping?: boolean;
   isLastMessage?: boolean;
   wrapperStyles?: ViewStyle;
@@ -16,27 +18,26 @@ interface IBubbleProps {
 }
 
 export const Bubble: React.FC<IBubbleProps> = ({
-  message: {sender, text},
+  message,
+  viewStyles: {bubblesConfigForBot, bubblesConfigForMe},
   isTyping,
   isLastMessage,
   wrapperStyles = {},
   messageTextStyles = {},
 }) => {
+  const sender = message?.sender || 'chatBot'
   const translateY = useBubbleAnimation.translateY(sender);
   const scale = useBubbleAnimation.scale();
 
   const animationStyles =
-    (isLastMessage || isTyping) &&
+  (isLastMessage || isTyping) &&
     (isIos
       ? {
           transform: [{translateY: translateY.value}],
         }
       : {translateY: translateY.value});
 
-  const answerCapitalized = text
-    ? text.charAt(0).toUpperCase() + text.slice(1)
-    : '';
-  const isAssistant = sender === 'chatBot';
+  const isBot = sender === 'chatBot';
 
   return (
     <Animated.View
@@ -50,19 +51,21 @@ export const Bubble: React.FC<IBubbleProps> = ({
           maxWidth: '60%',
           minHeight: 45,
           flexDirection: 'row',
-          backgroundColor: isAssistant ? '#f3f3f3' : '#33B49D',
+          backgroundColor: isBot
+            ? bubblesConfigForBot.backgroundColor
+            : bubblesConfigForMe.backgroundColor,
           marginHorizontal: 24,
           borderRadius: 16,
-          alignSelf: isAssistant ? 'flex-start' : 'flex-end',
+          alignSelf: isBot ? 'flex-start' : 'flex-end',
           ...wrapperStyles,
         }}>
-        {isTyping ? (
+        {!message ? (
           <View
             style={{
               margin: 16,
               maxHeight: 45,
             }}>
-            <DotsLoader color="#33B49D" size={12} />
+            <DotsLoader color={bubblesConfigForBot.textColor} size={12} />
           </View>
         ) : (
           <Text
@@ -72,12 +75,14 @@ export const Bubble: React.FC<IBubbleProps> = ({
               paddingHorizontal: 16,
               lineHeight: 16,
               paddingVertical: 10,
-              color: isAssistant ? 'rgba(0,0,0,.87)' : '#fff',
+              color: isBot
+                ? bubblesConfigForBot.textColor
+                : bubblesConfigForMe.textColor,
               alignSelf: 'center',
               minWidth: 72,
               ...messageTextStyles,
             }}>
-            {answerCapitalized}
+            {message!.text}
           </Text>
         )}
       </View>

@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {TOnlyOneMessageIteration} from '../../types';
 import {useContext, useState} from 'react';
 import {ChatContext} from '../../store/ChatProvider';
@@ -20,6 +22,7 @@ export const useChatMiddleware = (
   const {
     currentMessage: [messageIndex, setNewMessageIndex],
     chatInfo: [savedChatInfo, refreshChatInfo],
+    messageStack: [_, refreshMessages],
   } = useContext(ChatContext)!;
 
   const [answerFieldVisible, setAnswerFieldVisible] = useState(false);
@@ -34,19 +37,43 @@ export const useChatMiddleware = (
   const currentKeyForFormdata =
     currentChatBotQuestion.myAnswer[myAnswerType].keyForFormData;
 
-  const sendAnswer = (answer: any) => {
-    setAnswerFieldVisible(false);
-    refreshChatInfo(currentState => ({
-      ...currentState,
-      [currentKeyForFormdata]: answer,
-    }));
+  const sendAnswer = React.useCallback(
+    (answer: any) => {
+      setAnswerFieldVisible(false);
 
-    if (isLastMessageInModel) {
-      libraryInputData.events.endConversationEvent(savedChatInfo);
-      return null;
-    }
-    setNewMessageIndex(current => current + 1);
-  };
+      const timeout = setTimeout(() => {
+        refreshChatInfo(currentState => ({
+          ...currentState,
+          [currentKeyForFormdata]: answer,
+        }));
+
+        refreshMessages(currentStack => [
+          ...currentStack,
+          {
+            id: answer,
+            sender: 'me',
+            text: answer,
+          },
+        ]);
+
+        if (isLastMessageInModel) {
+          libraryInputData.events.endConversationEvent(savedChatInfo);
+          return null;
+        }
+        setNewMessageIndex(current => current + 1);
+      }, 500);
+      return () => clearTimeout(timeout);
+    },
+    [
+      currentKeyForFormdata,
+      isLastMessageInModel,
+      libraryInputData.events,
+      refreshChatInfo,
+      refreshMessages,
+      savedChatInfo,
+      setNewMessageIndex,
+    ],
+  );
 
   return {
     currentChatBotQuestion,
