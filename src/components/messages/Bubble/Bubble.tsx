@@ -11,8 +11,6 @@ import {TViewStyles} from '../../../types/T_LibraryInputData';
 interface IBubbleProps {
   message?: TMessageAddedInStack;
   viewStyles: TViewStyles;
-  isTyping?: boolean;
-  isLastMessage?: boolean;
   wrapperStyles?: ViewStyle;
   messageTextStyles?: TextStyle;
 }
@@ -20,8 +18,6 @@ interface IBubbleProps {
 export const Bubble: React.FC<IBubbleProps> = ({
   message,
   viewStyles: {bubblesConfigForBot, bubblesConfigForMe},
-  isTyping,
-  isLastMessage,
   wrapperStyles = {},
   messageTextStyles = {},
 }) => {
@@ -30,7 +26,6 @@ export const Bubble: React.FC<IBubbleProps> = ({
   const scale = useBubbleAnimation.scale();
 
   const animationStyles =
-  (isLastMessage || isTyping) &&
     (isIos
       ? {
           transform: [{translateY: translateY.value}],

@@ -1,18 +1,14 @@
-import React, {FC, useContext} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {FC} from 'react';
 import {View, ScrollView} from 'react-native';
 import {TChatProps} from '../../../types';
 import {MessagesFieldStyles} from './S_MessagesField';
-import {ChatContext} from '../../../store/ChatProvider';
 import {useRefreshMessageStack} from '../../../utils/hooks/USE_RefreshMessageStack';
 import {Bubble} from '../Bubble/Bubble';
 
 const MessagesField: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData}) => {
-    const {
-      messageStack: [messages, refreshMessages],
-    } = useContext(ChatContext)!;
-
-    const typing = useRefreshMessageStack(chatMiddleware, refreshMessages);
+    const {messages, typing} = useRefreshMessageStack(chatMiddleware);
 
     const {viewStyles} = libraryInputData;
 
@@ -33,15 +29,14 @@ const MessagesField: FC<TChatProps> = React.memo(
               MessagesFieldStyles.messageField,
               {backgroundColor: viewStyles.chatBackgroundColor},
             ]}>
-            {messages.map((message, key) => (
-              <Bubble
-                key={key}
-                isLastMessage={messages.length - 1 === key}
-                message={message}
-                viewStyles={viewStyles}
-              />
-            ))}
-            {typing ? <Bubble isTyping viewStyles={viewStyles} /> : <></>}
+            <View style={{zIndex: 2}}>
+              {messages.map((message, key) => (
+                <Bubble key={key} message={message} viewStyles={viewStyles} />
+              ))}
+            </View>
+            <View style={{zIndex: 1}}>
+              {typing ? <Bubble viewStyles={viewStyles} /> : <></>}
+            </View>
           </View>
         </ScrollView>
       </View>

@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { TOnlyOneMessageIteration } from '../../types';
-import { useContext, useState } from 'react';
-import { ChatContext } from '../../store/ChatProvider';
-import { TLibraryInputData, TOutputData } from '../../types/T_LibraryInputData';
+import {TMessageAddedInStack} from './../../store/T_ChatProvider';
+import {TOnlyOneMessageIteration} from '../../types';
+import {useContext, useState} from 'react';
+import {ChatContext} from '../../store/ChatProvider';
+import {TLibraryInputData, TOutputData} from '../../types/T_LibraryInputData';
 import React from 'react';
 
 export type TUseChatMiddleware = {
@@ -13,6 +13,8 @@ export type TUseChatMiddleware = {
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
   savedChatInfo: TOutputData;
   isLastMessageInModel: boolean;
+  refreshMessages: React.Dispatch<React.SetStateAction<TMessageAddedInStack[]>>;
+  messages: TMessageAddedInStack[];
 };
 
 export const useChatMiddleware = (
@@ -21,7 +23,7 @@ export const useChatMiddleware = (
   const {
     currentMessage: [messageIndex, setNewMessageIndex],
     chatInfo: [savedChatInfo, refreshChatInfo],
-    messageStack: [_, refreshMessages],
+    messageStack: [messages, refreshMessages],
   } = useContext(ChatContext)!;
 
   const [answerFieldVisible, setAnswerFieldVisible] = useState(false);
@@ -82,5 +84,7 @@ export const useChatMiddleware = (
     setAnswerFieldVisible,
     savedChatInfo,
     isLastMessageInModel,
+    refreshMessages,
+    messages,
   };
 };

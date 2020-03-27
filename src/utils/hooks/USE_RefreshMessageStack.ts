@@ -1,24 +1,23 @@
+import {Alert} from 'react-native';
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {TUseChatMiddleware} from './USE_ChatMiddleware';
-import {TMessageAddedInStack} from '../../store/T_ChatProvider';
 
-export const useRefreshMessageStack = (
-  chatMiddleware: TUseChatMiddleware,
-  refreshMessages: React.Dispatch<React.SetStateAction<TMessageAddedInStack[]>>,
-) => {
+export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const [index, setIndex] = React.useState(0);
   const [typing, setTyping] = React.useState(false);
   const {
     setAnswerFieldVisible,
     currentChatBotQuestion: {botMessage},
+    messages,
+    refreshMessages,
   } = chatMiddleware;
 
   React.useEffect(() => {
     if (index < botMessage.length) {
-      const timeToShowNextMessage = botMessage[index].text.length * 70;
-      // setTyping(true);
-      refreshMessages(currentStack => [
+      const timeToShowNextMessage = botMessage[index].text.length * 90;
+      setTyping(true);
+      chatMiddleware.refreshMessages(currentStack => [
         ...currentStack,
         {
           id: botMessage[index].text,
@@ -35,5 +34,15 @@ export const useRefreshMessageStack = (
     }
   }, [index]);
 
-  return typing;
+  React.useEffect(() => {
+    const isLastMessageTypedMe =
+      messages.length && messages[messages.length - 1].sender === 'me';
+    if (isLastMessageTypedMe) {
+      const waitingTime = messages[messages.length - 1].text!.length * 90;
+      const timer = setTimeout(() => setIndex(0), waitingTime);
+      return () => clearTimeout(timer);
+    }
+  }, [messages]);
+
+  return {messages, typing};
 };
