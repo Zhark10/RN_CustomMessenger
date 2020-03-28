@@ -1,18 +1,15 @@
 import React, {FC} from 'react';
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import {TextInput, View} from 'react-native';
 import {ChatInputStyles} from './S_ChatInput';
 import {TChatProps} from '../../../types';
 
 const ChatInput: FC<TChatProps> = React.memo(({chatMiddleware}) => {
   const [text, setText] = React.useState('');
-  const isValidated = text.length > 0 && text.length < 50;
+  // const isValidated = text.length > 0 && text.length < 50;
 
-  const onChangeText = React.useCallback(
-    (value: string) => {
-      isValidated && setText(value);
-    },
-    [isValidated],
-  );
+  const onChangeText = React.useCallback((value: string) => setText(value), [
+    setText,
+  ]);
 
   const onEndEditing = React.useCallback(() => {
     chatMiddleware.sendAnswer(text);
