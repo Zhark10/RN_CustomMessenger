@@ -45,17 +45,24 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     return <AnswerField {...chatProps} />;
   };
 
+  const {answerFieldColor, chatBackgroundColor} = libraryInputData.viewStyles;
+
   return (
     <KeyboardAvoidingView
       behavior={isIos ? 'padding' : undefined}
-      style={MainStyles.main}>
+      style={[
+        MainStyles.main,
+        {
+          backgroundColor: chatBackgroundColor,
+        },
+      ]}>
       <MessagesField answerSize={answerSize} {...chatProps} />
       <Animated.View
         style={[
           MainStyles.anim,
           {
             height: answerFieldAnimation.offsetValue,
-            backgroundColor: libraryInputData.viewStyles.answerFieldColor,
+            backgroundColor: answerFieldColor,
           },
         ]}>
         {answerFieldVisible && selectAnswerField()}

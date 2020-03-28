@@ -7,23 +7,24 @@ const ChatInput: FC<TChatProps> = React.memo(({chatMiddleware}) => {
   const [text, setText] = React.useState('');
   const isValidated = text.length > 0 && text.length < 50;
 
-  const onChangeText = React.useCallback((value: string) => setText(value), [
-    setText,
-  ]);
+  const onChangeText = React.useCallback(
+    (value: string) => {
+      isValidated && setText(value);
+    },
+    [isValidated],
+  );
 
-  const onPress = React.useCallback(() => {
+  const onEndEditing = React.useCallback(() => {
     chatMiddleware.sendAnswer(text);
   }, [chatMiddleware, text]);
 
   return (
     <View style={ChatInputStyles.main}>
-      <TextInput style={ChatInputStyles.input} onChangeText={onChangeText} />
-      <TouchableOpacity
-        activeOpacity={1}
-        disabled={!isValidated}
-        onPress={onPress}>
-        <View style={ChatInputStyles.touchable} />
-      </TouchableOpacity>
+      <TextInput
+        style={ChatInputStyles.input}
+        onChangeText={onChangeText}
+        onEndEditing={onEndEditing}
+      />
     </View>
   );
 });
