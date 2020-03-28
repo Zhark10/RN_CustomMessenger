@@ -49,9 +49,15 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     <KeyboardAvoidingView
       behavior={isIos ? 'padding' : undefined}
       style={MainStyles.main}>
-      <MessagesField {...chatProps} />
+      <MessagesField answerSize={answerSize} {...chatProps} />
       <Animated.View
-        style={[MainStyles.anim, {height: answerFieldAnimation.offsetValue}]}>
+        style={[
+          MainStyles.anim,
+          {
+            height: answerFieldAnimation.offsetValue,
+            backgroundColor: libraryInputData.viewStyles.answerFieldColor,
+          },
+        ]}>
         {answerFieldVisible && selectAnswerField()}
       </Animated.View>
     </KeyboardAvoidingView>

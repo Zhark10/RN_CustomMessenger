@@ -7,7 +7,6 @@ export const MainStyles = StyleSheet.create({
   anim: {
     borderTopRightRadius: 16,
     borderTopLeftRadius: 16,
-    backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

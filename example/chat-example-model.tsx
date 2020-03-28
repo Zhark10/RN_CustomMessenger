@@ -6,14 +6,15 @@ import {TLibraryInputData} from '../src/types/T_LibraryInputData';
 const example: TLibraryInputData = {
   viewStyles: {
     headerBackgroundColor: 'green',
-    headerTitleColor: 'black',
-    chatBackgroundColor: 'yellow',
+    headerTitleColor: '#fff',
+    chatBackgroundColor: '#000',
+    answerFieldColor: '#6b6b6b',
     bubblesConfigForBot: {
-      backgroundColor: 'red',
+      backgroundColor: '#6b6b6b',
       textColor: 'white',
     },
     bubblesConfigForMe: {
-      backgroundColor: 'blue',
+      backgroundColor: 'rgba(235,235,235,.54)',
       textColor: 'white',
     },
   },
@@ -21,7 +22,8 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Hi, man!',
+          text:
+            'Hi, man! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio numquam, error molestiae neque eius velit excepturi hic illo officia? Debitis, magni voluptate suscipit nulla a voluptates sequi nostrum cupiditate cumque.',
         },
         {
           text: 'You got into my application!',

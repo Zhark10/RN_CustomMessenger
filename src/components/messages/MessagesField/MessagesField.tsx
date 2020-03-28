@@ -6,14 +6,18 @@ import {MessagesFieldStyles} from './S_MessagesField';
 import {useRefreshMessageStack} from '../../../utils/hooks/USE_RefreshMessageStack';
 import {Bubble} from '../Bubble/Bubble';
 
-const MessagesField: FC<TChatProps> = React.memo(
-  ({chatMiddleware, libraryInputData}) => {
+interface IProps extends TChatProps {
+  answerSize: number;
+}
+
+const MessagesField: FC<IProps> = React.memo(
+  ({chatMiddleware, libraryInputData, answerSize}) => {
     const {messages, typing} = useRefreshMessageStack(chatMiddleware);
 
     const {viewStyles} = libraryInputData;
 
     return (
-      <View style={MessagesFieldStyles.main}>
+      <View style={[MessagesFieldStyles.main, {height: answerSize}]}>
         <ScrollView
           decelerationRate="fast"
           showsVerticalScrollIndicator={false}

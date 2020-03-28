@@ -1,4 +1,3 @@
-import {Alert} from 'react-native';
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {TUseChatMiddleware} from './USE_ChatMiddleware';
@@ -10,7 +9,6 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     setAnswerFieldVisible,
     currentChatBotQuestion: {botMessage},
     messages,
-    refreshMessages,
   } = chatMiddleware;
 
   React.useEffect(() => {
@@ -26,6 +24,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
         },
       ]);
       const toShowNextMessage = setTimeout(() => {
+        setTyping(false);
         setIndex(currentIndex => currentIndex + 1);
       }, timeToShowNextMessage);
       return () => clearTimeout(toShowNextMessage);
