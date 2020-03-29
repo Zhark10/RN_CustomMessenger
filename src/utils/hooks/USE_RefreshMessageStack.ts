@@ -5,27 +5,26 @@ import shortid from 'shortid';
 
 export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const [index, setIndex] = React.useState(0);
-  const [typing, setTyping] = React.useState(false);
   const {
     setAnswerFieldVisible,
     currentChatBotQuestion: {botMessage},
     messages,
   } = chatMiddleware;
+  const isTyping = messages.length < botMessage.length;
+
 
   React.useEffect(() => {
     if (index < botMessage.length) {
       const timeToShowNextMessage = botMessage[index].text.length * 90;
-      setTyping(true);
-      chatMiddleware.refreshMessages(currentStack => [
-        ...currentStack,
-        {
-          id: shortid.generate(),
-          sender: 'chatBot',
-          text: botMessage[index].text,
-        },
-      ]);
       const toShowNextMessage = setTimeout(() => {
-        setTyping(false);
+        chatMiddleware.refreshMessages(currentStack => [
+          ...currentStack,
+          {
+            id: shortid.generate(),
+            sender: 'chatBot',
+            text: botMessage[index].text,
+          },
+        ]);
         setIndex(currentIndex => currentIndex + 1);
       }, timeToShowNextMessage);
       return () => clearTimeout(toShowNextMessage);
@@ -44,5 +43,5 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     }
   }, [messages]);
 
-  return {messages, typing};
+  return {messages, isTyping};
 };

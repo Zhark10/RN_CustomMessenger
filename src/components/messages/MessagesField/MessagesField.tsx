@@ -12,7 +12,7 @@ interface IProps extends TChatProps {
 
 const MessagesField: FC<IProps> = React.memo(
   ({chatMiddleware, libraryInputData, answerSize}) => {
-    const {messages, typing} = useRefreshMessageStack(chatMiddleware);
+    const {messages, isTyping} = useRefreshMessageStack(chatMiddleware);
 
     const {viewStyles} = libraryInputData;
 
@@ -43,7 +43,7 @@ const MessagesField: FC<IProps> = React.memo(
               </View>
             ))}
             <View style={{zIndex: 1}}>
-              {typing ? <Bubble viewStyles={viewStyles} /> : <></>}
+              {isTyping ? <Bubble viewStyles={viewStyles} /> : <></>}
             </View>
           </View>
         </ScrollView>
