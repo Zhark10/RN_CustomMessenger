@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {TMessageAddedInStack} from './../../store/T_ChatProvider';
 import {TOnlyOneMessageIteration} from '../../types';
 import {useContext, useState} from 'react';
@@ -40,29 +41,33 @@ export const useChatMiddleware = (
 
   const sendAnswer = React.useCallback(
     (answer: any) => {
+      let answerForSaving = answer;
       setAnswerFieldVisible(false);
+
+      if (typeof answer !== 'string') {
+        answerForSaving = answer.join(',');
+      }
 
       refreshChatInfo(currentState => ({
         ...currentState,
         [currentKeyForFormdata]: answer,
       }));
 
-      refreshMessages(currentStack => [
-        ...currentStack,
-        {
-          id: answer,
-          sender: 'me',
-          text: answer,
-        },
-      ]);
-
       if (isLastMessageInModel) {
         libraryInputData.events.endConversationEvent(savedChatInfo);
         return null;
       }
+      setNewMessageIndex(current => current + 1);
       const timeout = setTimeout(() => {
-        setNewMessageIndex(current => current + 1);
-      }, answer.length * 90);
+        refreshMessages(currentStack => [
+          ...currentStack,
+          {
+            id: answerForSaving,
+            sender: 'me',
+            text: answerForSaving,
+          },
+        ]);
+      }, answerForSaving.length * 45);
       return () => clearTimeout(timeout);
     },
     [

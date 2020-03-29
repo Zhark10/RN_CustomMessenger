@@ -22,24 +22,31 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     }
   }, [messages]);
 
+  const addedNewMessageInStack = React.useCallback(() => {
+    const timeToShowNextMessage = botMessage[index].text.length * 90;
+    const toShowNextMessage = setTimeout(() => {
+      setIndex(currentIndex => currentIndex + 1);
+      chatMiddleware.refreshMessages(currentStack => [
+        ...currentStack,
+        {
+          id: shortid.generate(),
+          sender: 'chatBot',
+          text: botMessage[index].text,
+        },
+      ]);
+    }, timeToShowNextMessage);
+    return () => clearTimeout(toShowNextMessage);
+  }, [index]);
+
   React.useEffect(() => {
     if (index < botMessage.length) {
-      const timeToShowNextMessage = botMessage[index].text.length * 90;
-      const toShowNextMessage = setTimeout(() => {
-        setIndex(currentIndex => currentIndex + 1);
-        chatMiddleware.refreshMessages(currentStack => [
-          ...currentStack,
-          {
-            id: shortid.generate(),
-            sender: 'chatBot',
-            text: botMessage[index].text,
-          },
-        ]);
-      }, timeToShowNextMessage);
-      return () => clearTimeout(toShowNextMessage);
-    } else {
-      setAnswerFieldVisible(true);
+      addedNewMessageInStack();
+      return () => {};
     }
+    const answerFieldShowByTime = setTimeout(() => {
+      setAnswerFieldVisible(true);
+    }, 3000);
+    return () => clearTimeout(answerFieldShowByTime);
   }, [index]);
 
   return {messages, isTyping};
