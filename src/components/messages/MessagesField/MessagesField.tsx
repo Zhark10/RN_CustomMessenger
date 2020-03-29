@@ -5,6 +5,7 @@ import {TChatProps} from '../../../types';
 import {MessagesFieldStyles} from './S_MessagesField';
 import {useRefreshMessageStack} from '../../../utils/hooks/USE_RefreshMessageStack';
 import {Bubble} from '../Bubble/Bubble';
+import {screenHeight} from '../../../utils/helpers/screen';
 
 interface IProps extends TChatProps {
   answerSize: number;
@@ -12,15 +13,26 @@ interface IProps extends TChatProps {
 
 const MessagesField: FC<IProps> = React.memo(
   ({chatMiddleware, libraryInputData, answerSize}) => {
-    const {messages, isTyping} = useRefreshMessageStack(chatMiddleware);
+    const {
+      messages,
+      isTyping,
+      autoScrollToEnd,
+      scrollView,
+    } = useRefreshMessageStack(chatMiddleware);
 
     const {viewStyles} = libraryInputData;
+
+    const emptyContentForAnimation = () => (
+      <View style={{height: screenHeight - 64, width: 0}} />
+    );
 
     return (
       <View style={[MessagesFieldStyles.main, {height: answerSize}]}>
         <ScrollView
+          ref={scrollView}
           decelerationRate="fast"
           showsVerticalScrollIndicator={false}
+          onContentSizeChange={autoScrollToEnd}
           contentContainerStyle={[
             MessagesFieldStyles.scrollViewContainer,
             {
@@ -28,6 +40,7 @@ const MessagesField: FC<IProps> = React.memo(
             },
           ]}
           style={MessagesFieldStyles.scrollView}>
+          {emptyContentForAnimation()}
           <View
             style={[
               MessagesFieldStyles.messageField,

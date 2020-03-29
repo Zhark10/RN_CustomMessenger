@@ -2,6 +2,7 @@
 import React from 'react';
 import {TUseChatMiddleware} from './USE_ChatMiddleware';
 import shortid from 'shortid';
+import {useAutoScrollMessages} from './USE_AutoScrollForMessages';
 
 export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const [index, setIndex] = React.useState(0);
@@ -10,6 +11,8 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     currentChatBotQuestion: {botMessage},
     messages,
   } = chatMiddleware;
+
+  const {autoScrollToEnd, scrollView} = useAutoScrollMessages();
   const isTyping = messages.length < botMessage.length;
 
   React.useEffect(() => {
@@ -45,9 +48,17 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     }
     const answerFieldShowByTime = setTimeout(() => {
       setAnswerFieldVisible(true);
-    }, 3000);
+      const autoscrollByTime = setTimeout(() => {
+        autoScrollToEnd();
+      }, 300);
+      return () => clearTimeout(autoscrollByTime);
+    }, 1500);
     return () => clearTimeout(answerFieldShowByTime);
   }, [index]);
 
-  return {messages, isTyping};
+  React.useEffect(() => {
+    autoScrollToEnd();
+  }, [index]);
+
+  return {messages, isTyping, autoScrollToEnd, scrollView};
 };
