@@ -14,19 +14,19 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
   const heightforChoice =
     numberOfCheckboxes === 1
       ? 80
-      : numberOfCheckboxes * 36 + (numberOfCheckboxes + 1) * 16;
+      : numberOfCheckboxes * 36 + (numberOfCheckboxes + 1) * 20;
 
   const heightforMultichoice =
     numberOfCheckboxes === 1
       ? 80
-      : numberOfCheckboxes * 36 + (numberOfCheckboxes + 1) * 16;
+      : numberOfCheckboxes * 36 + (numberOfCheckboxes + 1) * 20;
 
   const values = {
     [EAnswerType.INPUT]: 80,
     [EAnswerType.DATEPICKER]: 200,
     [EAnswerType.MULTICHOICE]: heightforMultichoice,
     [EAnswerType.CHOICE]: heightforChoice,
-    [EAnswerType.PHOTO]: 64,
+    [EAnswerType.PHOTO]: 78,
     [EAnswerType.BUTTON]: 78,
   };
   return values[myAnswerType];
