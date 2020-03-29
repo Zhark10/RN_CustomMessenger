@@ -45,7 +45,7 @@ export const useChatMiddleware = (
       setAnswerFieldVisible(false);
 
       if (typeof answer !== 'string') {
-        answerForSaving = answer.join(',');
+        answerForSaving = answer.join(', ');
       }
 
       refreshChatInfo(currentState => ({
@@ -57,8 +57,8 @@ export const useChatMiddleware = (
         libraryInputData.events.endConversationEvent(savedChatInfo);
         return null;
       }
-      setNewMessageIndex(current => current + 1);
       const timeout = setTimeout(() => {
+        setNewMessageIndex(current => current + 1);
         refreshMessages(currentStack => [
           ...currentStack,
           {
@@ -67,7 +67,7 @@ export const useChatMiddleware = (
             text: answerForSaving,
           },
         ]);
-      }, answerForSaving.length * 45);
+      }, answerForSaving.length * 100);
       return () => clearTimeout(timeout);
     },
     [

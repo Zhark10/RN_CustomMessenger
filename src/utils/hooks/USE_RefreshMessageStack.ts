@@ -6,6 +6,7 @@ import {useAutoScrollMessages} from './USE_AutoScrollForMessages';
 
 export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const [index, setIndex] = React.useState(0);
+  const [isTyping, setTyping] = React.useState(false);
   const {
     setAnswerFieldVisible,
     currentChatBotQuestion: {botMessage},
@@ -13,20 +14,20 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   } = chatMiddleware;
 
   const {autoScrollToEnd, scrollView} = useAutoScrollMessages();
-  const isTyping = messages.length < botMessage.length;
 
   React.useEffect(() => {
     const isLastMessageTypedMe =
       messages.length && messages[messages.length - 1].sender === 'me';
     if (isLastMessageTypedMe) {
-      const waitingTime = messages[messages.length - 1].text!.length * 90;
+      const waitingTime = messages[messages.length - 1].text!.length * 50 + 1500;
       const timer = setTimeout(() => setIndex(0), waitingTime);
       return () => clearTimeout(timer);
     }
   }, [messages]);
 
   const addedNewMessageInStack = React.useCallback(() => {
-    const timeToShowNextMessage = botMessage[index].text.length * 90;
+    const timeToShowNextMessage = botMessage[index].text.length * 50;
+    setTyping(true);
     const toShowNextMessage = setTimeout(() => {
       setIndex(currentIndex => currentIndex + 1);
       chatMiddleware.refreshMessages(currentStack => [
@@ -41,24 +42,26 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     return () => clearTimeout(toShowNextMessage);
   }, [index]);
 
-  React.useEffect(() => {
-    if (index < botMessage.length) {
-      addedNewMessageInStack();
-      return () => {};
-    }
+  const showAnswerField = React.useCallback(() => {
     const answerFieldShowByTime = setTimeout(() => {
       setAnswerFieldVisible(true);
       const autoscrollByTime = setTimeout(() => {
-        autoScrollToEnd();
-      }, 300);
+        setTyping(false);
+      }, 800);
       return () => clearTimeout(autoscrollByTime);
     }, 1500);
     return () => clearTimeout(answerFieldShowByTime);
   }, [index]);
 
   React.useEffect(() => {
-    autoScrollToEnd();
+    if (index < botMessage.length) {
+      addedNewMessageInStack();
+      return () => {};
+    }
+    showAnswerField();
   }, [index]);
+
+  autoScrollToEnd();
 
   return {messages, isTyping, autoScrollToEnd, scrollView};
 };

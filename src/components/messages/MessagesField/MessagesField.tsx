@@ -23,7 +23,7 @@ const MessagesField: FC<IProps> = React.memo(
     const {viewStyles} = libraryInputData;
 
     const emptyContentForAnimation = () => (
-      <View style={{height: screenHeight - 64, width: 0}} />
+      <View style={{height: screenHeight - 200, width: 0}} />
     );
 
     return (
