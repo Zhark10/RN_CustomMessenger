@@ -12,27 +12,6 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   } = chatMiddleware;
   const isTyping = messages.length < botMessage.length;
 
-
-  React.useEffect(() => {
-    if (index < botMessage.length) {
-      const timeToShowNextMessage = botMessage[index].text.length * 90;
-      const toShowNextMessage = setTimeout(() => {
-        chatMiddleware.refreshMessages(currentStack => [
-          ...currentStack,
-          {
-            id: shortid.generate(),
-            sender: 'chatBot',
-            text: botMessage[index].text,
-          },
-        ]);
-        setIndex(currentIndex => currentIndex + 1);
-      }, timeToShowNextMessage);
-      return () => clearTimeout(toShowNextMessage);
-    } else {
-      setAnswerFieldVisible(true);
-    }
-  }, [index]);
-
   React.useEffect(() => {
     const isLastMessageTypedMe =
       messages.length && messages[messages.length - 1].sender === 'me';
@@ -42,6 +21,26 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
       return () => clearTimeout(timer);
     }
   }, [messages]);
+
+  React.useEffect(() => {
+    if (index < botMessage.length) {
+      const timeToShowNextMessage = botMessage[index].text.length * 90;
+      const toShowNextMessage = setTimeout(() => {
+        setIndex(currentIndex => currentIndex + 1);
+        chatMiddleware.refreshMessages(currentStack => [
+          ...currentStack,
+          {
+            id: shortid.generate(),
+            sender: 'chatBot',
+            text: botMessage[index].text,
+          },
+        ]);
+      }, timeToShowNextMessage);
+      return () => clearTimeout(toShowNextMessage);
+    } else {
+      setAnswerFieldVisible(true);
+    }
+  }, [index]);
 
   return {messages, isTyping};
 };

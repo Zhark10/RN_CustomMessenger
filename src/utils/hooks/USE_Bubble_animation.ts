@@ -32,7 +32,7 @@ export const useTranslateXAnimation = (sender: ISender): Animation => {
   });
   const offsetYConfig = {
     toValue: 1,
-    duration: 350,
+    duration: 650,
     easing: Easing.inOut(Easing.ease),
   };
   const offsetXAnimation = timing(offsetX, offsetYConfig);
@@ -51,7 +51,7 @@ export const useTranslateYAnimation = (sender: ISender): Animation => {
   });
   const offsetYConfig = {
     toValue: 1,
-    duration: 350,
+    duration: 650,
     easing: Easing.inOut(Easing.ease),
   };
   const offsetYAnimation = timing(offsetY, offsetYConfig);
