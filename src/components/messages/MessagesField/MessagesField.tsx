@@ -33,11 +33,15 @@ const MessagesField: FC<IProps> = React.memo(
               MessagesFieldStyles.messageField,
               {backgroundColor: viewStyles.chatBackgroundColor},
             ]}>
-            <View style={{zIndex: 2}}>
-              {messages.map((message, key) => (
-                <Bubble key={key} message={message} viewStyles={viewStyles} />
-              ))}
-            </View>
+            {messages.map(message => (
+              <View style={{zIndex: 2}}>
+                <Bubble
+                  key={message.id}
+                  message={message}
+                  viewStyles={viewStyles}
+                />
+              </View>
+            ))}
             <View style={{zIndex: 1}}>
               {typing ? <Bubble viewStyles={viewStyles} /> : <></>}
             </View>

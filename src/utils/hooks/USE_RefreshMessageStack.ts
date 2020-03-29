@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {TUseChatMiddleware} from './USE_ChatMiddleware';
+import shortid from 'shortid';
 
 export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const [index, setIndex] = React.useState(0);
@@ -18,7 +19,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
       chatMiddleware.refreshMessages(currentStack => [
         ...currentStack,
         {
-          id: botMessage[index].text,
+          id: shortid.generate(),
           sender: 'chatBot',
           text: botMessage[index].text,
         },

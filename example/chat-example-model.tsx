@@ -22,8 +22,7 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text:
-            'Hi, man! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio numquam, error molestiae neque eius velit excepturi hic illo officia? Debitis, magni voluptate suscipit nulla a voluptates sequi nostrum cupiditate cumque.',
+          text: 'Hi, man!',
         },
         {
           text: 'You got into my application!',
