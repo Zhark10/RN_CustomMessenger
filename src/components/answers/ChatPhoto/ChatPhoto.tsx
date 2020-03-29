@@ -1,23 +1,25 @@
-import React, { FC } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { ChatPhotoStyles } from './S_ChatPhoto';
-import { TChatProps } from '../../../types';
-import { ButtonComponent } from '../../shared/buttons/ButtonComponent';
+import React, {FC} from 'react';
+import {View, TouchableOpacity} from 'react-native';
+import {ChatPhotoStyles} from './S_ChatPhoto';
+import {TChatProps} from '../../../types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ChatPhoto: FC<TChatProps> = React.memo(
-  ({ chatMiddleware, libraryInputData }) => {
+  ({chatMiddleware, libraryInputData}) => {
     const onPress = React.useCallback(() => {
       chatMiddleware.sendAnswer('hereWillBePhotoToBase64');
     }, [chatMiddleware]);
 
-    const { answerFieldColor, chatBackgroundColor } = libraryInputData.viewStyles;
+    const {chatBackgroundColor, buttonColor} = libraryInputData.viewStyles;
 
     return (
       <View
-        style={[ChatPhotoStyles.main, { backgroundColor: chatBackgroundColor }]}>
-        <TouchableOpacity activeOpacity={1} onPress={onPress} style={[ChatPhotoStyles.button, { borderColor: answerFieldColor }]}>
-          <Icon name="camera" size={28} color={answerFieldColor} />
+        style={[ChatPhotoStyles.main, {backgroundColor: chatBackgroundColor}]}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={onPress}
+          style={[ChatPhotoStyles.button, {borderColor: buttonColor}]}>
+          <Icon name="camera" size={28} color={buttonColor} />
         </TouchableOpacity>
       </View>
     );

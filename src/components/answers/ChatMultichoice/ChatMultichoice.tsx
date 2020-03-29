@@ -10,7 +10,7 @@ const ChatMultichoice: FC<TChatProps> = React.memo(
     const values = chatMiddleware!.currentChatBotQuestion!.myAnswer!
       .MULTICHOICE!.checkboxTitles!;
 
-    const {answerFieldColor, chatBackgroundColor} = libraryInputData.viewStyles;
+    const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
 
     const onValueChange = (title: string) => {
       if (selected.some(elem => elem === title)) {
@@ -40,7 +40,7 @@ const ChatMultichoice: FC<TChatProps> = React.memo(
         <ButtonComponent
           title={'ОК'}
           fontFamily="Roboto"
-          mainColor={chatBackgroundColor}
+          mainColor={buttonColor}
           secondColor={answerFieldColor}
           onPress={onPress}
           type="light"

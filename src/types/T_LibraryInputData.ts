@@ -12,6 +12,7 @@ export type TViewStyles = {
   headerTitleColor: string;
   chatBackgroundColor: string;
   answerFieldColor: string;
+  buttonColor: string;
   bubblesConfigForMe: {
     textColor: string;
     backgroundColor: string;

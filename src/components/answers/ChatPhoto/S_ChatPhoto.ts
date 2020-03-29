@@ -5,6 +5,7 @@ export const ChatPhotoStyles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   button: {
     borderRadius: 50,

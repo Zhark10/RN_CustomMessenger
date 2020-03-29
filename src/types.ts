@@ -11,6 +11,7 @@ export const EAnswerType = {
   MULTICHOICE: 'MULTICHOICE',
   PHOTO: 'PHOTO',
   DATEPICKER: 'DATEPICKER',
+  BUTTON: 'BUTTON',
 };
 
 export interface IMessage {
@@ -42,12 +43,20 @@ export interface IInputPhoto {
   buttonFunc: (photos: any[]) => void;
 }
 
+export interface IButtonAnswer {
+  keyForFormData: string;
+  title: string;
+  buttonFunc: () => void;
+}
+
+
 export interface IAnswer {
   INPUT?: IInputAnswer;
   CHOICE?: IChoiceAnswer;
   MULTICHOICE?: IMultichoiceAnswer;
   PHOTO?: IInputPhoto;
   DATEPICKER?: IInputAnswer;
+  BUTTON?: IButtonAnswer;
   [key: string]: any;
 }
 

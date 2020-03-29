@@ -26,7 +26,8 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
     [EAnswerType.DATEPICKER]: 200,
     [EAnswerType.MULTICHOICE]: heightforMultichoice,
     [EAnswerType.CHOICE]: heightforChoice,
-    [EAnswerType.PHOTO]: 48,
+    [EAnswerType.PHOTO]: 64,
+    [EAnswerType.BUTTON]: 78,
   };
   return values[myAnswerType];
 };
