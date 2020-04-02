@@ -113,11 +113,6 @@ export const usePhotoService = (cb: (data: string[]) => void) => {
       return () => {};
     }
     if (everyonePhotosUploaded) {
-      // const resetStatesByTime = setTimeout(() => {
-      //   refreshUploadedPhoto([]);
-      //   setPhotoLimit(0);
-      // }, 200);
-      // return () => clearTimeout(resetStatesByTime);
       cb(photosUploaded);
       return () => {};
     }
