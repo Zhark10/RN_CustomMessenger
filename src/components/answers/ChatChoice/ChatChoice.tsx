@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
-import {View, CheckBox, Text} from 'react-native';
+import {View, Text} from 'react-native';
+import CheckBox from 'react-native-check-box';
 import {ChatChoiceStyles} from './S_ChatChoice';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
@@ -29,9 +30,11 @@ const ChatChoice: FC<TChatProps> = React.memo(
         {values.map(title => (
           <View key={title} style={ChatChoiceStyles.checkboxBlock}>
             <CheckBox
-              onValueChange={() => onValueChange(title)}
-              value={selected === title}
+              onClick={() => onValueChange(title)}
+              isChecked={selected === title}
               disabled={false}
+              checkedCheckBoxColor={buttonColor}
+              uncheckedCheckBoxColor={'#797979'}
             />
             <Text style={ChatChoiceStyles.checkboxText}>{title}</Text>
           </View>

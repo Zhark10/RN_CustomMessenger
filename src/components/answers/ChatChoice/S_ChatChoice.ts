@@ -7,12 +7,14 @@ export const ChatChoiceStyles = StyleSheet.create({
     padding: 16,
   },
   checkboxBlock: {
+    marginLeft: 4,
+    marginVertical: 6,
+    height: 22,
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
   checkboxText: {
-    margin: 2,
-    marginLeft: 8,
+    marginLeft: 11,
     fontSize: 18,
   },
 });
