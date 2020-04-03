@@ -6,7 +6,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint './src/**/*.{js,ts,tsx}' --fix"
+
   },
   "dependencies": {
     "@react-native-community/art": "^1.2.0",
