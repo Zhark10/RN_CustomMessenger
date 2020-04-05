@@ -19,7 +19,9 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     const isLastMessageTypedMe =
       messages.length && messages[messages.length - 1].sender === 'me';
     if (isLastMessageTypedMe) {
-      const waitingTime = messages[messages.length - 1].text!.length * 50 + 1500;
+      const waitingTime = messages[messages.length - 1].text
+        ? messages[messages.length - 1].text!.length * 50 + 1500
+        : 1000;
       const timer = setTimeout(() => setIndex(0), waitingTime);
       return () => clearTimeout(timer);
     }

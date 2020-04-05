@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {TMessageAddedInStack} from './../../store/T_ChatProvider';
+import {TMessageAddedInStack} from '../../store/T_ChatProvider';
 import {TOnlyOneMessageIteration} from '../../types';
 import {useContext, useState} from 'react';
 import {ChatContext} from '../../store/ChatProvider';
@@ -9,7 +8,11 @@ import React from 'react';
 export type TUseChatMiddleware = {
   currentChatBotQuestion: TOnlyOneMessageIteration;
   messageIndex: number;
-  sendAnswer: (answer: any) => void;
+  sendAnswer: (
+    answer: any,
+    type: EBubbleType,
+    sendAnswerOutput?: boolean,
+  ) => void;
   answerFieldVisible: boolean;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
   savedChatInfo: TOutputData;
@@ -17,6 +20,12 @@ export type TUseChatMiddleware = {
   refreshMessages: React.Dispatch<React.SetStateAction<TMessageAddedInStack[]>>;
   messages: TMessageAddedInStack[];
 };
+
+export enum EBubbleType {
+  TEXT = 'TEXT',
+  PHOTO = 'PHOTO',
+  DOUBLE_PHOTO = 'DOUBLE_PHOTO',
+}
 
 export const useChatMiddleware = (
   libraryInputData: TLibraryInputData,
@@ -39,8 +48,30 @@ export const useChatMiddleware = (
   const currentKeyForFormdata =
     currentChatBotQuestion.myAnswer[myAnswerType].keyForFormData;
 
+  const dto = (answer: any, type: EBubbleType, answerForSaving: any) => {
+    const answerDto: TMessageAddedInStack = {
+      id: answerForSaving,
+      sender: 'me',
+    };
+
+    const additionalFields = {
+      [EBubbleType.TEXT]: () => {
+        answerDto.text = answer;
+      },
+      [EBubbleType.PHOTO]: () => {
+        answerDto.picture = answer;
+      },
+      [EBubbleType.DOUBLE_PHOTO]: () => {
+        answerDto.twoSidePicture = answer;
+      },
+    };
+    additionalFields[type]();
+
+    return answerDto;
+  };
+
   const sendAnswer = React.useCallback(
-    (answer: any) => {
+    (answer: any, type: EBubbleType, sendAnswerOutput?: boolean) => {
       let answerForSaving = answer;
       setAnswerFieldVisible(false);
 
@@ -48,25 +79,27 @@ export const useChatMiddleware = (
         answerForSaving = answer.join(', ');
       }
 
-      refreshChatInfo(currentState => ({
-        ...currentState,
-        [currentKeyForFormdata]: answer,
-      }));
+      const answerDto = dto(answer, type, answerForSaving);
 
-      if (isLastMessageInModel) {
-        libraryInputData.events.endConversationEvent(savedChatInfo);
-        return null;
-      }
+      refreshChatInfo(currentState => {
+        const dataForSaving = {
+          ...currentState,
+          [currentKeyForFormdata]: answer,
+        };
+
+        if (sendAnswerOutput) {
+          libraryInputData.events.answerSended(dataForSaving);
+        }
+        return dataForSaving;
+      });
+
       const timeout = setTimeout(() => {
-        setNewMessageIndex(current => current + 1);
-        refreshMessages(currentStack => [
-          ...currentStack,
-          {
-            id: answerForSaving,
-            sender: 'me',
-            text: answerForSaving,
-          },
-        ]);
+        if (!isLastMessageInModel) {
+          setNewMessageIndex(current => current + 1);
+        } else {
+          libraryInputData.events.endConversationEvent(savedChatInfo);
+        }
+        refreshMessages(currentStack => [...currentStack, answerDto]);
       }, answerForSaving.length * 100);
       return () => clearTimeout(timeout);
     },

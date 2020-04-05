@@ -1,12 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
-import {View, Text, ViewStyle, TextStyle, Alert} from 'react-native';
+import {View, Text, ViewStyle, TextStyle, Image} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {DotsLoader} from 'react-native-indicator';
 import {isIos} from '../../../utils/helpers/platform';
 import {useBubbleAnimation} from '../../../utils/hooks/USE_Bubble_animation';
 import {TMessageAddedInStack} from '../../../store/T_ChatProvider';
 import {TViewStyles} from '../../../types/T_LibraryInputData';
+import {BubbleStyles} from './S_Bubble';
 
 interface IBubbleProps {
   message?: TMessageAddedInStack;
@@ -17,20 +18,24 @@ interface IBubbleProps {
 
 export const Bubble: React.FC<IBubbleProps> = ({
   message,
-  viewStyles: {bubblesConfigForBot, bubblesConfigForMe},
+  viewStyles: {
+    bubblesConfigForBot,
+    bubblesConfigForMe,
+    chatBackgroundColor,
+    buttonColor,
+  },
   wrapperStyles = {},
   messageTextStyles = {},
 }) => {
-  const sender = message?.sender || 'chatBot'
+  const sender = (message && message.sender) || 'chatBot';
   const translateY = useBubbleAnimation.translateY(sender);
   const scale = useBubbleAnimation.scale();
 
-  const animationStyles =
-    (isIos
-      ? {
-          transform: [{translateY: translateY.value}],
-        }
-      : {translateY: translateY.value});
+  const animationStyles = isIos
+    ? {
+        transform: [{translateY: translateY.value}],
+      }
+    : {translateY: translateY.value};
 
   const isBot = sender === 'chatBot';
 
@@ -48,6 +53,8 @@ export const Bubble: React.FC<IBubbleProps> = ({
           flexDirection: 'row',
           backgroundColor: isBot
             ? bubblesConfigForBot.backgroundColor
+            : message!.twoSidePicture
+            ? chatBackgroundColor
             : bubblesConfigForMe.backgroundColor,
           marginHorizontal: 24,
           borderRadius: 16,
@@ -62,7 +69,7 @@ export const Bubble: React.FC<IBubbleProps> = ({
             }}>
             <DotsLoader color={bubblesConfigForBot.textColor} size={12} />
           </View>
-        ) : (
+        ) : message.text ? (
           <Text
             style={{
               fontSize: 14,
@@ -74,11 +81,32 @@ export const Bubble: React.FC<IBubbleProps> = ({
                 ? bubblesConfigForBot.textColor
                 : bubblesConfigForMe.textColor,
               alignSelf: 'center',
-              minWidth: 72,
               ...messageTextStyles,
             }}>
             {message!.text}
           </Text>
+        ) : message.picture ? (
+          <Image
+            source={message!.picture[0]}
+            style={[BubbleStyles.onlyPicture, {borderColor: buttonColor}]}
+          />
+        ) : (
+          <View style={BubbleStyles.doublePicture}>
+            <Image
+              source={message!.twoSidePicture[0]}
+              style={[
+                BubbleStyles.firstPictureInDoubleBox,
+                {borderColor: buttonColor},
+              ]}
+            />
+            <Image
+              source={message!.twoSidePicture[1]}
+              style={[
+                BubbleStyles.secondPictureInDoubleBox,
+                {borderColor: buttonColor},
+              ]}
+            />
+          </View>
         )}
       </View>
     </Animated.View>

@@ -7,21 +7,17 @@ import ImagePicker, {
 import {PermissionsAndroid} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import {isIos} from '../helpers/platform';
+import {IPhotoType} from '../../types';
 
-export const usePhotoService = (cb: (data: string[]) => void) => {
+export const usePhotoService = (
+  sendAnswerCallback: (data: string[]) => void,
+  startSendingCallback: () => any,
+  sendInVeriffCallback: (data: string, photoType: IPhotoType) => any,
+) => {
   const [permissionDenied, setPermissionDenied] = React.useState(false);
-  const [photosUploaded, refreshUploadedPhoto] = React.useState<string[]>([]);
+  const [photosUploaded, refreshUploadedPhoto] = React.useState<any[]>([]);
+  const [photoIndex, setPhotoIndex] = React.useState(0);
   const [photoLimit, setPhotoLimit] = React.useState(0);
-
-  const createFormData = (fileName: string, type: string, uri: string) => {
-    const data: any = new FormData();
-    data.append('file', {
-      name: fileName,
-      type,
-      uri: isIos ? uri.replace('file://', '') : uri,
-    });
-    return data;
-  };
 
   const savePhoto = async ({type, uri}: ImagePickerResponse) => {
     if (type && uri) {
@@ -30,7 +26,6 @@ export const usePhotoService = (cb: (data: string[]) => void) => {
         type,
         uri,
       };
-      const blob = createFormData(uri, type, uri);
       refreshUploadedPhoto(currentPhotos => [...currentPhotos, pictureData]);
     }
   };
@@ -49,9 +44,20 @@ export const usePhotoService = (cb: (data: string[]) => void) => {
     };
 
     const openPhotoModal = () => {
+      startSendingCallback();
       ImagePicker.launchCamera(options, (response: ImagePickerResponse) => {
         if (response.didCancel || response.error) {
           return null;
+        }
+
+        const base64 = 'data:image/png;base64,' + response.data;
+        if (photoLimit === 2 && photoIndex === 0) {
+          sendInVeriffCallback(base64, 'document-front');
+          setPhotoIndex(1);
+        } else if (photoIndex === 1) {
+          sendInVeriffCallback(base64, 'document-back');
+        } else {
+          sendInVeriffCallback(base64, 'face');
         }
         savePhoto(response);
       });
@@ -113,7 +119,7 @@ export const usePhotoService = (cb: (data: string[]) => void) => {
       return () => {};
     }
     if (everyonePhotosUploaded) {
-      cb(photosUploaded);
+      sendAnswerCallback(photosUploaded);
       return () => {};
     }
     (async () => {

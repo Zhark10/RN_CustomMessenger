@@ -14,12 +14,12 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
   const heightforChoice =
     numberOfCheckboxes === 1
       ? 80
-      : numberOfCheckboxes * 36 + (numberOfCheckboxes + 1) * 20;
+      : numberOfCheckboxes * 40 + (numberOfCheckboxes + 1) * 20;
 
   const heightforMultichoice =
     numberOfCheckboxes === 1
       ? 80
-      : numberOfCheckboxes * 36 + (numberOfCheckboxes + 1) * 20;
+      : numberOfCheckboxes * 40 + (numberOfCheckboxes + 1) * 20;
 
   const values = {
     [EAnswerType.INPUT]: 80,

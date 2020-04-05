@@ -30,7 +30,7 @@ const MessagesField: FC<IProps> = React.memo(
       <View style={[MessagesFieldStyles.main, {height: answerSize}]}>
         <ScrollView
           ref={scrollView}
-          decelerationRate="fast"
+          decelerationRate="normal"
           showsVerticalScrollIndicator={false}
           onContentSizeChange={autoScrollToEnd}
           contentContainerStyle={[
