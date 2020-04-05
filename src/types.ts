@@ -22,26 +22,30 @@ export interface IMessage {
 
 export interface IInputAnswer {
   keyForFormData: string;
-  buttonFunc: (inputText: string) => void;
+  buttonFunc: (inputText?: string) => void;
+  sendAnswerOutput?: boolean;
 }
 
 export interface IChoiceAnswer {
   keyForFormData: string;
   checkboxTitles: string[];
-  buttonFunc: (selectedValue: string) => void;
+  buttonFunc: (selectedValue?: string) => void;
 }
 
 export interface IMultichoiceAnswer {
   keyForFormData: string;
   checkboxTitles: string[];
-  buttonFunc: (selectedValues: string[]) => void;
+  buttonFunc: (selectedValues?: string[]) => void;
 }
 
-export interface IInputPhoto {
+export interface IPhotoAnswer {
   keyForFormData: string;
   numbersOfPhoto: 'two' | 'one';
-  buttonFunc: (photos: any[]) => void;
+  startFunc: () => void;
+  endFunc: (base64: string, photoType: IPhotoType) => void;
 }
+
+export type IPhotoType = 'face' | 'document-front' | 'document-back';
 
 export interface IButtonAnswer {
   keyForFormData: string;
@@ -49,12 +53,11 @@ export interface IButtonAnswer {
   buttonFunc: () => void;
 }
 
-
 export interface IAnswer {
   INPUT?: IInputAnswer;
   CHOICE?: IChoiceAnswer;
   MULTICHOICE?: IMultichoiceAnswer;
-  PHOTO?: IInputPhoto;
+  PHOTO?: IPhotoAnswer;
   DATEPICKER?: IInputAnswer;
   BUTTON?: IButtonAnswer;
   [key: string]: any;

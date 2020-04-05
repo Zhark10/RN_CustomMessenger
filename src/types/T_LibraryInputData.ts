@@ -35,4 +35,5 @@ export type TOutputData = {[keyForFormData: string]: string};
 export type TMessangerEvents = {
   startConversationEvent: () => void;
   endConversationEvent: (outputData: TOutputData) => void;
+  answerSended: (outputData: TOutputData) => void;
 };
