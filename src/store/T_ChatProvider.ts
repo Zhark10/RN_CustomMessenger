@@ -15,7 +15,8 @@ export type TMessageAddedInStack = {
   id: number | string;
   sender: ISender;
   text?: string;
-  picture?: string;
+  picture?: any;
+  twoSidePicture?: any;
   emoji?: string;
 };
 

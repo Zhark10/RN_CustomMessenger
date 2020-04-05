@@ -1,15 +1,16 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
-import CheckBox from 'react-native-check-box';
 import {ChatChoiceStyles} from './S_ChatChoice';
 import {TChatProps} from '../../../types';
+import CheckBox from 'react-native-check-box';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
+import {EBubbleType} from '../../../../../chat/src/utils/hooks/USE_ChatMiddleware';
 
 const ChatChoice: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData}) => {
-    const [selected, refreshSelected] = React.useState<string>('');
     const values = chatMiddleware!.currentChatBotQuestion!.myAnswer!.CHOICE!
       .checkboxTitles!;
+    const [selected, refreshSelected] = React.useState<string>(values[0]);
 
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
 
@@ -22,7 +23,7 @@ const ChatChoice: FC<TChatProps> = React.memo(
     };
 
     const onPress = React.useCallback(() => {
-      chatMiddleware.sendAnswer(selected);
+      chatMiddleware.sendAnswer(selected.toUpperCase(), EBubbleType.TEXT);
     }, [chatMiddleware, selected]);
 
     return (

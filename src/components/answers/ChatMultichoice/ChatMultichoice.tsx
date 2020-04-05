@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {ChatMultichoiceStyles} from './S_ChatMultichoice';
 import {TChatProps} from '../../../types';
-import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import CheckBox from 'react-native-check-box';
+import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 
 const ChatMultichoice: FC<TChatProps> = React.memo(
   ({libraryInputData, chatMiddleware}) => {
@@ -24,7 +24,7 @@ const ChatMultichoice: FC<TChatProps> = React.memo(
     };
 
     const onPress = React.useCallback(() => {
-      chatMiddleware.sendAnswer(selected);
+      chatMiddleware.sendAnswer(selected, EBubbleType.TEXT);
     }, [chatMiddleware, selected]);
     return (
       <View style={ChatMultichoiceStyles.main}>

@@ -3,13 +3,14 @@ import {View} from 'react-native';
 import {ChatButtonStyles} from './S_ChatButton';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
+import { EBubbleType } from '../../../../../chat/src/utils/hooks/USE_ChatMiddleware';
 
 const ChatButton: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData}) => {
     const title = chatMiddleware!.currentChatBotQuestion!.myAnswer!.BUTTON!
       .title!;
     const onPress = React.useCallback(() => {
-      chatMiddleware.sendAnswer(title);
+      chatMiddleware.sendAnswer(title, EBubbleType.TEXT);
     }, [chatMiddleware, title]);
 
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
