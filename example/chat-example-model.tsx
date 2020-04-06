@@ -9,6 +9,7 @@ const example: TLibraryInputData = {
     headerTitleColor: '#fff',
     chatBackgroundColor: '#000',
     answerFieldColor: '#6b6b6b',
+    buttonColor: 'yellow',
     bubblesConfigForBot: {
       backgroundColor: '#6b6b6b',
       textColor: 'white',
@@ -33,8 +34,8 @@ const example: TLibraryInputData = {
       ],
       myAnswer: {
         INPUT: {
-          keyForFormData: 'name',
-          buttonFunc: text => Alert.alert(text),
+          keyForFormData: 'firstName',
+          buttonFunc: () => {},
         },
       },
     },
@@ -48,7 +49,7 @@ const example: TLibraryInputData = {
         CHOICE: {
           keyForFormData: 'gender',
           checkboxTitles: ['male', 'female', 'other0', 'other1'],
-          buttonFunc: value => Alert.alert(value),
+          buttonFunc: () => {},
         },
       },
     },
@@ -62,7 +63,7 @@ const example: TLibraryInputData = {
         MULTICHOICE: {
           keyForFormData: 'selections',
           checkboxTitles: ['select_1', 'select_2', 'select_3', 'select_4'],
-          buttonFunc: value => Alert.alert(value[0]),
+          buttonFunc: () => {},
         },
       },
     },
@@ -75,7 +76,7 @@ const example: TLibraryInputData = {
       myAnswer: {
         INPUT: {
           keyForFormData: 'some_text',
-          buttonFunc: text => Alert.alert(text),
+          buttonFunc: text => Alert.alert(text!),
         },
       },
     },
@@ -89,7 +90,10 @@ const example: TLibraryInputData = {
         PHOTO: {
           keyForFormData: 'photo',
           numbersOfPhoto: 'two',
-          buttonFunc: photo => Alert.alert(photo + ''),
+          startFunc: () => {},
+          endFunc: (base64, photoType) => {
+            Alert.alert(`${base64}:${photoType}`);
+          },
         },
       },
     },
@@ -97,6 +101,7 @@ const example: TLibraryInputData = {
   events: {
     startConversationEvent: () => Alert.alert('Chat started'),
     endConversationEvent: () => Alert.alert('Chat ended'),
+    answerSended: data => console.log('formData for token (example)', data),
   },
 };
 
