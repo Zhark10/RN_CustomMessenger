@@ -1,10 +1,12 @@
 
-## Offline chat that you can use in your projects for interesting registration, surveys and other purposes.
+## Custom messanger for react-native projects (beta -v)
 
-### The chat has custom fields for answering bot questions:
+### Offline chat that you can use in your projects for interesting registration, surveys and other purposes.
+
+### The chat has custom fields for answering chatbot-questions:
 - multiple choice
 - select one item from the list
-- entry field
+- input field
 - action
 - button
 - upload photo
