@@ -14,7 +14,6 @@
     "@react-native-community/art": "^1.2.0",
     "@types/react-native-check-box": "^2.1.1",
     "@types/react-native-vector-icons": "^6.4.5",
-    "mem": "^4.0.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-check-box": "^2.1.7",
@@ -66,5 +65,5 @@
     "url": "https://github.com/Zhark10/custom-messanger-react-native/issues"
   },
   "homepage": "https://github.com/Zhark10/custom-messanger-react-native#readme",
-  "description": ""
+  "description": "Offline chat that you can use in your projects for interesting registration, surveys and other purposes."
 }

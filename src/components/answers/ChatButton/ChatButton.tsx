@@ -3,7 +3,7 @@ import {View} from 'react-native';
 import {ChatButtonStyles} from './S_ChatButton';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
-import { EBubbleType } from '../../../../../chat/src/utils/hooks/USE_ChatMiddleware';
+import {EBubbleType} from '../../../../src/utils/hooks/USE_ChatMiddleware';
 
 const ChatButton: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData}) => {

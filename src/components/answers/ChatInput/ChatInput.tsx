@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
-import { TextInput, View } from 'react-native';
-import { ChatInputStyles } from './S_ChatInput';
-import { TChatProps } from '../../../types';
-import { EBubbleType } from '../../../../../chat/src/utils/hooks/USE_ChatMiddleware';
+import React, {FC} from 'react';
+import {TextInput, View} from 'react-native';
+import {ChatInputStyles} from './S_ChatInput';
+import {TChatProps} from '../../../types';
 import SimpleToast from 'react-native-simple-toast';
+import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
-
-const ChatInput: FC<TChatProps> = React.memo(({ chatMiddleware }) => {
-  const inputQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer.INPUT!;
+const ChatInput: FC<TChatProps> = React.memo(({chatMiddleware}) => {
+  const inputQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer
+    .INPUT!;
   const isNeedSended = inputQuestionData.sendAnswerOutput;
   const [text, setText] = React.useState('');
   const isValidated = text.length > 0 && text.length < 50;
