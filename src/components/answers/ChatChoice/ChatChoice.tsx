@@ -1,10 +1,11 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {ChatChoiceStyles} from './S_ChatChoice';
 import {TChatProps} from '../../../types';
-import CheckBox from 'react-native-check-box';
+import ScrollPicker from '../../../../../scroll-picker/scroll-picker';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
-import {EBubbleType} from '../../../../../chat/src/utils/hooks/USE_ChatMiddleware';
+import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
 const ChatChoice: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData}) => {
@@ -28,18 +29,31 @@ const ChatChoice: FC<TChatProps> = React.memo(
 
     return (
       <View style={ChatChoiceStyles.main}>
-        {values.map(title => (
-          <View key={title} style={ChatChoiceStyles.checkboxBlock}>
-            <CheckBox
-              onClick={() => onValueChange(title)}
-              isChecked={selected === title}
-              disabled={false}
-              checkedCheckBoxColor={buttonColor}
-              uncheckedCheckBoxColor={'#797979'}
-            />
-            <Text style={ChatChoiceStyles.checkboxText}>{title}</Text>
-          </View>
-        ))}
+        <View
+          style={{
+            height: 100,
+            alignItems: 'center',
+          }}>
+          <ScrollPicker
+            dataSource={values}
+            selectedIndex={0}
+            itemHeight={40}
+            wrapperHeight={100}
+            wrapperColor={answerFieldColor}
+            highlightColor={buttonColor}
+            renderItem={(data: string, index: number, isSelected: boolean) => (
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: isSelected ? '#4F4E4E' : '#C3C3C3',
+                }}>
+                {data}
+              </Text>
+            )}
+            onValueChange={onValueChange}
+          />
+        </View>
+
         <ButtonComponent
           title={'ОК'}
           fontFamily="Roboto"

@@ -4,7 +4,7 @@ import {ChatMultichoiceStyles} from './S_ChatMultichoice';
 import {TChatProps} from '../../../types';
 import CheckBox from 'react-native-check-box';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
-import {EBubbleType} from 'src/utils/hooks/USE_ChatMiddleware';
+import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
 const ChatMultichoice: FC<TChatProps> = React.memo(
   ({libraryInputData, chatMiddleware}) => {

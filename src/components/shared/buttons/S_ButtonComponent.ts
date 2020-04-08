@@ -12,5 +12,6 @@ export const ButtonComponentStyles = StyleSheet.create({
   title: {
     fontSize: 20,
     lineHeight: 30,
+    paddingHorizontal: 12,
   },
 });

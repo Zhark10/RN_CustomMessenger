@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const ChatChoiceStyles = StyleSheet.create({
   main: {
@@ -12,6 +12,7 @@ export const ChatChoiceStyles = StyleSheet.create({
     height: 22,
     flexDirection: 'row',
     alignItems: 'flex-end',
+    textAlign: 'center',
   },
   checkboxText: {
     marginLeft: 11,

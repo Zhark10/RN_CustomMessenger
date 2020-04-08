@@ -1,4 +1,4 @@
-import {ISender} from './../../store/T_ChatProvider';
+import {ISender} from '../../store/T_ChatProvider';
 import React from 'react';
 import Animated, {Easing} from 'react-native-reanimated';
 import {screenWidth} from '../helpers/screen';

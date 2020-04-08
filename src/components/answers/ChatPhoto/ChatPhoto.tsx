@@ -3,8 +3,8 @@ import {View, TouchableOpacity} from 'react-native';
 import {ChatPhotoStyles} from './S_ChatPhoto';
 import {TChatProps} from '../../../types';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {usePhotoService} from '../../../utils/hooks/USE_PhotoService';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
+import {usePhotoService} from '../../../utils/hooks/USE_PhotoService';
 
 const ChatPhoto: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData}) => {
