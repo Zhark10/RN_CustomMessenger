@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {ChatChoiceStyles} from './S_ChatChoice';
 import {TChatProps} from '../../../types';
-import ScrollPicker from '../../../../../scroll-picker/scroll-picker';
+import ScrollPicker from '../../../libs/scroll-picker/scroll-picker';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
