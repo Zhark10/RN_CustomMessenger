@@ -72,8 +72,8 @@ export const useChatMiddleware = (
 
   const sendAnswer = React.useCallback(
     (answer: any, type: EBubbleType, sendAnswerOutput?: boolean) => {
-      let answerForSaving = answer;
       setAnswerFieldVisible(false);
+      let answerForSaving = answer;
 
       if (typeof answer !== 'string') {
         answerForSaving = answer.join(', ');
@@ -111,6 +111,7 @@ export const useChatMiddleware = (
       refreshMessages,
       savedChatInfo,
       setNewMessageIndex,
+      setAnswerFieldVisible,
     ],
   );
 

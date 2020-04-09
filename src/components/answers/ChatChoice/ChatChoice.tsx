@@ -44,6 +44,7 @@ const ChatChoice: FC<TChatProps> = React.memo(
             renderItem={(data: string, index: number, isSelected: boolean) => (
               <Text
                 style={{
+                  fontFamily: 'Circe-Regular',
                   fontSize: 20,
                   color: isSelected ? '#4F4E4E' : '#C3C3C3',
                 }}>

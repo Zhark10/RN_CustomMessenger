@@ -3,6 +3,8 @@ import React from 'react';
 import {TUseChatMiddleware} from './USE_ChatMiddleware';
 import shortid from 'shortid';
 import {useAutoScrollMessages} from './USE_AutoScrollForMessages';
+import {isIos} from '../helpers/platform';
+import {Keyboard} from 'react-native';
 
 export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const [index, setIndex] = React.useState(0);
@@ -14,6 +16,20 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   } = chatMiddleware;
 
   const {autoScrollToEnd, scrollView} = useAutoScrollMessages();
+
+  React.useEffect(() => {
+    const keyboardShowListener = isIos ? 'keyboardWillShow' : 'keyboardDidShow';
+    const keyboardDidShowListener = Keyboard.addListener(
+      keyboardShowListener,
+      () => {
+        const scrollByTime = setTimeout(autoScrollToEnd, 500);
+        return () => clearTimeout(scrollByTime);
+      },
+    );
+    return () => {
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   React.useEffect(() => {
     const isLastMessageTypedMe =
@@ -47,11 +63,11 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const showAnswerField = React.useCallback(() => {
     const answerFieldShowByTime = setTimeout(() => {
       setAnswerFieldVisible(true);
-      const autoscrollByTime = setTimeout(() => {
+      const cancelTypingByTime = setTimeout(() => {
         setTyping(false);
-      }, 800);
-      return () => clearTimeout(autoscrollByTime);
-    }, 1500);
+      }, 400);
+      return () => clearTimeout(cancelTypingByTime);
+    }, 2000);
     return () => clearTimeout(answerFieldShowByTime);
   }, [index]);
 
@@ -62,8 +78,6 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     }
     showAnswerField();
   }, [index]);
-
-  autoScrollToEnd();
 
   return {messages, isTyping, autoScrollToEnd, scrollView};
 };

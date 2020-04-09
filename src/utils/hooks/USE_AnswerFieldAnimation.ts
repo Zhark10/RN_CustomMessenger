@@ -11,7 +11,7 @@ export const useAnswerFieldAnimation = (
 
   const scaleConfig = {
     toValue: answerFieldVisible ? answerHeight : 0,
-    duration: 350,
+    duration: 250,
     easing: Easing.inOut(Easing.ease),
   };
   const scaleAnim = timing(offsetValue, scaleConfig);

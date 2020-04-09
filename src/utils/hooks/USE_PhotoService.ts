@@ -32,10 +32,7 @@ export const usePhotoService = (
 
   const uploadPhoto = async () => {
     const options: ImagePickerOptions = {
-      title: 'Фото',
-      cancelButtonTitle: 'Отмена',
-      takePhotoButtonTitle: 'Сделать фото',
-      chooseFromLibraryButtonTitle: 'Выбрать из галереи',
+      mediaType: 'photo',
       cameraType: 'front',
       storageOptions: {
         skipBackup: true,
@@ -47,6 +44,8 @@ export const usePhotoService = (
       startSendingCallback();
       ImagePicker.launchCamera(options, (response: ImagePickerResponse) => {
         if (response.didCancel || response.error) {
+          startSendingCallback();
+          setPhotoLimit(0);
           return null;
         }
 
