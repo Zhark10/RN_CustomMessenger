@@ -917,6 +917,14 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
+"@types/react-native-material-textfield@^0.16.3":
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/@types/react-native-material-textfield/-/react-native-material-textfield-0.16.3.tgz#e4db8bba1debf5481c4cb63cb5875928642aa88c"
+  integrity sha512-nviHt7LfdNzVcgIGJavo/sn4tEwDZl+hLU5byNEva1Ixg6ZgJQbqwT45KaV1KS2KDzyjjaJl7bEZC9fPViT5hQ==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native-vector-icons@^6.4.5":
   version "6.4.5"
   resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.5.tgz#74cbfc564bd8435e43ad6728572a0e5b49c335d1"
@@ -4219,7 +4227,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.7, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.7, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -4282,6 +4290,12 @@ react-native-indicator@^1.2.0:
   integrity sha512-NHVn4TQPxnqUrwlArYKjQxCHR4oRjtv/9/P2djTF098UGVlQPrjxJEzW3TX6o9td3FC9qIRlY3CTBXNkT8oHfQ==
   dependencies:
     prop-types "^15.6.0"
+
+react-native-material-textfield@n4kz/react-native-material-textfield#729008b847eb38129d0b886e98253d4c11f6d4d3:
+  version "0.16.1"
+  resolved "https://codeload.github.com/n4kz/react-native-material-textfield/tar.gz/729008b847eb38129d0b886e98253d4c11f6d4d3"
+  dependencies:
+    prop-types "^15.5.9"
 
 react-native-reanimated@^1.7.0:
   version "1.7.0"

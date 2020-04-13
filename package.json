@@ -8,17 +8,18 @@
     "start": "react-native start",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint './src/**/*.{js,ts,tsx}' --fix"
-
   },
   "dependencies": {
     "@react-native-community/art": "^1.2.0",
     "@types/react-native-check-box": "^2.1.1",
+    "@types/react-native-material-textfield": "^0.16.3",
     "@types/react-native-vector-icons": "^6.4.5",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-check-box": "^2.1.7",
     "react-native-image-picker": "^2.3.1",
     "react-native-indicator": "^1.2.0",
+    "react-native-material-textfield": "n4kz/react-native-material-textfield#729008b847eb38129d0b886e98253d4c11f6d4d3",
     "react-native-reanimated": "^1.7.0",
     "react-native-simple-toast": "^1.0.0",
     "react-native-vector-icons": "^6.6.0",
