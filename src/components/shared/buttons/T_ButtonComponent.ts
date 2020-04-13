@@ -6,5 +6,4 @@ export type TButtonComponent = {
   type: 'light' | 'manual';
   mainColor: string;
   secondColor: string;
-  fontFamily: string;
 };

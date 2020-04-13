@@ -10,6 +10,7 @@ export const ButtonComponentStyles = StyleSheet.create({
     height: 48,
   },
   title: {
+    fontFamily: 'Circe-Regular',
     fontSize: 20,
     lineHeight: 30,
     paddingHorizontal: 12,

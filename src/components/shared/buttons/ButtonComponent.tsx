@@ -9,7 +9,6 @@ export const ButtonComponent: React.FC<TButtonComponent> = ({
   title,
   mainColor,
   secondColor,
-  fontFamily,
 }) => {
   const isLightButton = type === 'light';
   const touchableStyles: ViewStyle = {
@@ -18,7 +17,6 @@ export const ButtonComponent: React.FC<TButtonComponent> = ({
     backgroundColor: isLightButton ? secondColor : mainColor,
   };
   const titleStyles: TextStyle = {
-    fontFamily,
     color: isLightButton ? mainColor : secondColor,
   };
   return (
