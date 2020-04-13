@@ -12,6 +12,7 @@ export const EAnswerType = {
   PHOTO: 'PHOTO',
   DATEPICKER: 'DATEPICKER',
   BUTTON: 'BUTTON',
+  PAYMENT: 'PAYMENT',
 };
 
 export interface IMessage {
@@ -45,12 +46,24 @@ export interface IPhotoAnswer {
   endFunc: (base64: string, photoType: IPhotoType) => void;
 }
 
-export type IPhotoType = 'face' | 'document-front' | 'document-back';
+export type IPhotoType = 'face'|'document-front'|'document-back';
 
 export interface IButtonAnswer {
   keyForFormData: string;
   title: string;
   buttonFunc: () => void;
+}
+
+interface IPaymentCard {
+  cardNumber: number;
+  expireDate: any,
+  cvv: number;
+}
+
+export interface IPaymentAnswer {
+  keyForFormData: string;
+  title: string;
+  endFunc: (data: IPaymentCard) => void;
 }
 
 export interface IAnswer {
@@ -60,6 +73,7 @@ export interface IAnswer {
   PHOTO?: IPhotoAnswer;
   DATEPICKER?: IInputAnswer;
   BUTTON?: IButtonAnswer;
+  PAYMENT?: IPaymentAnswer;
   [key: string]: any;
 }
 
