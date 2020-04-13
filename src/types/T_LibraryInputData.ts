@@ -1,6 +1,7 @@
 import {TOnlyOneMessageIteration} from '../types';
 
 export type TLibraryInputData = {
+  chatHeaderComponent?: React.ReactNode;
   viewStyles: TViewStyles;
   animations?: TAnimations;
   messages: TOnlyOneMessageIteration[];

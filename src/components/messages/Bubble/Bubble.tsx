@@ -74,8 +74,9 @@ export const Bubble: React.FC<IBubbleProps> = React.memo(
             <Text
               style={{
                 fontSize: 16,
+                fontFamily: 'Circe-Regular',
                 paddingHorizontal: 16,
-                lineHeight: 16,
+                // lineHeight: 16,
                 paddingVertical: 10,
                 color: isBot
                   ? bubblesConfigForBot.textColor
