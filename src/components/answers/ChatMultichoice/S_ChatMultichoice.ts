@@ -14,6 +14,7 @@ export const ChatMultichoiceStyles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   checkboxText: {
+    fontFamily: 'Circe-Regular',
     marginLeft: 11,
     fontSize: 18,
   },

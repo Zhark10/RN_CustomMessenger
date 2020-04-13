@@ -57,7 +57,6 @@ const ChatChoice: FC<TChatProps> = React.memo(
 
         <ButtonComponent
           title={'ОК'}
-          fontFamily="Roboto"
           mainColor={buttonColor}
           secondColor={answerFieldColor}
           onPress={onPress}

@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 import {TextInput, View} from 'react-native';
 import {ChatInputStyles} from './S_ChatInput';
 import {TChatProps} from '../../../types';
-import SimpleToast from 'react-native-simple-toast';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
+import SimpleToast from 'react-native-simple-toast';
 
 const ChatInput: FC<TChatProps> = React.memo(({chatMiddleware}) => {
   const inputQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer

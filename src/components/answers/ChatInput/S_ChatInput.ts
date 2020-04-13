@@ -11,6 +11,7 @@ export const ChatInputStyles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    fontFamily: 'Circe-Regular',
     marginLeft: 15,
     fontSize: 16,
   },
