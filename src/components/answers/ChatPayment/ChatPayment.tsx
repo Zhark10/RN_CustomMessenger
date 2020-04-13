@@ -25,7 +25,7 @@ const ChatPayment: FC<TChatProps> = React.memo(
     }, [cardNumber])
 
     React.useEffect(() => {
-      cvvRef?.current?.setValue(cvv.slice(0,3));
+      cvvRef?.current?.setValue(cvv.slice(0, 3));
     }, [cvv])
 
     const onPress = React.useCallback(() => {
@@ -50,8 +50,8 @@ const ChatPayment: FC<TChatProps> = React.memo(
           />
           <Text style={ChatPaymentStyles.dateTitle}>Expire date</Text>
           <DatePicker
-          onSendDate={()=>{}}
-          viewStyles={libraryInputData.viewStyles}
+            onSendDate={() => { }}
+            viewStyles={libraryInputData.viewStyles}
           />
           <TextField
             label="CVV"
