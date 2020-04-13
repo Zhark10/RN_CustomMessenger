@@ -1,4 +1,5 @@
-import {EAnswerType, IAnswer} from '../../types';
+import { screenHeight } from './screen';
+import { EAnswerType, IAnswer } from '../../types';
 
 export const getAnswerSize = (myAnswer: IAnswer): number => {
   const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
@@ -8,8 +9,8 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
   const numberOfCheckboxes = isChoice
     ? myAnswer.CHOICE!.checkboxTitles!.length
     : isMultichoice
-    ? myAnswer.MULTICHOICE!.checkboxTitles!.length
-    : 0;
+      ? myAnswer.MULTICHOICE!.checkboxTitles!.length
+      : 0;
 
   const heightforChoice =
     numberOfCheckboxes === 1
@@ -28,6 +29,7 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
     [EAnswerType.CHOICE]: heightforChoice,
     [EAnswerType.PHOTO]: 78,
     [EAnswerType.BUTTON]: 78,
+    [EAnswerType.PAYMENT]: screenHeight,
   };
   return values[myAnswerType];
 };
