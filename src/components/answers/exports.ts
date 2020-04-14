@@ -4,3 +4,4 @@ export {default as ChatMultichoice} from './ChatMultichoice/ChatMultichoice';
 export {default as ChatChoice} from './ChatChoice/ChatChoice';
 export {default as ChatButton} from './ChatButton/ChatButton';
 export {default as ChatPayment} from './ChatPayment/ChatPayment';
+export {default as ChatDatepicker} from './ChatDatepicker/ChatDatepicker';

@@ -46,7 +46,7 @@ export interface IPhotoAnswer {
   endFunc: (base64: string, photoType: IPhotoType) => void;
 }
 
-export type IPhotoType = 'face'|'document-front'|'document-back';
+export type IPhotoType = 'face' | 'document-front' | 'document-back';
 
 export interface IButtonAnswer {
   keyForFormData: string;
@@ -55,9 +55,17 @@ export interface IButtonAnswer {
 }
 
 interface IPaymentCard {
-  cardNumber: number;
-  expireDate: any,
-  cvv: number;
+  number: string | number;
+  expirationMonth: string | number;
+  expirationYear: string | number;
+  cvc: string | number;
+  name: string;
+}
+
+interface IBornDate {
+  month: string;
+  year: string;
+  day: string;
 }
 
 export interface IPaymentAnswer {
@@ -66,12 +74,18 @@ export interface IPaymentAnswer {
   endFunc: (data: IPaymentCard) => void;
 }
 
+export interface IDatepickerAnswer {
+  keyForFormData: string;
+  title: string;
+  endFunc: (data: IBornDate) => void;
+}
+
 export interface IAnswer {
   INPUT?: IInputAnswer;
   CHOICE?: IChoiceAnswer;
   MULTICHOICE?: IMultichoiceAnswer;
   PHOTO?: IPhotoAnswer;
-  DATEPICKER?: IInputAnswer;
+  DATEPICKER?: IDatepickerAnswer;
   BUTTON?: IButtonAnswer;
   PAYMENT?: IPaymentAnswer;
   [key: string]: any;
