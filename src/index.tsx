@@ -17,6 +17,7 @@ import {
   ChatPhoto,
   ChatButton,
   ChatPayment,
+  ChatDatepicker,
 } from './components/answers/exports';
 import MessagesField from './components/messages/MessagesField/MessagesField';
 
@@ -43,8 +44,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       [EAnswerType.PHOTO]: ChatPhoto,
       [EAnswerType.BUTTON]: ChatButton,
       [EAnswerType.PAYMENT]: ChatPayment,
-      // todo
-      [EAnswerType.DATEPICKER]: ChatInput,
+      [EAnswerType.DATEPICKER]: ChatDatepicker,
     };
     const AnswerField = answerFields[myAnswerType];
     return <AnswerField {...chatProps} />;
