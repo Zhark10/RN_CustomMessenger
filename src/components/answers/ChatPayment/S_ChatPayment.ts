@@ -1,13 +1,14 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
+import {screenHeight} from '../../../utils/helpers/screen';
 
 export const ChatPaymentStyles = StyleSheet.create({
   main: {
-    flex: 1,
     width: '100%',
+    height: screenHeight - 80,
     paddingHorizontal: 16,
   },
   form: {
-    marginVertical: 16,
+    paddingVertical: 16,
     flex: 1,
   },
   checkboxText: {
@@ -27,5 +28,5 @@ export const ChatPaymentStyles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 8,
     fontFamily: 'Circe-Bold',
-  }
+  },
 });

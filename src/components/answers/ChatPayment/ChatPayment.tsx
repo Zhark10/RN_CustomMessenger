@@ -1,65 +1,142 @@
-import React, { FC, useRef } from 'react';
-import { View, Text } from 'react-native';
-import { ChatPaymentStyles } from './S_ChatPayment';
-import { TChatProps } from '../../../types';
-import { EBubbleType } from '../../../utils/hooks/USE_ChatMiddleware';
-import { ButtonComponent } from '../../shared/buttons/ButtonComponent';
-import { TextField } from 'react-native-material-textfield';
-import { cc_format } from '../../../utils/helpers/format-card-number';
-import { DatePicker } from '../../shared/picker/DatePicker';
+/* eslint-disable react-native/no-inline-styles */
+import React, {FC, useState} from 'react';
+import {View, Text} from 'react-native';
+import {ChatPaymentStyles} from './S_ChatPayment';
+import {TChatProps} from '../../../types';
+import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
+import {TextField} from 'react-native-material-textfield';
+import {cc_format} from '../../../utils/helpers/format-card-number';
+import {DatePicker} from '../../shared/picker/DatePicker';
+import {IDate} from '../../shared/picker/T_DatePicker';
 
 const ChatPayment: FC<TChatProps> = React.memo(
-  ({ chatMiddleware, libraryInputData }) => {
-    const title = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!
-      .title!;
+  ({chatMiddleware, libraryInputData}) => {
+    const {
+      title,
+      endFunc,
+    } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
 
-    const cardRef = useRef<TextField>(null);
-    const cvvRef = useRef<TextField>(null);
+    const [errors, refreshErrors] = useState<any>({});
+
     const [cardNumber, setCardNumber] = React.useState('');
-    const [expireDate, setExpireDate] = React.useState('');
-    const [cvv, setCvv] = React.useState('');
-    const isValidate = cardNumber && expireDate && cvv;
+    const [expirationMonth, setExpirationMonth] = React.useState('01');
+    const [expirationYear, setExpirationYear] = React.useState('1910');
+    const [cvc, setCvc] = React.useState('');
+    const [name, setName] = React.useState('');
 
-    React.useEffect(() => {
-      cardRef?.current?.setValue(cc_format(cardNumber));
-    }, [cardNumber])
+    const onSaveDate = ({month, year}: IDate) => {
+      setExpirationMonth(month);
+      setExpirationYear(year);
+    };
 
-    React.useEffect(() => {
-      cvvRef?.current?.setValue(cvv.slice(0, 3));
-    }, [cvv])
+    const saveCardNumber = (text: React.SetStateAction<string>) => {
+      if (errors.cardNumber) {
+        refreshErrors(({cardNumber, ...otherErrors}) => otherErrors);
+      }
+      setCardNumber(text);
+    };
+
+    const saveCvc = (text: React.SetStateAction<string>) => {
+      if (errors.cvc) {
+        refreshErrors(({cvc, ...otherErrors}) => otherErrors);
+      }
+      setCvc(text);
+    };
+
+    const saveName = (text: React.SetStateAction<string>) => {
+      if (errors.name) {
+        refreshErrors(({name, ...otherErrors}) => otherErrors);
+      }
+      setName(text);
+    };
 
     const onPress = React.useCallback(() => {
-      if (isValidate) {
-        chatMiddleware.sendAnswer(title, EBubbleType.TEXT);
-      }
-    }, [chatMiddleware, isValidate, title]);
+      const _cardNumber = cardNumber.replace(/[^0-9]/g, '').slice(0, 16);
+      const _cvc = cvc.replace(/[^0-9]/g, '').slice(0, 3);
+      const _name = name.slice(0, 50);
 
-    const { answerFieldColor, buttonColor } = libraryInputData.viewStyles;
+      if (_cardNumber.length < 16) {
+        refreshErrors((currentErrors: any) => ({
+          ...currentErrors,
+          cardNumber: 'Недостаточно символов',
+        }));
+        return null;
+      }
+
+      if (_name.length < 1) {
+        refreshErrors((currentErrors: any) => ({
+          ...currentErrors,
+          name: 'Введите имя',
+        }));
+        return null;
+      }
+
+      if (_cvc.length < 3) {
+        refreshErrors((currentErrors: any) => ({
+          ...currentErrors,
+          cvc: 'Код некорректный',
+        }));
+        return null;
+      }
+
+      endFunc({
+        number: _cardNumber,
+        cvc: +_cvc,
+        expirationMonth: +expirationMonth,
+        expirationYear: +expirationYear,
+        name: _name,
+      });
+    }, [cardNumber, cvc, endFunc, expirationMonth, expirationYear, name]);
+
+    const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
 
     return (
       <View style={ChatPaymentStyles.main}>
         <View style={ChatPaymentStyles.form}>
           <TextField
             label="Card number"
-            ref={cardRef}
+            error={errors.cardNumber || ''}
             style={ChatPaymentStyles.inputText}
             tintColor={buttonColor}
             keyboardType="numeric"
-            onChangeText={setCardNumber}
+            onChangeText={saveCardNumber}
+            formatText={text =>
+              cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
+            }
             placeholderTextColor={buttonColor}
           />
-          <Text style={ChatPaymentStyles.dateTitle}>Expire date</Text>
-          <DatePicker
-            onSendDate={() => { }}
-            viewStyles={libraryInputData.viewStyles}
-          />
           <TextField
-            label="CVV"
-            ref={cvvRef}
+            label="Full name"
+            error={errors.name || ''}
+            style={ChatPaymentStyles.inputText}
+            tintColor={buttonColor}
+            keyboardType="ascii-capable"
+            onChangeText={saveName}
+            placeholderTextColor={buttonColor}
+            formatText={text => cc_format(text.slice(0, 50))}
+          />
+          <Text style={ChatPaymentStyles.dateTitle}>Expire date</Text>
+          <View
+            style={{
+              paddingTop: 8,
+              paddingBottom: 24,
+            }}>
+            <DatePicker
+              onSaveDate={onSaveDate}
+              mode={'creditCard'}
+              viewStyles={libraryInputData.viewStyles}
+            />
+          </View>
+          <TextField
+            label="Cvc"
+            error={errors.cvc || ''}
             style={ChatPaymentStyles.inputText}
             tintColor={buttonColor}
             keyboardType="numeric"
-            onChangeText={setCvv}
+            onChangeText={saveCvc}
+            formatText={text =>
+              cc_format(text.replace(/[^0-9]/g, '').slice(0, 3))
+            }
             placeholderTextColor={buttonColor}
           />
         </View>
