@@ -1,14 +1,18 @@
-import { TMessageAddedInStack } from '../../store/T_ChatProvider';
-import { TOnlyOneMessageIteration } from '../../types';
-import { useContext, useState } from 'react';
-import { ChatContext } from '../../store/ChatProvider';
-import { TLibraryInputData, TOutputData } from '../../types/T_LibraryInputData';
+import {TMessageAddedInStack} from '../../store/T_ChatProvider';
+import {TOnlyOneMessageIteration} from '../../types';
+import {useContext, useState} from 'react';
+import {ChatContext} from '../../store/ChatProvider';
+import {TLibraryInputData, TOutputData} from '../../types/T_LibraryInputData';
 import React from 'react';
 
 export type TUseChatMiddleware = {
   currentChatBotQuestion: TOnlyOneMessageIteration;
   messageIndex: number;
-  sendAnswer: (answer: any, type: EBubbleType, sendAnswerOutput?: boolean) => void;
+  sendAnswer: (
+    answer: any,
+    type: EBubbleType,
+    sendAnswerOutput?: boolean,
+  ) => void;
   answerFieldVisible: boolean;
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>;
   savedChatInfo: TOutputData;
@@ -51,9 +55,15 @@ export const useChatMiddleware = (
     };
 
     const additionalFields = {
-      [EBubbleType.TEXT]: () => { answerDto.text = answer; },
-      [EBubbleType.PHOTO]: () => { answerDto.picture = answer; },
-      [EBubbleType.DOUBLE_PHOTO]: () => { answerDto.twoSidePicture = answer; },
+      [EBubbleType.TEXT]: () => {
+        answerDto.text = answer;
+      },
+      [EBubbleType.PHOTO]: () => {
+        answerDto.picture = answer;
+      },
+      [EBubbleType.DOUBLE_PHOTO]: () => {
+        answerDto.twoSidePicture = answer;
+      },
     };
     additionalFields[type]();
 
@@ -89,10 +99,7 @@ export const useChatMiddleware = (
         } else {
           libraryInputData.events.endConversationEvent(savedChatInfo);
         }
-        refreshMessages(currentStack => [
-          ...currentStack,
-          answerDto,
-        ]);
+        refreshMessages(currentStack => [...currentStack, answerDto]);
       }, answerForSaving.length * 100);
       return () => clearTimeout(timeout);
     },
