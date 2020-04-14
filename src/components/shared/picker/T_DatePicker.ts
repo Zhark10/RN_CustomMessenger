@@ -1,6 +1,13 @@
 import {TViewStyles} from '../../../types/T_LibraryInputData';
 
 export type TDatePicker = {
-  onSendDate: (date: string) => void;
+  onSaveDate: (date: IDate) => void;
   viewStyles: TViewStyles;
+  mode: 'creditCard' | 'bornDate';
+};
+
+export type IDate = {
+  month: string;
+  year: string;
+  day?: string;
 };

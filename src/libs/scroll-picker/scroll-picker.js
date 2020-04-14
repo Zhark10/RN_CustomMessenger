@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
   Text,
@@ -58,7 +58,7 @@ export default class ScrollPicker extends Component {
   }
 
   render() {
-    let { header, footer } = this._renderPlaceHolder();
+    let {header, footer} = this._renderPlaceHolder();
     let highlightWidth =
       (this.props.style ? this.props.style.width : 0) || deviceWidth;
     let highlightColor = this.props.highlightColor || '#333';
@@ -84,7 +84,7 @@ export default class ScrollPicker extends Component {
       <View style={wrapperStyle}>
         <View style={highlightStyle} />
         <ScrollView
-          ref={(sview) => {
+          ref={sview => {
             this.sview = sview;
           }}
           bounces={false}
@@ -93,8 +93,7 @@ export default class ScrollPicker extends Component {
           onMomentumScrollBegin={this._onMomentumScrollBegin.bind(this)}
           onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
           onScrollBeginDrag={this._onScrollBeginDrag.bind(this)}
-          onScrollEndDrag={this._onScrollEndDrag.bind(this)}
-        >
+          onScrollEndDrag={this._onScrollEndDrag.bind(this)}>
           {header}
           {this.props.dataSource.map(this._renderItem.bind(this))}
           {footer}
@@ -105,9 +104,9 @@ export default class ScrollPicker extends Component {
 
   _renderPlaceHolder() {
     let h = (this.wrapperHeight - this.itemHeight) / 2;
-    let header = <View style={{ height: h, flex: 1 }} />;
-    let footer = <View style={{ height: h, flex: 1 }} />;
-    return { header, footer };
+    let header = <View style={{height: h, flex: 1}} />;
+    let footer = <View style={{height: h, flex: 1}} />;
+    return {header, footer};
   }
 
   _renderItem(data, index) {
@@ -118,8 +117,7 @@ export default class ScrollPicker extends Component {
           isSelected
             ? [styles.itemText, styles.itemTextSelected]
             : styles.itemText
-        }
-      >
+        }>
         {data}
       </Text>
     );
@@ -129,10 +127,7 @@ export default class ScrollPicker extends Component {
     }
 
     return (
-      <View
-        style={[styles.itemWrapper, { height: this.itemHeight }]}
-        key={index}
-      >
+      <View style={[styles.itemWrapper, {height: this.itemHeight}]} key={index}>
         {item}
       </View>
     );
@@ -150,7 +145,7 @@ export default class ScrollPicker extends Component {
       if (Platform.OS === 'ios') {
         this.isScrollTo = true;
       }
-      this.sview.scrollTo({ y: _y });
+      this.sview.scrollTo({y: _y});
     }
     if (this.state.selectedIndex === selectedIndex) {
       return;
@@ -204,7 +199,7 @@ export default class ScrollPicker extends Component {
       selectedIndex: ind,
     });
     let y = this.itemHeight * ind;
-    this.sview.scrollTo({ y: y, animated });
+    this.sview.scrollTo({y: y, animated});
   }
 
   getSelected() {
