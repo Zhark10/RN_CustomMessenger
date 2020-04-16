@@ -17,6 +17,7 @@ export type TMessageAddedInStack = {
   text?: string;
   picture?: any;
   twoSidePicture?: any;
+  creditCard?: any;
   emoji?: string;
 };
 

@@ -25,6 +25,7 @@ export enum EBubbleType {
   TEXT = 'TEXT',
   PHOTO = 'PHOTO',
   DOUBLE_PHOTO = 'DOUBLE_PHOTO',
+  CREDIT_CARD = 'CREDIT_CARD',
 }
 
 export const useChatMiddleware = (
@@ -63,6 +64,9 @@ export const useChatMiddleware = (
       },
       [EBubbleType.DOUBLE_PHOTO]: () => {
         answerDto.twoSidePicture = answer;
+      },
+      [EBubbleType.CREDIT_CARD]: () => {
+        answerDto.creditCard = answer;
       },
     };
     additionalFields[type]();
