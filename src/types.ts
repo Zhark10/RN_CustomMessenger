@@ -13,10 +13,11 @@ export const EAnswerType = {
   DATEPICKER: 'DATEPICKER',
   BUTTON: 'BUTTON',
   PAYMENT: 'PAYMENT',
+  ADDRESS: 'ADDRESS',
 };
 
 export interface IMessage {
-  text: string;
+  text?: string;
   picture?: string;
   emoji?: string;
 }
@@ -54,7 +55,7 @@ export interface IButtonAnswer {
   buttonFunc: () => void;
 }
 
-interface IPaymentCard {
+export interface IPaymentCard {
   number: string | number;
   expirationMonth: string | number;
   expirationYear: string | number;
@@ -71,7 +72,13 @@ interface IBornDate {
 export interface IPaymentAnswer {
   keyForFormData: string;
   title: string;
-  endFunc: (data: IPaymentCard) => void;
+  endFunc: (data: IPaymentCard, cb: any) => void;
+}
+
+export interface IAddressAnswer {
+  keyForFormData: string;
+  title: string;
+  endFunc: (address: string) => void;
 }
 
 export interface IDatepickerAnswer {
@@ -88,10 +95,14 @@ export interface IAnswer {
   DATEPICKER?: IDatepickerAnswer;
   BUTTON?: IButtonAnswer;
   PAYMENT?: IPaymentAnswer;
+  ADDRESS?: IAddressAnswer;
   [key: string]: any;
 }
 
 export interface TChatProps {
   libraryInputData: TLibraryInputData;
   chatMiddleware: TUseChatMiddleware;
+  setVisibleAdditionalAnswerPanel: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 }
