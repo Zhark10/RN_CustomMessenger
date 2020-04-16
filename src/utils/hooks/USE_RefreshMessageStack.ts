@@ -44,16 +44,22 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   }, [messages]);
 
   const addedNewMessageInStack = React.useCallback(() => {
-    const timeToShowNextMessage = botMessage[index].text.length * 50;
+    const timeToShowNextMessage = botMessage[index].text
+      ? botMessage[index].text!.length * 50
+      : 2000;
     setTyping(true);
     const toShowNextMessage = setTimeout(() => {
       setIndex(currentIndex => currentIndex + 1);
+
+      const formattedBotMessage = botMessage[index].text
+        ? {text: botMessage[index].text}
+        : {picture: botMessage[index].picture};
       chatMiddleware.refreshMessages(currentStack => [
         ...currentStack,
         {
           id: shortid.generate(),
           sender: 'chatBot',
-          text: botMessage[index].text,
+          ...formattedBotMessage,
         },
       ]);
     }, timeToShowNextMessage);
@@ -78,6 +84,8 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     }
     showAnswerField();
   }, [index]);
+
+  // autoScrollToEnd();
 
   return {messages, isTyping, autoScrollToEnd, scrollView};
 };
