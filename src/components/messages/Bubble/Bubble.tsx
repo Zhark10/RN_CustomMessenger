@@ -8,6 +8,7 @@ import {useBubbleAnimation} from '../../../utils/hooks/USE_Bubble_animation';
 import {TMessageAddedInStack} from '../../../store/T_ChatProvider';
 import {TViewStyles} from '../../../types/T_LibraryInputData';
 import {BubbleStyles} from './S_Bubble';
+import {CREDIT} from '../../../../../../assets/design/icons/credit';
 
 interface IBubbleProps {
   message?: TMessageAddedInStack;
@@ -88,10 +89,10 @@ export const Bubble: React.FC<IBubbleProps> = React.memo(
             </Text>
           ) : message.picture ? (
             <Image
-              source={message!.picture[0]}
-              style={[BubbleStyles.onlyPicture, {borderColor: buttonColor}]}
+              source={isBot ? {uri: message!.picture} : message!.picture[0]}
+              style={[BubbleStyles.onlyPicture]}
             />
-          ) : (
+          ) : message.twoSidePicture ? (
             <View style={BubbleStyles.doublePicture}>
               <Image
                 source={message!.twoSidePicture[0]}
@@ -108,6 +109,12 @@ export const Bubble: React.FC<IBubbleProps> = React.memo(
                 ]}
               />
             </View>
+          ) : (
+            <Image
+              style={{width: 191, height: 120}}
+              resizeMode="stretch"
+              source={CREDIT.card}
+            />
           )}
         </View>
       </Animated.View>
