@@ -1,6 +1,9 @@
 import {monthsShort} from 'moment';
 
-export const YEARS = Array(111)
+export const YEARS_FOR_BORN_DATE = Array(97)
+  .fill(0)
+  .map((_: any, i: number) => i + 1910);
+export const YEARS_FOR_CREDIT_CARD = Array(130)
   .fill(0)
   .map((_: any, i: number) => i + 1910);
 

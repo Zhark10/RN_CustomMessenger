@@ -5,7 +5,8 @@ import {Text, View} from 'react-native';
 import {DatePickerStyles} from './S_DatePicker';
 import ScrollPicker from '../../../libs/scroll-picker/scroll-picker';
 import {
-  YEARS,
+  YEARS_FOR_BORN_DATE,
+  YEARS_FOR_CREDIT_CARD,
   MONTHS,
   MONTHS_NUMBERS,
   getDays,
@@ -91,7 +92,9 @@ export const DatePicker: React.FC<TDatePicker> = ({
         )}
         <View style={{width: mode === 'bornDate' ? '30%' : '46%'}}>
           <ScrollPicker
-            dataSource={YEARS}
+            dataSource={
+              mode === 'bornDate' ? YEARS_FOR_BORN_DATE : YEARS_FOR_CREDIT_CARD
+            }
             selectedIndex={0}
             itemHeight={40}
             wrapperHeight={100}
