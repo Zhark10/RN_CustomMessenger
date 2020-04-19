@@ -7,13 +7,13 @@ export const ChatPaymentAdditionalStyles = StyleSheet.create({
     height: screenHeight - 80,
     paddingHorizontal: 16,
   },
-  form: {
-    paddingVertical: 16,
-    flex: 1,
+  backButton: {
+    width: 24,
+    height: 24,
   },
-  checkboxText: {
-    margin: 2,
-    fontSize: 18,
+  form: {
+    paddingBottom: 16,
+    flex: 1,
   },
   input: {
     maxHeight: 52,
@@ -28,5 +28,17 @@ export const ChatPaymentAdditionalStyles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 8,
     fontFamily: 'Circe-Bold',
+  },
+  checkboxBlock: {
+    marginLeft: 4,
+    marginVertical: 6,
+    height: 22,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  checkboxText: {
+    fontFamily: 'Circe-Regular',
+    marginLeft: 11,
+    fontSize: 18,
   },
 });
