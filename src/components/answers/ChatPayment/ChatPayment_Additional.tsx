@@ -8,15 +8,25 @@ import {cc_format} from '../../../utils/helpers/format-card-number';
 import {DatePicker} from '../../shared/picker/DatePicker';
 import {IDate} from '../../shared/picker/T_DatePicker';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
+import CheckBox from 'react-native-check-box';
 import {ChatPaymentAdditionalStyles} from './S_ChatPayment_Additional';
 import {Icon} from 'react-native-vector-icons/Icon';
 
 const ChatPaymentAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
+    const values = ['Карта', 'Счет'];
     const {
       title,
       endFunc,
     } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
+    const [selected, refreshSelected] = React.useState<string>(values[0]);
+    const isCreditCard = selected === 'Карта';
+
+    const onValueChange = (title: string) => {
+      if (selected !== title) {
+        refreshSelected(title);
+      }
+    };
 
     const [errors, refreshErrors] = useState<any>({});
 
@@ -94,7 +104,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
           expirationYear: +expirationYear,
           name: _name,
         },
-        async () => {
+        () => {
           chatMiddleware.sendAnswer([], EBubbleType.CREDIT_CARD);
         },
       );
@@ -141,55 +151,104 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
             />
           </TouchableOpacity>
         </View>
-        <View style={ChatPaymentAdditionalStyles.form}>
-          <TextField
-            label="Card number"
-            error={errors.cardNumber || ''}
-            style={ChatPaymentAdditionalStyles.inputText}
-            tintColor={buttonColor}
-            keyboardType="numeric"
-            onChangeText={saveCardNumber}
-            formatText={text =>
-              cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
-            }
-            placeholderTextColor={buttonColor}
-          />
-          <TextField
-            label="Full name"
-            error={errors.name || ''}
-            style={ChatPaymentAdditionalStyles.inputText}
-            tintColor={buttonColor}
-            keyboardType="ascii-capable"
-            onChangeText={saveName}
-            placeholderTextColor={buttonColor}
-            formatText={text => cc_format(text.slice(0, 50))}
-          />
-          <Text style={ChatPaymentAdditionalStyles.dateTitle}>Expire date</Text>
-          <View
-            style={{
-              paddingTop: 8,
-              paddingBottom: 24,
-            }}>
-            <DatePicker
-              onSaveDate={onSaveDate}
-              mode={'creditCard'}
-              viewStyles={libraryInputData.viewStyles}
+        {values.map(title => (
+          <View key={title} style={ChatPaymentAdditionalStyles.checkboxBlock}>
+            <CheckBox
+              onClick={() => onValueChange(title)}
+              isChecked={title === selected}
+              disabled={false}
+              checkedCheckBoxColor={buttonColor}
+              uncheckedCheckBoxColor={'#797979'}
             />
+            <Text style={ChatPaymentAdditionalStyles.checkboxText}>
+              {title}
+            </Text>
           </View>
-          <TextField
-            label="Cvc"
-            error={errors.cvc || ''}
-            style={ChatPaymentAdditionalStyles.inputText}
-            tintColor={buttonColor}
-            keyboardType="numeric"
-            onChangeText={saveCvc}
-            formatText={text =>
-              cc_format(text.replace(/[^0-9]/g, '').slice(0, 3))
-            }
-            placeholderTextColor={buttonColor}
-          />
+        ))}
+
+        <View style={ChatPaymentAdditionalStyles.form}>
+          {isCreditCard ? (
+            <View>
+              <TextField
+                label="Card number"
+                error={errors.cardNumber || ''}
+                style={ChatPaymentAdditionalStyles.inputText}
+                tintColor={buttonColor}
+                keyboardType="numeric"
+                onChangeText={saveCardNumber}
+                formatText={text =>
+                  cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
+                }
+                placeholderTextColor={buttonColor}
+              />
+              <TextField
+                label="Full name"
+                error={errors.name || ''}
+                style={ChatPaymentAdditionalStyles.inputText}
+                tintColor={buttonColor}
+                keyboardType="email-address"
+                onChangeText={saveName}
+                placeholderTextColor={buttonColor}
+                formatText={text => cc_format(text.slice(0, 50))}
+              />
+              <Text style={ChatPaymentAdditionalStyles.dateTitle}>
+                Expire date
+              </Text>
+              <View
+                style={{
+                  paddingTop: 8,
+                  paddingBottom: 24,
+                }}>
+                <DatePicker
+                  onSaveDate={onSaveDate}
+                  mode={'creditCard'}
+                  viewStyles={libraryInputData.viewStyles}
+                />
+              </View>
+              <TextField
+                label="Cvc"
+                error={errors.cvc || ''}
+                style={ChatPaymentAdditionalStyles.inputText}
+                tintColor={buttonColor}
+                keyboardType="numeric"
+                onChangeText={saveCvc}
+                formatText={text =>
+                  cc_format(text.replace(/[^0-9]/g, '').slice(0, 3))
+                }
+                placeholderTextColor={buttonColor}
+              />
+            </View>
+          ) : (
+            <View>
+              <TextField
+                label="Номер счета"
+                error={errors.cardNumber || ''}
+                style={ChatPaymentAdditionalStyles.inputText}
+                tintColor={buttonColor}
+                keyboardType="numeric"
+                onChangeText={saveCardNumber}
+                formatText={text =>
+                  cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
+                }
+                placeholderTextColor={buttonColor}
+              />
+              <TextField
+                label="БИК банка получателя"
+                error={errors.cardNumber || ''}
+                style={ChatPaymentAdditionalStyles.inputText}
+                tintColor={buttonColor}
+                keyboardType="numeric"
+                onChangeText={saveCardNumber}
+                formatText={text =>
+                  cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
+                }
+                placeholderTextColor={buttonColor}
+              />
+            </View>
+          )}
         </View>
         <ButtonComponent
+          disabled={!isCreditCard}
           title={title}
           mainColor={buttonColor}
           secondColor={answerFieldColor}
