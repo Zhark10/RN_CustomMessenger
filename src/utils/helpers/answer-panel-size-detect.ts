@@ -1,4 +1,3 @@
-import {screenHeight} from './screen';
 import {EAnswerType, IAnswer} from '../../types';
 
 export const getAnswerSize = (myAnswer: IAnswer): number => {
@@ -29,7 +28,7 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
     [EAnswerType.CHOICE]: heightforChoice,
     [EAnswerType.PHOTO]: 78,
     [EAnswerType.BUTTON]: 78,
-    [EAnswerType.PAYMENT]: screenHeight,
+    [EAnswerType.PAYMENT]: 78,
     [EAnswerType.ADDRESS]: 78,
   };
   return values[myAnswerType];

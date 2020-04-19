@@ -32,7 +32,7 @@ export const useAdditionalAnswerFieldAnimation = (
 
   const scaleConfig = {
     toValue: isVisible ? 0 : -screenWidth,
-    duration: 350,
+    duration: 450,
     easing: Easing.inOut(Easing.ease),
   };
   const scaleAnim = timing(offsetValue, scaleConfig);
