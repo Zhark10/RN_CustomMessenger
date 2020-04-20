@@ -8,7 +8,6 @@ import {useBubbleAnimation} from '../../../utils/hooks/USE_Bubble_animation';
 import {TMessageAddedInStack} from '../../../store/T_ChatProvider';
 import {TViewStyles} from '../../../types/T_LibraryInputData';
 import {BubbleStyles} from './S_Bubble';
-import {CREDIT} from '../../../../../../assets/design/icons/credit';
 
 interface IBubbleProps {
   message?: TMessageAddedInStack;
@@ -113,7 +112,7 @@ export const Bubble: React.FC<IBubbleProps> = React.memo(
             <Image
               style={{width: 191, height: 120}}
               resizeMode="stretch"
-              source={CREDIT.card}
+              source={require('../../../../assets/CARD.png')}
             />
           )}
         </View>
