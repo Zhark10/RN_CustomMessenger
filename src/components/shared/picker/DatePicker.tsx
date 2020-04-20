@@ -18,8 +18,12 @@ export const DatePicker: React.FC<TDatePicker> = ({
   viewStyles: {answerFieldColor, buttonColor},
   mode = 'bornDate',
 }) => {
+  const isBornDatepicker = mode === 'bornDate';
+  const initialYear = isBornDatepicker
+    ? YEARS_FOR_BORN_DATE[YEARS_FOR_BORN_DATE.length - 1]
+    : YEARS_FOR_CREDIT_CARD[YEARS_FOR_CREDIT_CARD.length - 1];
   const [month, setMonth] = React.useState('01');
-  const [year, setYear] = React.useState('1910');
+  const [year, setYear] = React.useState(initialYear + '');
   const [day, setDay] = React.useState('01');
 
   const daysInCurentMonth = moment(`${year}-${month}`, 'YYYY-MM').daysInMonth();
@@ -38,7 +42,7 @@ export const DatePicker: React.FC<TDatePicker> = ({
           flexDirection: 'row',
           justifyContent: 'space-between',
         }}>
-        <View style={{width: mode === 'bornDate' ? '30%' : '46%'}}>
+        <View style={{width: isBornDatepicker ? '30%' : '46%'}}>
           <ScrollPicker
             dataSource={MONTHS}
             selectedIndex={0}
@@ -61,7 +65,7 @@ export const DatePicker: React.FC<TDatePicker> = ({
             }
           />
         </View>
-        {mode === 'bornDate' ? (
+        {isBornDatepicker ? (
           <View style={{width: '30%'}}>
             <ScrollPicker
               dataSource={DAYS}
@@ -90,12 +94,16 @@ export const DatePicker: React.FC<TDatePicker> = ({
         ) : (
           <></>
         )}
-        <View style={{width: mode === 'bornDate' ? '30%' : '46%'}}>
+        <View style={{width: isBornDatepicker ? '30%' : '46%'}}>
           <ScrollPicker
             dataSource={
-              mode === 'bornDate' ? YEARS_FOR_BORN_DATE : YEARS_FOR_CREDIT_CARD
+              isBornDatepicker ? YEARS_FOR_BORN_DATE : YEARS_FOR_CREDIT_CARD
             }
-            selectedIndex={0}
+            selectedIndex={
+              isBornDatepicker
+                ? YEARS_FOR_BORN_DATE.length - 1
+                : YEARS_FOR_CREDIT_CARD.length - 1
+            }
             itemHeight={40}
             wrapperHeight={100}
             wrapperColor={answerFieldColor}
