@@ -21,8 +21,6 @@ import {
   ChatButton,
   ChatPayment,
   ChatDatepicker,
-  ChatAddress,
-  ChatAddressAdditional,
   ChatPaymentAdditional,
 } from './components/answers/exports';
 import MessagesField from './components/messages/MessagesField/MessagesField';
@@ -34,9 +32,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     answerFieldVisible,
   } = chatMiddleware;
   const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
-  const isShowAdditionalPanel =
-    myAnswerType === EAnswerType.ADDRESS ||
-    myAnswerType === EAnswerType.PAYMENT;
+  const isShowAdditionalPanel = myAnswerType === EAnswerType.PAYMENT;
 
   const additionalAnswerFieldAnimation = useAdditionalAnswerFieldAnimation(
     answerFieldVisible,
@@ -61,7 +57,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       [EAnswerType.BUTTON]: ChatButton,
       [EAnswerType.PAYMENT]: ChatPayment,
       [EAnswerType.DATEPICKER]: ChatDatepicker,
-      [EAnswerType.ADDRESS]: ChatAddress,
     };
     const AnswerField = answerFields[myAnswerType];
     return <AnswerField {...chatProps} />;
@@ -70,7 +65,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const selectAdditionalPanelForAnswer = (): React.ReactNode => {
     const answerFields = {
       [EAnswerType.PAYMENT]: ChatPaymentAdditional,
-      [EAnswerType.ADDRESS]: ChatAddressAdditional,
     };
     const AdditionalAnswerField = answerFields[myAnswerType];
     return (
