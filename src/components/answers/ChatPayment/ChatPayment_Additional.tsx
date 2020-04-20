@@ -10,7 +10,7 @@ import {IDate} from '../../shared/picker/T_DatePicker';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 import CheckBox from 'react-native-check-box';
 import {ChatPaymentAdditionalStyles} from './S_ChatPayment_Additional';
-import {Icon} from 'react-native-vector-icons/Icon';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ChatPaymentAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {

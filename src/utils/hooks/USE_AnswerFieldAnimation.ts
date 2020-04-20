@@ -1,6 +1,6 @@
-import {screenWidth} from './../../../../../utils/screen';
 import Animated, {Easing} from 'react-native-reanimated';
 import React from 'react';
+import {screenWidth} from '../helpers/screen';
 
 const {Value, timing} = Animated;
 
