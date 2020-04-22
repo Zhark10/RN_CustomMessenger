@@ -4,9 +4,12 @@ import {ScrollView} from 'react-native';
 export const useAutoScrollMessages = () => {
   const scrollView: React.RefObject<ScrollView> = React.useRef(null);
   const autoScrollToEnd = () => {
-    if (scrollView && scrollView.current) {
-      scrollView.current.scrollToEnd({animated: true});
-    }
+    const scrollByTime = setTimeout(() => {
+      if (scrollView && scrollView.current) {
+        scrollView.current.scrollToEnd({animated: true});
+      }
+    }, 250);
+    return () => clearTimeout(scrollByTime);
   };
   return {scrollView, autoScrollToEnd};
 };

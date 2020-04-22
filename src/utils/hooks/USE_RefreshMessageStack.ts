@@ -85,7 +85,5 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     showAnswerField();
   }, [index]);
 
-  // autoScrollToEnd();
-
   return {messages, isTyping, autoScrollToEnd, scrollView};
 };
