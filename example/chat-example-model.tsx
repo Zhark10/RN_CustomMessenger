@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
-import {Alert} from 'react-native';
-import {OfflineMessanger} from '../App';
-import {TLibraryInputData} from '../src/types/T_LibraryInputData';
+import React, { FC } from 'react';
+import { Alert } from 'react-native';
+import { OfflineMessanger } from '../App';
+import { TLibraryInputData } from '../src/types/T_LibraryInputData';
 
 const example: TLibraryInputData = {
   viewStyles: {
@@ -9,7 +9,7 @@ const example: TLibraryInputData = {
     headerTitleColor: '#fff',
     chatBackgroundColor: '#fff',
     answerFieldColor: '#6b6b6b',
-    buttonColor: '#fff',
+    buttonColor: '#000',
     bubblesConfigForBot: {
       backgroundColor: '#6b6b6b',
       textColor: '#fff',
@@ -20,6 +20,22 @@ const example: TLibraryInputData = {
     },
   },
   messages: [
+    {
+      botMessage: [
+        {
+          text: 'Thanks! Take a picture please!',
+        },
+      ],
+      myAnswer: {
+        PHOTO: {
+          keyForFormData: 'photo',
+          numbersOfPhoto: 'one',
+          startFunc: () => {},
+          endFunc: (base64, photoType) => {},
+        },
+      },
+    },
+    //
     {
       botMessage: [
         {
@@ -35,7 +51,7 @@ const example: TLibraryInputData = {
       myAnswer: {
         INPUT: {
           keyForFormData: 'firstName',
-          buttonFunc: () => {},
+          buttonFunc: () => { },
         },
       },
     },
@@ -49,7 +65,7 @@ const example: TLibraryInputData = {
         CHOICE: {
           keyForFormData: 'gender',
           checkboxTitles: ['MALE', 'FEMALE'],
-          buttonFunc: () => {},
+          buttonFunc: () => { },
         },
       },
     },
@@ -80,6 +96,22 @@ const example: TLibraryInputData = {
           startFunc: () => {},
           endFunc: (base64, photoType) => {
             Alert.alert(`${base64}:${photoType}`);
+          },
+        },
+      },
+    },
+    {
+      botMessage: [
+        {
+          text: 'When were you born?',
+        },
+      ],
+      myAnswer: {
+        DATEPICKER: {
+          keyForFormData: 'bornDate',
+          title: 'OK',
+          endFunc: date => {
+            console.log('bornDate: ', date);
           },
         },
       },
