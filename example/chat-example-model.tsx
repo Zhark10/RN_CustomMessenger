@@ -1,41 +1,25 @@
-import React, { FC } from 'react';
-import { Alert } from 'react-native';
-import { OfflineMessanger } from '../App';
-import { TLibraryInputData } from '../src/types/T_LibraryInputData';
+import React, {FC} from 'react';
+import {Alert} from 'react-native';
+import {OfflineMessanger} from '../App';
+import {TLibraryInputData} from '../src/types/T_LibraryInputData';
 
 const example: TLibraryInputData = {
   viewStyles: {
-    headerBackgroundColor: 'green',
+    headerBackgroundColor: '#fff',
     headerTitleColor: '#fff',
     chatBackgroundColor: '#fff',
-    answerFieldColor: '#6b6b6b',
-    buttonColor: '#000',
+    answerFieldColor: '#fff',
+    buttonColor: 'rgba(0,0,0,.54)',
     bubblesConfigForBot: {
-      backgroundColor: '#6b6b6b',
-      textColor: '#fff',
+      backgroundColor: '#F0F0F0',
+      textColor: '#4F4E4E',
     },
     bubblesConfigForMe: {
-      backgroundColor: 'rgba(0,0,0,.24)',
-      textColor: 'rgba(0,0,0,.87)',
+      backgroundColor: 'rgba(0,0,0,.54)',
+      textColor: '#fff',
     },
   },
   messages: [
-    {
-      botMessage: [
-        {
-          text: 'Thanks! Take a picture please!',
-        },
-      ],
-      myAnswer: {
-        PHOTO: {
-          keyForFormData: 'photo',
-          numbersOfPhoto: 'one',
-          startFunc: () => {},
-          endFunc: (base64, photoType) => {},
-        },
-      },
-    },
-    //
     {
       botMessage: [
         {
@@ -51,7 +35,7 @@ const example: TLibraryInputData = {
       myAnswer: {
         INPUT: {
           keyForFormData: 'firstName',
-          buttonFunc: () => { },
+          buttonFunc: () => {},
         },
       },
     },
@@ -65,7 +49,7 @@ const example: TLibraryInputData = {
         CHOICE: {
           keyForFormData: 'gender',
           checkboxTitles: ['MALE', 'FEMALE'],
-          buttonFunc: () => { },
+          buttonFunc: () => {},
         },
       },
     },
@@ -92,7 +76,7 @@ const example: TLibraryInputData = {
       myAnswer: {
         PHOTO: {
           keyForFormData: 'photo',
-          numbersOfPhoto: 'two',
+          numbersOfPhoto: 'one',
           startFunc: () => {},
           endFunc: (base64, photoType) => {
             Alert.alert(`${base64}:${photoType}`);
@@ -113,6 +97,20 @@ const example: TLibraryInputData = {
           endFunc: date => {
             console.log('bornDate: ', date);
           },
+        },
+      },
+    },
+    {
+      botMessage: [
+        {
+          text: 'Please select pay method',
+        },
+      ],
+      myAnswer: {
+        PAYMENT: {
+          keyForFormData: 'cardData',
+          title: 'OK',
+          endFunc: () => {},
         },
       },
     },
