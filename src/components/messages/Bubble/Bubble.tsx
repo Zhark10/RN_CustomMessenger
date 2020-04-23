@@ -68,7 +68,7 @@ export const Bubble: React.FC<IBubbleProps> = React.memo(
                 margin: 16,
                 maxHeight: 45,
               }}>
-              <DotsLoader color={buttonColor} size={12} />
+              <DotsLoader color={bubblesConfigForBot.textColor} size={12} />
             </View>
           ) : message.text ? (
             <Text

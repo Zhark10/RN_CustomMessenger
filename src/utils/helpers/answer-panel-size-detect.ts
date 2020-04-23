@@ -11,21 +11,14 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
     ? myAnswer.MULTICHOICE!.checkboxTitles!.length
     : 0;
 
-  const heightforChoice =
-    numberOfCheckboxes === 1
-      ? 80
-      : numberOfCheckboxes * 40 + (numberOfCheckboxes + 1) * 20;
-
   const heightforMultichoice =
-    numberOfCheckboxes === 1
-      ? 80
-      : numberOfCheckboxes * 40 + (numberOfCheckboxes + 1) * 20;
+    numberOfCheckboxes === 1 ? 80 : numberOfCheckboxes * 40 + 80;
 
   const values = {
     [EAnswerType.INPUT]: 80,
     [EAnswerType.DATEPICKER]: 212,
     [EAnswerType.MULTICHOICE]: heightforMultichoice,
-    [EAnswerType.CHOICE]: heightforChoice,
+    [EAnswerType.CHOICE]: 192,
     [EAnswerType.PHOTO]: 78,
     [EAnswerType.BUTTON]: 78,
     [EAnswerType.PAYMENT]: 78,

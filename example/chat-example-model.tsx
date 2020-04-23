@@ -7,16 +7,16 @@ const example: TLibraryInputData = {
   viewStyles: {
     headerBackgroundColor: 'green',
     headerTitleColor: '#fff',
-    chatBackgroundColor: '#000',
+    chatBackgroundColor: '#fff',
     answerFieldColor: '#6b6b6b',
-    buttonColor: 'yellow',
+    buttonColor: '#fff',
     bubblesConfigForBot: {
       backgroundColor: '#6b6b6b',
-      textColor: 'white',
+      textColor: '#fff',
     },
     bubblesConfigForMe: {
-      backgroundColor: 'rgba(235,235,235,.54)',
-      textColor: 'white',
+      backgroundColor: 'rgba(0,0,0,.24)',
+      textColor: 'rgba(0,0,0,.87)',
     },
   },
   messages: [
@@ -48,7 +48,7 @@ const example: TLibraryInputData = {
       myAnswer: {
         CHOICE: {
           keyForFormData: 'gender',
-          checkboxTitles: ['male', 'female', 'other0', 'other1'],
+          checkboxTitles: ['MALE', 'FEMALE'],
           buttonFunc: () => {},
         },
       },
@@ -56,13 +56,13 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Please, select some values!',
+          text: 'How is your mood?',
         },
       ],
       myAnswer: {
         MULTICHOICE: {
           keyForFormData: 'selections',
-          checkboxTitles: ['select_1', 'select_2', 'select_3', 'select_4'],
+          checkboxTitles: ['smile 😀', 'laugh 😂', 'sad 😒'],
           buttonFunc: () => {},
         },
       },
@@ -70,20 +70,7 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'I`m really nice to meet you, dude! Why would I give you that?',
-        },
-      ],
-      myAnswer: {
-        INPUT: {
-          keyForFormData: 'some_text',
-          buttonFunc: text => Alert.alert(text!),
-        },
-      },
-    },
-    {
-      botMessage: [
-        {
-          text: 'Thanks! You born...',
+          text: 'Thanks! Take a picture please!',
         },
       ],
       myAnswer: {
