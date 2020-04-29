@@ -8,12 +8,12 @@ import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
 const ChatMultichoice: FC<TChatProps> = React.memo(
   ({libraryInputData, chatMiddleware}) => {
-    const [selected, refreshSelected] = React.useState<string[]>([]);
     const values = chatMiddleware!.currentChatBotQuestion!.myAnswer!
       .MULTICHOICE!.checkboxTitles!;
 
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
 
+    const [selected, refreshSelected] = React.useState<string[]>([]);
     const onValueChange = (title: string) => {
       if (selected.some(elem => elem === title)) {
         refreshSelected(currentValues =>
@@ -25,7 +25,7 @@ const ChatMultichoice: FC<TChatProps> = React.memo(
     };
 
     const onPress = React.useCallback(() => {
-      chatMiddleware.sendAnswer(selected.join(', '), EBubbleType.TEXT);
+      chatMiddleware.sendAnswer(selected, EBubbleType.TEXT);
     }, [chatMiddleware, selected]);
     return (
       <View style={ChatMultichoiceStyles.main}>

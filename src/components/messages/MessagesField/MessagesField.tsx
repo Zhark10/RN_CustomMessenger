@@ -6,6 +6,7 @@ import {MessagesFieldStyles} from './S_MessagesField';
 import {useRefreshMessageStack} from '../../../utils/hooks/USE_RefreshMessageStack';
 import {Bubble} from '../Bubble/Bubble';
 import {screenHeight} from '../../../utils/helpers/screen';
+import Animated from 'react-native-reanimated';
 
 interface IProps extends TChatProps {
   answerSize: number;
@@ -27,7 +28,7 @@ const MessagesField: FC<IProps> = React.memo(
     );
 
     return (
-      <View style={[MessagesFieldStyles.main, {height: answerSize}]}>
+      <Animated.View style={[MessagesFieldStyles.main, {height: answerSize}]}>
         <ScrollView
           ref={scrollView}
           decelerationRate="normal"
@@ -60,7 +61,7 @@ const MessagesField: FC<IProps> = React.memo(
             </View>
           </View>
         </ScrollView>
-      </View>
+      </Animated.View>
     );
   },
 );

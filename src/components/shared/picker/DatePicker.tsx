@@ -10,6 +10,7 @@ import {
   MONTHS,
   MONTHS_NUMBERS,
   getDays,
+  getMonthsByYearForCreditCard,
 } from '../../../utils/helpers/date';
 import moment from 'moment';
 
@@ -44,7 +45,9 @@ export const DatePicker: React.FC<TDatePicker> = ({
         }}>
         <View style={{width: isBornDatepicker ? '30%' : '46%'}}>
           <ScrollPicker
-            dataSource={MONTHS}
+            dataSource={
+              isBornDatepicker ? MONTHS : getMonthsByYearForCreditCard(year)
+            }
             selectedIndex={0}
             itemHeight={40}
             wrapperHeight={100}
