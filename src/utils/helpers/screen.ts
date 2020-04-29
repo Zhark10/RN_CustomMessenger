@@ -49,4 +49,4 @@ export function getAnimatedParams() {
 }
 
 export const screenWidth = getScreenDimensions().width;
-export const heightWidth = getScreenDimensions().height;
+export const screenHeight = getScreenDimensions().height;
