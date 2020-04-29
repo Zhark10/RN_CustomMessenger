@@ -1,10 +1,13 @@
+import {screenHeight} from './../../../utils/helpers/screen';
+import {screenWidth} from '../../../utils/helpers/screen';
 import {StyleSheet} from 'react-native';
-import {screenHeight} from '../../../utils/helpers/screen';
 
 export const ChatPaymentAdditionalStyles = StyleSheet.create({
   main: {
-    width: '100%',
-    height: screenHeight - 80,
+    width: screenWidth,
+    height: screenHeight,
+    zIndex: 999,
+    bottom: 0,
     paddingHorizontal: 16,
   },
   backButton: {
@@ -31,10 +34,10 @@ export const ChatPaymentAdditionalStyles = StyleSheet.create({
   },
   checkboxBlock: {
     marginLeft: 4,
-    marginVertical: 6,
-    height: 22,
+    height: 34,
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    width: '50%',
   },
   checkboxText: {
     fontFamily: 'Circe-Regular',

@@ -30,7 +30,7 @@ export interface IInputAnswer {
 export interface IChoiceAnswer {
   keyForFormData: string;
   checkboxTitles: string[];
-  buttonFunc: (selectedValue?: string) => void;
+  endFunc: (selectedValue: string) => void;
 }
 
 export interface IMultichoiceAnswer {
@@ -62,6 +62,11 @@ export interface IPaymentCard {
   name: string;
 }
 
+export interface IBankAccount {
+  number_1: string | number;
+  number_2: string | number;
+}
+
 interface IBornDate {
   month: string;
   year: string;
@@ -71,7 +76,14 @@ interface IBornDate {
 export interface IPaymentAnswer {
   keyForFormData: string;
   title: string;
-  endFunc: (data: IPaymentCard, cb: any) => void;
+  endFuncForCreditCard: (data: IPaymentCard, cb: any) => void;
+  endFuncForBankAccount: (data: IBankAccount, cb: any) => void;
+}
+
+export interface IAddressAnswer {
+  keyForFormData: string;
+  title: string;
+  endFunc: (address: string) => void;
 }
 
 export interface IDatepickerAnswer {

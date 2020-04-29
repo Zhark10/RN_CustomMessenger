@@ -13,6 +13,7 @@ export const ChatInputStyles = StyleSheet.create({
     flex: 1,
     fontFamily: 'Circe-Regular',
     marginLeft: 15,
+    height: 42,
     fontSize: 16,
   },
   touchable: {
