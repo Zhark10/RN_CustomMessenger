@@ -1,15 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {FC, useState, useCallback} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {FC, useCallback} from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import {TextField} from 'react-native-material-textfield';
 import {cc_format} from '../../../utils/helpers/format-card-number';
 import {DatePicker} from '../../shared/picker/DatePicker';
-import {IDate} from '../../shared/picker/T_DatePicker';
-import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 import CheckBox from 'react-native-check-box';
 import {ChatPaymentAdditionalStyles} from './S_ChatPayment_Additional';
+import {USE_PaymentMethod} from '../../../utils/hooks/USE_Payment';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ChatPaymentAdditional: FC<TChatProps> = React.memo(
@@ -17,10 +22,11 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
     const values = ['Карта', 'Счет'];
     const {
       title,
-      endFunc,
+      endFuncForBankAccount,
+      endFuncForCreditCard,
     } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
     const [selected, refreshSelected] = React.useState<string>(values[0]);
-    const isCreditCard = selected === 'Карта';
+    const isCreditCard = selected === values[0];
 
     const onValueChange = (title: string) => {
       if (selected !== title) {
@@ -28,96 +34,41 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
       }
     };
 
-    const [errors, refreshErrors] = useState<any>({});
-
-    const [cardNumber, setCardNumber] = React.useState('');
-    const [expirationMonth, setExpirationMonth] = React.useState('01');
-    const [expirationYear, setExpirationYear] = React.useState('1910');
-    const [cvc, setCvc] = React.useState('');
-    const [name, setName] = React.useState('');
-
-    const onSaveDate = ({month, year}: IDate) => {
-      setExpirationMonth(month);
-      setExpirationYear(year);
-    };
-
-    const saveCardNumber = (text: React.SetStateAction<string>) => {
-      if (errors.cardNumber) {
-        refreshErrors(({cardNumber, ...otherErrors}) => otherErrors);
-      }
-      setCardNumber(text);
-    };
-
-    const saveCvc = (text: React.SetStateAction<string>) => {
-      if (errors.cvc) {
-        refreshErrors(({cvc, ...otherErrors}) => otherErrors);
-      }
-      setCvc(text);
-    };
-
-    const saveName = (text: React.SetStateAction<string>) => {
-      if (errors.name) {
-        refreshErrors(({name, ...otherErrors}) => otherErrors);
-      }
-      setName(text);
-    };
-
     const onHidePanel = useCallback(() => {
       setVisibleAdditionalAnswerPanel(false);
     }, [setVisibleAdditionalAnswerPanel]);
 
-    const onPress = React.useCallback(() => {
-      onHidePanel();
-      const _cardNumber = cardNumber.replace(/[^0-9]/g, '').slice(0, 16);
-      const _cvc = cvc.replace(/[^0-9]/g, '').slice(0, 3);
-      const _name = name.slice(0, 50);
-
-      if (_cardNumber.length < 16) {
-        refreshErrors((currentErrors: any) => ({
-          ...currentErrors,
-          cardNumber: 'Недостаточно символов',
-        }));
-        return null;
-      }
-
-      if (_name.length < 1) {
-        refreshErrors((currentErrors: any) => ({
-          ...currentErrors,
-          name: 'Введите имя',
-        }));
-        return null;
-      }
-
-      if (_cvc.length < 3) {
-        refreshErrors((currentErrors: any) => ({
-          ...currentErrors,
-          cvc: 'Код некорректный',
-        }));
-        return null;
-      }
-
-      endFunc(
-        {
-          number: _cardNumber,
-          cvc: +_cvc,
-          expirationMonth: +expirationMonth,
-          expirationYear: +expirationYear,
-          name: _name,
-        },
-        () => {
-          chatMiddleware.sendAnswer([], EBubbleType.CREDIT_CARD);
-        },
-      );
-    }, [
-      cardNumber,
+    const {
+      saveDate,
+      saveCardNumber,
+      saveCvc,
+      saveName,
+      creditErrors,
+      sendCardInfo,
+    } = USE_PaymentMethod.useCreditCard(
       chatMiddleware,
-      cvc,
-      endFunc,
-      expirationMonth,
-      expirationYear,
-      name,
+      endFuncForCreditCard,
       onHidePanel,
-    ]);
+    );
+
+    const {
+      saveAccountNumber,
+      saveBankNumber,
+      bankErrors,
+      sendBankInfo,
+    } = USE_PaymentMethod.useBankAccount(
+      chatMiddleware,
+      endFuncForBankAccount,
+      onHidePanel,
+    );
+
+    const onPress = () => {
+      if (isCreditCard) {
+        sendCardInfo();
+      } else {
+        sendBankInfo();
+      }
+    };
 
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
 
@@ -152,26 +103,30 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
           </TouchableOpacity>
         </View>
         {values.map(title => (
-          <View key={title} style={ChatPaymentAdditionalStyles.checkboxBlock}>
-            <CheckBox
-              onClick={() => onValueChange(title)}
-              isChecked={title === selected}
-              disabled={false}
-              checkedCheckBoxColor={buttonColor}
-              uncheckedCheckBoxColor={'#797979'}
-            />
-            <Text style={ChatPaymentAdditionalStyles.checkboxText}>
-              {title}
-            </Text>
-          </View>
+          <TouchableWithoutFeedback
+            onPress={() => onValueChange(title)}
+            key={title}>
+            <View style={ChatPaymentAdditionalStyles.checkboxBlock}>
+              <CheckBox
+                onClick={() => onValueChange(title)}
+                isChecked={title === selected}
+                disabled={false}
+                checkedCheckBoxColor={buttonColor}
+                uncheckedCheckBoxColor={'#797979'}
+              />
+              <Text style={ChatPaymentAdditionalStyles.checkboxText}>
+                {title}
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
         ))}
 
-        <View style={ChatPaymentAdditionalStyles.form}>
-          {isCreditCard ? (
+        <ScrollView style={ChatPaymentAdditionalStyles.form}>
+        {isCreditCard ? (
             <View>
               <TextField
                 label="Card number"
-                error={errors.cardNumber || ''}
+                error={creditErrors.cardNumber || ''}
                 style={ChatPaymentAdditionalStyles.inputText}
                 tintColor={buttonColor}
                 keyboardType="numeric"
@@ -183,7 +138,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
               />
               <TextField
                 label="Full name"
-                error={errors.name || ''}
+                error={creditErrors.name || ''}
                 style={ChatPaymentAdditionalStyles.inputText}
                 tintColor={buttonColor}
                 keyboardType="email-address"
@@ -200,14 +155,14 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   paddingBottom: 24,
                 }}>
                 <DatePicker
-                  onSaveDate={onSaveDate}
+                  onSaveDate={saveDate}
                   mode={'creditCard'}
                   viewStyles={libraryInputData.viewStyles}
                 />
               </View>
               <TextField
                 label="Cvc"
-                error={errors.cvc || ''}
+                error={creditErrors.cvc || ''}
                 style={ChatPaymentAdditionalStyles.inputText}
                 tintColor={buttonColor}
                 keyboardType="numeric"
@@ -222,11 +177,11 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
             <View>
               <TextField
                 label="Номер счета"
-                error={errors.cardNumber || ''}
+                error={bankErrors.cardNumber || ''}
                 style={ChatPaymentAdditionalStyles.inputText}
                 tintColor={buttonColor}
                 keyboardType="numeric"
-                onChangeText={saveCardNumber}
+                onChangeText={saveAccountNumber}
                 formatText={text =>
                   cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
                 }
@@ -234,11 +189,11 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
               />
               <TextField
                 label="БИК банка получателя"
-                error={errors.cardNumber || ''}
+                error={bankErrors.cardNumber || ''}
                 style={ChatPaymentAdditionalStyles.inputText}
                 tintColor={buttonColor}
                 keyboardType="numeric"
-                onChangeText={saveCardNumber}
+                onChangeText={saveBankNumber}
                 formatText={text =>
                   cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
                 }
@@ -246,9 +201,8 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
               />
             </View>
           )}
-        </View>
+        </ScrollView>
         <ButtonComponent
-          disabled={!isCreditCard}
           title={title}
           mainColor={buttonColor}
           secondColor={answerFieldColor}

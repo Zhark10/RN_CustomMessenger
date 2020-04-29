@@ -4,17 +4,20 @@ import {View, Text} from 'react-native';
 import {ChatChoiceStyles} from './S_ChatChoice';
 import {TChatProps} from '../../../types';
 import ScrollPicker from '../../../libs/scroll-picker/scroll-picker';
+
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
 const ChatChoice: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData}) => {
-    const values = chatMiddleware!.currentChatBotQuestion!.myAnswer!.CHOICE!
-      .checkboxTitles!;
-    const [selected, refreshSelected] = React.useState<string>(values[0]);
-
+    const {
+      checkboxTitles,
+      endFunc,
+    } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.CHOICE!;
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
-
+    const [selected, refreshSelected] = React.useState<string>(
+      checkboxTitles[0],
+    );
     const onValueChange = (title: string) => {
       if (selected === title) {
         refreshSelected('');
@@ -25,7 +28,8 @@ const ChatChoice: FC<TChatProps> = React.memo(
 
     const onPress = React.useCallback(() => {
       chatMiddleware.sendAnswer(selected.toUpperCase(), EBubbleType.TEXT);
-    }, [chatMiddleware, selected]);
+      endFunc(selected.toLowerCase());
+    }, [chatMiddleware, endFunc, selected]);
 
     return (
       <View style={ChatChoiceStyles.main}>
@@ -35,7 +39,7 @@ const ChatChoice: FC<TChatProps> = React.memo(
             alignItems: 'center',
           }}>
           <ScrollPicker
-            dataSource={values}
+            dataSource={checkboxTitles}
             selectedIndex={0}
             itemHeight={40}
             wrapperHeight={100}
@@ -48,7 +52,7 @@ const ChatChoice: FC<TChatProps> = React.memo(
                   fontSize: 20,
                   color: isSelected ? '#4F4E4E' : '#C3C3C3',
                 }}>
-                {data}
+                {data.toUpperCase()}
               </Text>
             )}
             onValueChange={onValueChange}
