@@ -29,9 +29,14 @@ export interface IInputAnswer {
 
 export interface IChoiceAnswer {
   keyForFormData: string;
-  checkboxTitles: string[];
+  checkboxTitles: TCheckboxData[];
   endFunc: (selectedValue: string) => void;
 }
+
+export type TCheckboxData = {
+  key: string;
+  checkboxTitle: string;
+};
 
 export interface IMultichoiceAnswer {
   keyForFormData: string;
@@ -76,14 +81,9 @@ interface IBornDate {
 export interface IPaymentAnswer {
   keyForFormData: string;
   title: string;
+  startFunc: () => void;
   endFuncForCreditCard: (data: IPaymentCard, cb: any) => void;
   endFuncForBankAccount: (data: IBankAccount, cb: any) => void;
-}
-
-export interface IAddressAnswer {
-  keyForFormData: string;
-  title: string;
-  endFunc: (address: string) => void;
 }
 
 export interface IDatepickerAnswer {

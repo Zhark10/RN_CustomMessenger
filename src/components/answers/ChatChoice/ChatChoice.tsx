@@ -2,9 +2,8 @@
 import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {ChatChoiceStyles} from './S_ChatChoice';
-import {TChatProps} from '../../../types';
+import {TChatProps, TCheckboxData} from '../../../types';
 import ScrollPicker from '../../../libs/scroll-picker/scroll-picker';
-
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
@@ -15,21 +14,20 @@ const ChatChoice: FC<TChatProps> = React.memo(
       endFunc,
     } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.CHOICE!;
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
-    const [selected, refreshSelected] = React.useState<string>(
+    const [selected, refreshSelected] = React.useState<TCheckboxData>(
       checkboxTitles[0],
     );
-    const onValueChange = (title: string) => {
-      if (selected === title) {
-        refreshSelected('');
-      } else {
-        refreshSelected(title);
-      }
+    const onValueChange = (item: TCheckboxData) => {
+      refreshSelected(item);
     };
 
     const onPress = React.useCallback(() => {
-      chatMiddleware.sendAnswer(selected.toUpperCase(), EBubbleType.TEXT);
-      endFunc(selected.toLowerCase());
-    }, [chatMiddleware, endFunc, selected]);
+      chatMiddleware.sendAnswer(
+        selected.checkboxTitle.toUpperCase(),
+        EBubbleType.TEXT,
+      );
+      endFunc(selected.key);
+    }, [chatMiddleware, endFunc, selected.checkboxTitle, selected.key]);
 
     return (
       <View style={ChatChoiceStyles.main}>
@@ -45,14 +43,18 @@ const ChatChoice: FC<TChatProps> = React.memo(
             wrapperHeight={100}
             wrapperColor={answerFieldColor}
             highlightColor={buttonColor}
-            renderItem={(data: string, index: number, isSelected: boolean) => (
+            renderItem={(
+              data: TCheckboxData,
+              index: number,
+              isSelected: boolean,
+            ) => (
               <Text
                 style={{
                   fontFamily: 'Circe-Regular',
                   fontSize: 20,
                   color: isSelected ? '#4F4E4E' : '#C3C3C3',
                 }}>
-                {data.toUpperCase()}
+                {data.checkboxTitle.toUpperCase()}
               </Text>
             )}
             onValueChange={onValueChange}
