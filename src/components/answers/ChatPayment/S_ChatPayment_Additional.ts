@@ -1,13 +1,15 @@
 import {screenHeight} from './../../../utils/helpers/screen';
 import {screenWidth} from '../../../utils/helpers/screen';
 import {StyleSheet} from 'react-native';
+import {isIos} from '../../../utils/helpers/platform';
 
 export const ChatPaymentAdditionalStyles = StyleSheet.create({
   main: {
     width: screenWidth,
     height: screenHeight,
     zIndex: 999,
-    bottom: 0,
+    bottom: isIos ? 65 : 0,
+    paddingTop: isIos ? 55 : undefined,
     paddingHorizontal: 16,
   },
   backButton: {

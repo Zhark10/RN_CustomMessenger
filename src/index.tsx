@@ -34,6 +34,15 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
   const isShowAdditionalPanel = myAnswerType === EAnswerType.PAYMENT;
 
+  React.useEffect(() => {
+    if (myAnswerType === EAnswerType.PAYMENT) {
+      const {
+        startFunc,
+      } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
+      startFunc();
+    }
+  }, [chatMiddleware, myAnswerType]);
+
   const additionalAnswerFieldAnimation = useAdditionalAnswerFieldAnimation(
     answerFieldVisible,
   );
@@ -83,6 +92,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     <>
       <KeyboardAvoidingView
         behavior={isIos ? 'padding' : undefined}
+        keyboardVerticalOffset={isIos ? 35 : undefined}
         style={[
           MainStyles.main,
           {
@@ -109,7 +119,9 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       {isShowAdditionalPanel ? (
         <Animated.View
           style={[
-            MainStyles.animAdditionalAnswerPanel,
+            isIos
+              ? MainStyles.animAdditionalAnswerPanelIos
+              : MainStyles.animAdditionalAnswerPanel,
             {
               right: additionalAnswerFieldAnimation.offsetValue,
               backgroundColor: answerFieldColor,
