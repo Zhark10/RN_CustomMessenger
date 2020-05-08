@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 'use strict';
 
 import React, {Component} from 'react';
@@ -9,12 +10,24 @@ import {
   Dimensions,
   Platform,
   ViewPropTypes,
+  ViewStyle,
 } from 'react-native';
 import PropTypes from 'prop-types';
 
 const deviceWidth = Dimensions.get('window').width;
 
-export default class ScrollPicker extends Component {
+interface ScrollPickerProps {
+  [key: string]: any;
+}
+
+interface ScrollPickerState {
+  [key: string]: any;
+}
+
+export default class ScrollPicker extends Component<
+  ScrollPickerProps,
+  ScrollPickerState
+> {
   static propTypes = {
     style: ViewPropTypes.style,
     dataSource: PropTypes.array.isRequired,
@@ -28,8 +41,15 @@ export default class ScrollPicker extends Component {
     wrapperHeight: PropTypes.number,
     wrapperColor: PropTypes.string,
   };
+  itemHeight: any;
+  wrapperHeight: any;
+  timer: any;
+  sview!: any;
+  isScrollTo!: boolean;
+  dragStarted!: boolean;
+  momentumStarted: any;
 
-  constructor(props) {
+  constructor(props: ScrollPickerProps) {
     super(props);
 
     this.itemHeight = this.props.itemHeight || 30;
@@ -62,14 +82,14 @@ export default class ScrollPicker extends Component {
     let highlightWidth =
       (this.props.style ? this.props.style.width : 0) || deviceWidth;
     let highlightColor = this.props.highlightColor || '#333';
-    let wrapperStyle = {
+    let wrapperStyle: ViewStyle = {
       height: this.wrapperHeight,
       flex: 1,
       backgroundColor: this.props.wrapperColor || '#fafafa',
       overflow: 'hidden',
     };
 
-    let highlightStyle = {
+    let highlightStyle: ViewStyle = {
       position: 'absolute',
       top: (this.wrapperHeight - this.itemHeight) / 2,
       height: this.itemHeight,
@@ -102,14 +122,14 @@ export default class ScrollPicker extends Component {
     );
   }
 
-  _renderPlaceHolder() {
+  private _renderPlaceHolder() {
     let h = (this.wrapperHeight - this.itemHeight) / 2;
     let header = <View style={{height: h, flex: 1}} />;
     let footer = <View style={{height: h, flex: 1}} />;
     return {header, footer};
   }
 
-  _renderItem(data, index) {
+  private _renderItem(data: string, index: number) {
     let isSelected = index === this.state.selectedIndex;
     let item = (
       <Text
@@ -132,7 +152,7 @@ export default class ScrollPicker extends Component {
       </View>
     );
   }
-  _scrollFix(e) {
+  private _scrollFix(e: any) {
     let y = 0;
     let h = this.itemHeight;
     if (e.nativeEvent.contentOffset) {
@@ -159,14 +179,14 @@ export default class ScrollPicker extends Component {
       this.props.onValueChange(selectedValue, selectedIndex);
     }
   }
-  _onScrollBeginDrag() {
+  private _onScrollBeginDrag() {
     this.dragStarted = true;
     if (Platform.OS === 'ios') {
       this.isScrollTo = false;
     }
     this.timer && clearTimeout(this.timer);
   }
-  _onScrollEndDrag(e) {
+  private _onScrollEndDrag(e: any) {
     this.dragStarted = false;
     // if not used, event will be garbaged
     let _e = {
@@ -179,22 +199,22 @@ export default class ScrollPicker extends Component {
     this.timer && clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       if (!this.momentumStarted && !this.dragStarted) {
-        this._scrollFix(_e, 'timeout');
+        this._scrollFix(_e);
       }
     }, 10);
   }
-  _onMomentumScrollBegin(e) {
+  private _onMomentumScrollBegin() {
     this.momentumStarted = true;
     this.timer && clearTimeout(this.timer);
   }
-  _onMomentumScrollEnd(e) {
+  private _onMomentumScrollEnd(e: any) {
     this.momentumStarted = false;
     if (!this.isScrollTo && !this.momentumStarted && !this.dragStarted) {
       this._scrollFix(e);
     }
   }
 
-  scrollToIndex(ind, animated = true) {
+  private scrollToIndex(ind: number, animated = true) {
     this.setState({
       selectedIndex: ind,
     });
