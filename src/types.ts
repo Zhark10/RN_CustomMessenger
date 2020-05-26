@@ -13,6 +13,7 @@ export const EAnswerType = {
   DATEPICKER: 'DATEPICKER',
   BUTTON: 'BUTTON',
   PAYMENT: 'PAYMENT',
+  ADDRESS: 'ADDRESS',
 };
 
 export interface IMessage {
@@ -86,6 +87,12 @@ export interface IPaymentAnswer {
   endFuncForBankAccount: (data: IBankAccount, cb: any) => void;
 }
 
+export interface IAddressAnswer {
+  keyForFormData: string;
+  title: string;
+  endFunc: (address: any) => void;
+}
+
 export interface IDatepickerAnswer {
   keyForFormData: string;
   title: string;
@@ -100,6 +107,7 @@ export interface IAnswer {
   DATEPICKER?: IDatepickerAnswer;
   BUTTON?: IButtonAnswer;
   PAYMENT?: IPaymentAnswer;
+  ADDRESS?: IAddressAnswer;
   [key: string]: any;
 }
 
