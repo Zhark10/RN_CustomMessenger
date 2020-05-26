@@ -28,9 +28,9 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
     const [selected, refreshSelected] = React.useState<string>(values[0]);
     const isCreditCard = selected === values[0];
 
-    const onValueChange = (title: string) => {
-      if (selected !== title) {
-        refreshSelected(title);
+    const onValueChange = (text: string) => {
+      if (selected !== text) {
+        refreshSelected(text);
       }
     };
 
@@ -102,20 +102,20 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
             />
           </TouchableOpacity>
         </View>
-        {values.map(title => (
+        {values.map(text => (
           <TouchableWithoutFeedback
-            onPress={() => onValueChange(title)}
-            key={title}>
+            onPress={() => onValueChange(text)}
+            key={text}>
             <View style={ChatPaymentAdditionalStyles.checkboxBlock}>
               <CheckBox
-                onClick={() => onValueChange(title)}
-                isChecked={title === selected}
+                onClick={() => onValueChange(text)}
+                isChecked={text === selected}
                 disabled={false}
                 checkedCheckBoxColor={buttonColor}
                 uncheckedCheckBoxColor={'#797979'}
               />
               <Text style={ChatPaymentAdditionalStyles.checkboxText}>
-                {title}
+                {text}
               </Text>
             </View>
           </TouchableWithoutFeedback>
