@@ -90,6 +90,7 @@ export interface IPaymentAnswer {
 export interface IAddressAnswer {
   keyForFormData: string;
   title: string;
+  googleMapApiKey: string;
   endFunc: (address: any) => void;
 }
 
