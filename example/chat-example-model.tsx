@@ -48,8 +48,19 @@ const example: TLibraryInputData = {
       myAnswer: {
         CHOICE: {
           keyForFormData: 'gender',
-          checkboxTitles: ['MALE', 'FEMALE'],
-          buttonFunc: () => {},
+          checkboxTitles: [
+            {
+              key: 'MALE',
+              checkboxTitle: 'MALE',
+            },
+            {
+              key: 'FEMALE',
+              checkboxTitle: 'FEMALE',
+            },
+          ],
+          endFunc: selected => {
+            console.log(selected);
+          },
         },
       },
     },
@@ -110,7 +121,13 @@ const example: TLibraryInputData = {
         PAYMENT: {
           keyForFormData: 'cardData',
           title: 'OK',
-          endFunc: () => {},
+          endFuncForBankAccount: (data, _cb) => {
+            console.log(data);
+          },
+          endFuncForCreditCard: (data, _cb) => {
+            console.log(data);
+          },
+          startFunc: () => {},
         },
       },
     },

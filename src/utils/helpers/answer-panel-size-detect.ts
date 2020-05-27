@@ -29,6 +29,7 @@ export const getAnswerSize = (myAnswer: IAnswer): number => {
     [EAnswerType.PHOTO]: 78,
     [EAnswerType.BUTTON]: 78,
     [EAnswerType.PAYMENT]: 78,
+    [EAnswerType.ADDRESS]: 78,
   };
   return values[myAnswerType];
 };
