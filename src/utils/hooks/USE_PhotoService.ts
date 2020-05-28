@@ -87,7 +87,7 @@ export const usePhotoService = (
         }
       } catch (err) {
         // try again notice
-        Toast.show('Versuchen Sie es erneut.');
+        Toast.show('Упс, что-то пошло не так.');
       }
     };
 

@@ -2,6 +2,11 @@ import React, {FC} from 'react';
 import {Alert} from 'react-native';
 import {OfflineMessanger} from '../App';
 import {TLibraryInputData} from '../src/types/T_LibraryInputData';
+import PROVIDERS from './auth-providers-data';
+
+const {
+  google: {googleMapApiKey},
+} = PROVIDERS;
 
 const example: TLibraryInputData = {
   viewStyles: {
@@ -61,6 +66,19 @@ const example: TLibraryInputData = {
           endFunc: selected => {
             console.log(selected);
           },
+        },
+      },
+    },
+    {
+      botMessage: [{text: 'What`s your address'}],
+      myAnswer: {
+        ADDRESS: {
+          keyForFormData: 'address',
+          title: 'ОК',
+          endFunc: address => {
+            console.log(address);
+          },
+          googleMapApiKey,
         },
       },
     },
