@@ -1,11 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {screenHeight, screenWidth} from '../../../utils/helpers/screen';
+import {screenWidth} from '../../../utils/helpers/screen';
 import {isIos} from '../../../utils/helpers/platform';
 
 export const ChatAddressAdditionalStyles = StyleSheet.create({
   main: {
     width: screenWidth,
-    height: screenHeight,
     zIndex: 999,
     bottom: isIos ? 65 : 0,
     paddingTop: isIos ? 50 : undefined,

@@ -10,6 +10,7 @@ export const ButtonComponent: React.FC<TButtonComponent> = ({
   mainColor,
   secondColor,
   disabled,
+  style,
 }) => {
   const isLightButton = type === 'light';
   const touchableStyles: ViewStyle = {
@@ -23,7 +24,7 @@ export const ButtonComponent: React.FC<TButtonComponent> = ({
   return (
     <TouchableOpacity
       disabled={disabled}
-      style={[ButtonComponentStyles.main, touchableStyles]}
+      style={[ButtonComponentStyles.main, touchableStyles, style]}
       onPress={onPress}>
       <Text style={[ButtonComponentStyles.title, titleStyles]}>{title}</Text>
     </TouchableOpacity>

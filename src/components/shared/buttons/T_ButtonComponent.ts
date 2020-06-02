@@ -7,4 +7,5 @@ export type TButtonComponent = {
   mainColor: string;
   secondColor: string;
   disabled?: boolean;
+  style?: any;
 };
