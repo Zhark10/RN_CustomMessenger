@@ -1,5 +1,5 @@
-import {screenWidth} from './../../../utils/screen';
 import {StyleSheet} from 'react-native';
+import {screenWidth} from './utils/helpers/screen';
 
 export const MainStyles = StyleSheet.create({
   main: {

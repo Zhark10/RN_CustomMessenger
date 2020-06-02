@@ -95,33 +95,31 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   const {answerFieldColor, chatBackgroundColor} = libraryInputData.viewStyles;
 
   return (
-    <>
-      <KeyboardAvoidingView
-        behavior={isIos ? 'padding' : undefined}
-        keyboardVerticalOffset={isIos ? 35 : undefined}
+    <KeyboardAvoidingView
+      behavior={isIos ? 'padding' : undefined}
+      keyboardVerticalOffset={isIos ? 35 : undefined}
+      style={[
+        MainStyles.main,
+        {
+          backgroundColor: chatBackgroundColor,
+        },
+      ]}>
+      <MessagesField answerSize={answerSize} {...chatProps} />
+      {libraryInputData.chatHeaderComponent ? (
+        libraryInputData.chatHeaderComponent
+      ) : (
+        <></>
+      )}
+      <Animated.View
         style={[
-          MainStyles.main,
+          MainStyles.animAnswerPanel,
           {
-            backgroundColor: chatBackgroundColor,
+            height: answerFieldAnimation.offsetValue,
+            backgroundColor: answerFieldColor,
           },
         ]}>
-        <MessagesField answerSize={answerSize} {...chatProps} />
-        {libraryInputData.chatHeaderComponent ? (
-          libraryInputData.chatHeaderComponent
-        ) : (
-          <></>
-        )}
-        <Animated.View
-          style={[
-            MainStyles.animAnswerPanel,
-            {
-              height: answerFieldAnimation.offsetValue,
-              backgroundColor: answerFieldColor,
-            },
-          ]}>
-          {answerFieldVisible && selectAnswerField()}
-        </Animated.View>
-      </KeyboardAvoidingView>
+        {answerFieldVisible && selectAnswerField()}
+      </Animated.View>
       {isShowAdditionalPanel ? (
         <Animated.View
           style={[
@@ -138,6 +136,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       ) : (
         <></>
       )}
-    </>
+    </KeyboardAvoidingView>
   );
 };
