@@ -1,12 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {FC, useCallback, useState} from 'react';
+import React, {FC, useCallback} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   ScrollView,
   TouchableWithoutFeedback,
-  Keyboard,
 } from 'react-native';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
@@ -17,8 +16,8 @@ import CheckBox from 'react-native-check-box';
 import {ChatPaymentAdditionalStyles} from './S_ChatPayment_Additional';
 import {USE_PaymentMethod} from '../../../utils/hooks/USE_Payment';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {isIos} from '../../../utils/helpers/platform';
-import {screenHeight} from '../../../utils/helpers/screen';
+import {screenHeight, getBottomSpace, screenWidth} from '../../../utils/helpers/screen';
+import { useKeyboardData } from '../../../utils/hooks/USE_KeyboardData';
 
 const ChatPaymentAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
@@ -29,7 +28,6 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
       endFuncForCreditCard,
     } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
     const [selected, refreshSelected] = React.useState<string>(values[0]);
-    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const isCreditCard = selected === values[0];
 
     const onValueChange = (text: string) => {
@@ -74,31 +72,12 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
       }
     };
 
-    React.useEffect(() => {
-      const keyboardShowListener = isIos
-        ? 'keyboardWillShow'
-        : 'keyboardDidShow';
-      const keyboardHideListener = isIos
-        ? 'keyboardWillHide'
-        : 'keyboardDidHide';
-      const keyboardDidShowListener = Keyboard.addListener(
-        keyboardShowListener,
-        () => {
-          setKeyboardVisible(true);
-        },
-      );
-      const keyboardDidHideListener = Keyboard.addListener(
-        keyboardHideListener,
-        () => {
-          setKeyboardVisible(false);
-        },
-      );
-      return () => {
-        keyboardDidHideListener.remove();
-        keyboardDidShowListener.remove();
-      };
-    }, []);
+    const {keyboardHeight, keyboardShow} = useKeyboardData();
 
+    const checkboxHeight = 34.2;
+    const headerHeight = 64;
+    const buttonContainerHeight = 48 + 16 + 16;
+    const customYOffset = 20;
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
 
     return (
@@ -150,10 +129,25 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
           </TouchableWithoutFeedback>
         ))}
         <View
-          style={isKeyboardVisible ? {height: screenHeight / 2} : {flex: 1}}>
-          <ScrollView style={ChatPaymentAdditionalStyles.form}>
+          style={
+            keyboardShow
+              ? {
+                  height:
+                    screenHeight -
+                    keyboardHeight -
+                    checkboxHeight -
+                    headerHeight -
+                    buttonContainerHeight -
+                    getBottomSpace(),
+                }
+              : {flex: 1}
+          }>
+          <ScrollView
+            contentContainerStyle={{
+              paddingBottom: keyboardShow ? buttonContainerHeight : 0,
+            }}>
             {isCreditCard ? (
-              <View style={{paddingBottom: isKeyboardVisible ? 48 : 0}}>
+              <>
                 <TextField
                   label="Card number"
                   error={creditErrors.cardNumber || ''}
@@ -202,9 +196,9 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   }
                   placeholderTextColor={buttonColor}
                 />
-              </View>
+              </>
             ) : (
-              <View>
+              <>
                 <TextField
                   label="Номер счета"
                   error={bankErrors.cardNumber || ''}
@@ -229,11 +223,16 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   }
                   placeholderTextColor={buttonColor}
                 />
-              </View>
+              </>
             )}
           </ScrollView>
         </View>
         <ButtonComponent
+          style={{
+            position: 'absolute',
+            bottom: getBottomSpace() + keyboardHeight + customYOffset,
+            width: screenWidth - 16,
+          }}
           title={title}
           mainColor={buttonColor}
           secondColor={answerFieldColor}
