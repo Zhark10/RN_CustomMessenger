@@ -6,13 +6,12 @@ import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import {ChatAddressAdditionalStyles} from './S_ChatAddress_Additional';
 import {TextField} from 'react-native-material-textfield';
 import {USE_Address} from '../../../utils/hooks/USE_AddressChecking';
-import {isIos} from '../../../utils/helpers/platform';
-import {screenHeight} from '../../../utils/helpers/screen';
+import {screenHeight, getBottomSpace, screenWidth} from '../../../utils/helpers/screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useKeyboardData } from '../../../utils/hooks/USE_KeyboardData';
 
 const ChatAddressAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
-    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
     const {
@@ -36,30 +35,11 @@ const ChatAddressAdditional: FC<TChatProps> = React.memo(
       setVisibleAdditionalAnswerPanel,
     );
 
-    React.useEffect(() => {
-      const keyboardShowListener = isIos
-        ? 'keyboardWillShow'
-        : 'keyboardDidShow';
-      const keyboardHideListener = isIos
-        ? 'keyboardWillHide'
-        : 'keyboardDidHide';
-      const keyboardDidShowListener = Keyboard.addListener(
-        keyboardShowListener,
-        () => {
-          setKeyboardVisible(true);
-        },
-      );
-      const keyboardDidHideListener = Keyboard.addListener(
-        keyboardHideListener,
-        () => {
-          setKeyboardVisible(false);
-        },
-      );
-      return () => {
-        keyboardDidHideListener.remove();
-        keyboardDidShowListener.remove();
-      };
-    }, []);
+    const {keyboardHeight, keyboardShow} = useKeyboardData();
+
+    const headerHeight = 64;
+    const buttonContainerHeight = 48 + 16 + 16;
+    const customYOffset = 20;
 
     return (
       <View
@@ -96,9 +76,22 @@ const ChatAddressAdditional: FC<TChatProps> = React.memo(
           </TouchableOpacity>
         </View>
         <View
-          style={isKeyboardVisible ? {height: screenHeight / 2} : {flex: 1}}>
+          style={
+            keyboardShow
+              ? {
+                  height:
+                    screenHeight -
+                    keyboardHeight -
+                    headerHeight -
+                    buttonContainerHeight -
+                    getBottomSpace(),
+                }
+              : {flex: 1}
+          }>
           <ScrollView
-            contentContainerStyle={{paddingBottom: isKeyboardVisible ? 48 : 0}}>
+            contentContainerStyle={{
+              paddingBottom: keyboardShow ? buttonContainerHeight : 0,
+            }}>
             <TextField
               label={'Страна*'}
               error={
@@ -165,7 +158,11 @@ const ChatAddressAdditional: FC<TChatProps> = React.memo(
           </ScrollView>
         </View>
         <ButtonComponent
-          style={{top: isKeyboardVisible ? 48 : 0}}
+          style={{
+            position: 'absolute',
+            bottom: getBottomSpace() + keyboardHeight + customYOffset,
+            width: screenWidth - 16,
+          }}
           title={title}
           mainColor={buttonColor}
           secondColor={answerFieldColor}
