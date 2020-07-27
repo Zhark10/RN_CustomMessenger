@@ -10,22 +10,22 @@
     "lint:fix": "eslint './src/**/*.{js,ts,tsx}' --fix"
   },
   "dependencies": {
-    "@react-native-community/art": "^1.2.0",
-    "@types/moment": "^2.13.0",
-    "@types/react-native-check-box": "^2.1.1",
-    "@types/react-native-material-textfield": "^0.16.3",
-    "@types/react-native-vector-icons": "^6.4.5",
-    "moment": "^2.24.0",
+    "@react-native-community/art": "1.2.0",
+    "@types/moment": "2.13.0",
+    "@types/react-native-check-box": "2.1.1",
+    "@types/react-native-material-textfield": "0.16.3",
+    "@types/react-native-vector-icons": "6.4.5",
+    "moment": "2.24.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
-    "react-native-check-box": "^2.1.7",
-    "react-native-image-picker": "^2.3.1",
-    "react-native-indicator": "^1.2.0",
+    "react-native-check-box": "2.1.7",
+    "react-native-image-picker": "2.3.1",
+    "react-native-indicator": "1.2.0",
     "react-native-material-textfield": "n4kz/react-native-material-textfield#729008b847eb38129d0b886e98253d4c11f6d4d3",
-    "react-native-reanimated": "^1.7.0",
-    "react-native-simple-toast": "^1.0.0",
-    "react-native-vector-icons": "^6.6.0",
-    "shortid": "^2.2.15"
+    "react-native-reanimated": "1.7.0",
+    "react-native-simple-toast": "1.0.0",
+    "react-native-vector-icons": "6.6.0",
+    "shortid": "2.2.15"
   },
   "keywords": [
     "react-native",
@@ -44,18 +44,18 @@
     "bubble"
   ],
   "devDependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/runtime": "^7.6.2",
-    "@react-native-community/eslint-config": "^0.0.5",
-    "@types/react-native": "^0.60.25",
+    "@babel/core": "7.6.2",
+    "@babel/runtime": "7.6.2",
+    "@react-native-community/eslint-config": "0.0.5",
+    "@types/react-native": "0.60.25",
     "@types/react-test-renderer": "16.9.1",
     "@types/shortid": "0.0.29",
-    "@typescript-eslint/eslint-plugin": "^2.12.0",
-    "@typescript-eslint/parser": "^2.12.0",
-    "eslint": "^6.5.1",
-    "metro-react-native-babel-preset": "^0.56.0",
+    "@typescript-eslint/eslint-plugin": "2.12.0",
+    "@typescript-eslint/parser": "2.12.0",
+    "eslint": "6.5.1",
+    "metro-react-native-babel-preset": "0.56.0",
     "react-test-renderer": "16.9.0",
-    "typescript": "^3.7.3"
+    "typescript": "3.7.3"
   },
   "main": "index.js",
   "repository": {
