@@ -20,24 +20,32 @@ const useCreditCard = (
     setExpirationMonth(month);
     setExpirationYear(year);
   };
+  
   const saveCardNumber = (text: React.SetStateAction<string>) => {
     if (creditErrors.cardNumber) {
-      refreshCreditErrors(({cardNumber, ...otherErrors}) => otherErrors);
+      refreshCreditErrors((errors: { [x: string]: any; cardNumber: any; }) => {
+        const {cardNumber, ...otherErrors} = errors
+        return otherErrors
+      });
     }
     setCardNumber(text);
   };
 
   const saveCvc = (text: React.SetStateAction<string>) => {
     if (creditErrors.cvc) {
-      refreshCreditErrors(({cvc, ...otherErrors}) => otherErrors);
+      refreshCreditErrors((errors: { [x: string]: any; cvc: any; }) => {
+        const {cvc, ...otherErrors} = errors
+        return otherErrors
+      });
     }
     setCvc(text);
   };
 
   const saveName = (text: React.SetStateAction<string>) => {
-    if (creditErrors.name) {
-      refreshCreditErrors(({name, ...otherErrors}) => otherErrors);
-    }
+    refreshCreditErrors((errors: { [x: string]: any; name: any; }) => {
+      const {name, ...otherErrors} = errors
+      return otherErrors
+    });
     setName(text);
   };
 
@@ -119,14 +127,20 @@ const useBankAccount = (
 
   const saveAccountNumber = (text: React.SetStateAction<string>) => {
     if (bankErrors.accountNumber) {
-      refreshBankErrors(({accountNumber, ...otherErrors}) => otherErrors);
+      refreshBankErrors((errors: { [x: string]: any; accountNumber: any; }) => {
+        const {accountNumber, ...otherErrors} = errors
+        return otherErrors
+      });
     }
     setAccountNumber(text);
   };
 
   const saveBankNumber = (text: React.SetStateAction<string>) => {
-    if (bankErrors.cardNumber) {
-      refreshBankErrors(({bankNumber, ...otherErrors}) => otherErrors);
+    if (bankErrors.bankNumber) {
+      refreshBankErrors((errors: { [x: string]: any; bankNumber: any; }) => {
+        const {bankNumber, ...otherErrors} = errors
+        return otherErrors
+      });
     }
     setBankNumber(text);
   };

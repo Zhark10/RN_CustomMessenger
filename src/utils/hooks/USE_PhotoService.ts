@@ -111,7 +111,7 @@ export const usePhotoService = (
     return null;
   };
 
-  React.useEffect(() => {
+  React.useEffect(function whatToDoNextAfterPhotoUpload() {
     const everyonePhotosUploaded = photosUploaded.length === photoLimit;
     const isNotStartedPhoto = photoLimit === 0;
     if (isNotStartedPhoto || permissionDenied) {

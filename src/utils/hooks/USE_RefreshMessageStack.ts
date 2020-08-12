@@ -17,7 +17,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
 
   const {autoScrollToEnd, scrollView} = useAutoScrollMessages();
 
-  React.useEffect(() => {
+  React.useEffect(function scrollDownWhenKeyboardIsOpen(){
     const keyboardShowListener = isIos ? 'keyboardWillShow' : 'keyboardDidShow';
     const keyboardDidShowListener = Keyboard.addListener(
       keyboardShowListener,
@@ -31,7 +31,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     };
   }, []);
 
-  React.useEffect(() => {
+  React.useEffect(function needToProvokeABotMessage() {
     const isLastMessageTypedMe =
       messages.length && messages[messages.length - 1].sender === 'me';
     if (isLastMessageTypedMe) {
@@ -77,7 +77,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     return () => clearTimeout(answerFieldShowByTime);
   }, [index]);
 
-  React.useEffect(() => {
+  React.useEffect(function addNewBotMessageWhileStackIsNotEmpty() {
     if (index < botMessage.length) {
       addedNewMessageInStack();
       return () => {};
