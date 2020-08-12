@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, ReactNode} from 'react';
 import Animated from 'react-native-reanimated';
 import {KeyboardAvoidingView} from 'react-native';
 
@@ -38,12 +38,9 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     myAnswerType === EAnswerType.ADDRESS ||
     myAnswerType === EAnswerType.PAYMENT;
 
-  React.useEffect(() => {
+  useEffect(function startEventWhenPayment() {
     if (myAnswerType === EAnswerType.PAYMENT) {
-      const {
-        startFunc,
-      } = chatMiddleware?.currentChatBotQuestion?.myAnswer?.PAYMENT!;
-      startFunc();
+      chatMiddleware?.currentChatBotQuestion?.myAnswer?.PAYMENT?.startFunc();
     }
   }, [chatMiddleware, myAnswerType]);
 
@@ -61,7 +58,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     answerSize,
   );
 
-  const selectAnswerField = (): React.ReactNode => {
+  const selectAnswerField = (): ReactNode => {
     const answerFields = {
       [EAnswerType.INPUT]: ChatInput,
       [EAnswerType.MULTICHOICE]: ChatMultichoice,
@@ -76,7 +73,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     return <AnswerField {...chatProps} />;
   };
 
-  const selectAdditionalPanelForAnswer = (): React.ReactNode => {
+  const selectAdditionalPanelForAnswer = (): ReactNode => {
     const answerFields = {
       [EAnswerType.PAYMENT]: ChatPaymentAdditional,
       [EAnswerType.ADDRESS]: ChatAddressAdditional,

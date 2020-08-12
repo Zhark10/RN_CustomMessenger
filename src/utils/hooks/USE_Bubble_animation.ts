@@ -1,5 +1,5 @@
 import {ISender} from '../../store/T_ChatProvider';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Animated, {Easing} from 'react-native-reanimated';
 import {screenWidth} from '../helpers/screen';
 
@@ -10,7 +10,7 @@ type Animation = {
 };
 
 export const useScaleAnimation = (): Animation => {
-  const [scaleValue] = React.useState(new Value(0));
+  const [scaleValue] = useState(new Value(0));
   const scaleConfig = {
     toValue: 1,
     duration: 550,
@@ -18,7 +18,7 @@ export const useScaleAnimation = (): Animation => {
   };
   const scaleAnimation = timing(scaleValue, scaleConfig);
 
-  React.useEffect(() => {
+  useEffect(() => {
     scaleAnimation.start();
   }, [scaleAnimation]);
 
@@ -26,7 +26,7 @@ export const useScaleAnimation = (): Animation => {
 };
 
 export const useTranslateXAnimation = (sender: ISender): Animation => {
-  const [offsetX] = React.useState(() => {
+  const [offsetX] = useState(() => {
     const value = sender === 'chatBot' ? -100 : screenWidth;
     return new Value(value);
   });
@@ -37,7 +37,7 @@ export const useTranslateXAnimation = (sender: ISender): Animation => {
   };
   const offsetXAnimation = timing(offsetX, offsetYConfig);
 
-  React.useEffect(() => {
+  useEffect(() => {
     offsetXAnimation.start();
   }, [offsetXAnimation]);
 
@@ -45,7 +45,7 @@ export const useTranslateXAnimation = (sender: ISender): Animation => {
 };
 
 export const useTranslateYAnimation = (sender: ISender): Animation => {
-  const [offsetY] = React.useState(() => {
+  const [offsetY] = useState(() => {
     const value = sender === 'chatBot' ? 55 : 355;
     return new Value(value);
   });
@@ -56,7 +56,7 @@ export const useTranslateYAnimation = (sender: ISender): Animation => {
   };
   const offsetYAnimation = timing(offsetY, offsetYConfig);
 
-  React.useEffect(() => {
+  useEffect(() => {
     offsetYAnimation.start();
   }, [offsetYAnimation]);
 

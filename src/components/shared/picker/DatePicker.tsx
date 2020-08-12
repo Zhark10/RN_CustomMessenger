@@ -29,7 +29,7 @@ export const DatePicker: React.FC<TDatePicker> = ({
 
   const daysInCurentMonth = moment(`${year}-${month}`, 'YYYY-MM').daysInMonth();
 
-  React.useEffect(() => {
+  React.useEffect(function saveDate() {
     onSaveDate({month, year, day});
   }, [month, year, day, onSaveDate]);
 

@@ -21,7 +21,7 @@ import {
   getBottomSpace,
   screenWidth,
 } from '../../../utils/helpers/screen';
-import {useKeyboardData} from '../../../utils/hooks/USE_KeyboardData';
+import {useKeyboardStatus} from '../../../utils/hooks/USE_KeyboardStatus';
 
 const ChatPaymentAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
@@ -76,7 +76,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
       }
     };
 
-    const {keyboardHeight, keyboardShow} = useKeyboardData();
+    const {keyboardHeight, keyboardShow} = useKeyboardStatus();
 
     const checkboxHeight = 34.2;
     const headerHeight = 64;

@@ -1,5 +1,5 @@
 import Animated, {Easing} from 'react-native-reanimated';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {screenWidth} from '../helpers/screen';
 
 const {Value, timing} = Animated;
@@ -8,7 +8,7 @@ export const useAnswerFieldAnimation = (
   answerFieldVisible: boolean,
   answerHeight: number,
 ): {offsetValue: Animated.Value<number>} => {
-  const [offsetValue] = React.useState(new Value(-500));
+  const [offsetValue] = useState(new Value(-500));
 
   const scaleConfig = {
     toValue: answerFieldVisible ? answerHeight : 0,
@@ -17,7 +17,7 @@ export const useAnswerFieldAnimation = (
   };
   const scaleAnim = timing(offsetValue, scaleConfig);
 
-  React.useEffect(() => {
+  useEffect(() => {
     scaleAnim.start();
   }, [answerFieldVisible, scaleAnim]);
 
@@ -27,8 +27,8 @@ export const useAnswerFieldAnimation = (
 export const useAdditionalAnswerFieldAnimation = (
   answerFieldVisible: boolean,
 ) => {
-  const [isVisible, setVisible] = React.useState(false);
-  const [offsetValue] = React.useState(new Value(-screenWidth));
+  const [isVisible, setVisible] = useState(false);
+  const [offsetValue] = useState(new Value(-screenWidth));
 
   const scaleConfig = {
     toValue: isVisible ? 0 : -screenWidth,
@@ -37,7 +37,7 @@ export const useAdditionalAnswerFieldAnimation = (
   };
   const scaleAnim = timing(offsetValue, scaleConfig);
 
-  React.useEffect(() => {
+  useEffect(() => {
     scaleAnim.start();
   }, [answerFieldVisible, isVisible, scaleAnim]);
 

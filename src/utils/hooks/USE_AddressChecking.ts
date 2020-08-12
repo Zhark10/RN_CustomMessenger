@@ -20,7 +20,7 @@ const useAddressChecking = (
   const [postCode, savePostCode] = useState('');
   const [isNeedToFill, setNeedToFill] = useState(false);
 
-  useEffect(() => {
+  useEffect(function requiredFieldsValidation(){
     setNeedToFill(false);
   }, [country, city, street, house, postCode]);
 

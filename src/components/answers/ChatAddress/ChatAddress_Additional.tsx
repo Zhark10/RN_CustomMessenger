@@ -11,7 +11,7 @@ import {
   screenWidth,
 } from '../../../utils/helpers/screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useKeyboardData} from '../../../utils/hooks/USE_KeyboardData';
+import {useKeyboardStatus} from '../../../utils/hooks/USE_KeyboardStatus';
 
 const ChatAddressAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
@@ -27,7 +27,7 @@ const ChatAddressAdditional: FC<TChatProps> = React.memo(
       setVisibleAdditionalAnswerPanel,
     );
 
-    const {keyboardHeight, keyboardShow} = useKeyboardData();
+    const {keyboardHeight, keyboardShow} = useKeyboardStatus();
 
     const headerHeight = 64;
     const buttonContainerHeight = 48 + 16 + 16;

@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ImagePicker, {
   ImagePickerOptions,
   ImagePickerResponse,
@@ -14,10 +13,10 @@ export const usePhotoService = (
   startSendingCallback: () => any,
   sendInVeriffCallback: (data: string, photoType: IPhotoType) => any,
 ) => {
-  const [permissionDenied, setPermissionDenied] = React.useState(false);
-  const [photosUploaded, refreshUploadedPhoto] = React.useState<any[]>([]);
-  const [photoIndex, setPhotoIndex] = React.useState(0);
-  const [photoLimit, setPhotoLimit] = React.useState(0);
+  const [permissionDenied, setPermissionDenied] = useState(false);
+  const [photosUploaded, refreshUploadedPhoto] = useState<any[]>([]);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [photoLimit, setPhotoLimit] = useState(0);
 
   const savePhoto = async ({type, uri}: ImagePickerResponse) => {
     if (type && uri) {
@@ -111,7 +110,7 @@ export const usePhotoService = (
     return null;
   };
 
-  React.useEffect(function whatToDoNextAfterPhotoUpload() {
+  useEffect(function whatToDoNextAfterPhotoUpload() {
     const everyonePhotosUploaded = photosUploaded.length === photoLimit;
     const isNotStartedPhoto = photoLimit === 0;
     if (isNotStartedPhoto || permissionDenied) {

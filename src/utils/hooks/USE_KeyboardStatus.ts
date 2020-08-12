@@ -1,13 +1,13 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Keyboard } from "react-native";
 
-export const useKeyboardData = () => {
-  const [keyboardData, setKeyboardData] = React.useState<{
+export const useKeyboardStatus = () => {
+  const [keyboardData, setKeyboardData] = useState<{
     keyboardShow: boolean;
     keyboardHeight: number;
   }>({keyboardShow: false, keyboardHeight: 0});
 
-  React.useEffect(() => {
+  useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       (event) => keyboardDidShow(event)

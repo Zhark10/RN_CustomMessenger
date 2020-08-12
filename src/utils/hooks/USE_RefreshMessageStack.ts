@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {TUseChatMiddleware} from './USE_ChatMiddleware';
 import shortid from 'shortid';
 import {useAutoScrollMessages} from './USE_AutoScrollForMessages';
@@ -7,8 +6,8 @@ import {isIos} from '../helpers/platform';
 import {Keyboard} from 'react-native';
 
 export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
-  const [index, setIndex] = React.useState(0);
-  const [isTyping, setTyping] = React.useState(false);
+  const [index, setIndex] = useState(0);
+  const [isTyping, setTyping] = useState(false);
   const {
     setAnswerFieldVisible,
     currentChatBotQuestion: {botMessage},
@@ -17,7 +16,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
 
   const {autoScrollToEnd, scrollView} = useAutoScrollMessages();
 
-  React.useEffect(function scrollDownWhenKeyboardIsOpen(){
+  useEffect(function scrollDownWhenKeyboardIsOpen(){
     const keyboardShowListener = isIos ? 'keyboardWillShow' : 'keyboardDidShow';
     const keyboardDidShowListener = Keyboard.addListener(
       keyboardShowListener,
@@ -31,7 +30,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     };
   }, []);
 
-  React.useEffect(function needToProvokeABotMessage() {
+  useEffect(function needToProvokeABotMessage() {
     const isLastMessageTypedMe =
       messages.length && messages[messages.length - 1].sender === 'me';
     if (isLastMessageTypedMe) {
@@ -43,7 +42,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     }
   }, [messages]);
 
-  const addedNewMessageInStack = React.useCallback(() => {
+  const addedNewMessageInStack = useCallback(() => {
     const timeToShowNextMessage = botMessage[index].text
       ? botMessage[index].text!.length * 50
       : 2000;
@@ -66,7 +65,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     return () => clearTimeout(toShowNextMessage);
   }, [index]);
 
-  const showAnswerField = React.useCallback(() => {
+  const showAnswerField = useCallback(() => {
     const answerFieldShowByTime = setTimeout(() => {
       setAnswerFieldVisible(true);
       const cancelTypingByTime = setTimeout(() => {
@@ -77,7 +76,7 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     return () => clearTimeout(answerFieldShowByTime);
   }, [index]);
 
-  React.useEffect(function addNewBotMessageWhileStackIsNotEmpty() {
+  useEffect(function addNewBotMessageWhileStackIsNotEmpty() {
     if (index < botMessage.length) {
       addedNewMessageInStack();
       return () => {};
