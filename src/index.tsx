@@ -24,7 +24,7 @@ import {
   ChatAddress,
   ChatAddressAdditional,
   ChatPaymentAdditional,
-} from './components/answers/exports';
+} from './components/answers';
 import MessagesField from './components/messages/MessagesField/MessagesField';
 
 export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
@@ -42,7 +42,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     if (myAnswerType === EAnswerType.PAYMENT) {
       const {
         startFunc,
-      } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
+      } = chatMiddleware?.currentChatBotQuestion?.myAnswer?.PAYMENT!;
       startFunc();
     }
   }, [chatMiddleware, myAnswerType]);
@@ -84,10 +84,10 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     const AdditionalAnswerField = answerFields[myAnswerType];
     return (
       <AdditionalAnswerField
+        {...chatProps}
         setVisibleAdditionalAnswerPanel={
           additionalAnswerFieldAnimation.setVisible
         }
-        {...chatProps}
       />
     );
   };
@@ -98,18 +98,9 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     <KeyboardAvoidingView
       behavior={isIos ? 'padding' : undefined}
       keyboardVerticalOffset={isIos ? 35 : undefined}
-      style={[
-        MainStyles.main,
-        {
-          backgroundColor: chatBackgroundColor,
-        },
-      ]}>
+      style={[MainStyles.main, {backgroundColor: chatBackgroundColor}]}>
       <MessagesField answerSize={answerSize} {...chatProps} />
-      {libraryInputData.chatHeaderComponent ? (
-        libraryInputData.chatHeaderComponent
-      ) : (
-        <></>
-      )}
+      {libraryInputData.chatHeaderComponent}
       <Animated.View
         style={[
           MainStyles.animAnswerPanel,
@@ -120,7 +111,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
         ]}>
         {answerFieldVisible && selectAnswerField()}
       </Animated.View>
-      {isShowAdditionalPanel ? (
+      {isShowAdditionalPanel && (
         <Animated.View
           style={[
             isIos
@@ -133,8 +124,6 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
           ]}>
           {answerFieldVisible && selectAdditionalPanelForAnswer()}
         </Animated.View>
-      ) : (
-        <></>
       )}
     </KeyboardAvoidingView>
   );

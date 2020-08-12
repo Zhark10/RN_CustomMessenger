@@ -9,6 +9,7 @@ const {
 } = PROVIDERS;
 
 const example: TLibraryInputData = {
+  chatHeaderComponent: <></>, // empty header for example
   viewStyles: {
     headerBackgroundColor: '#fff',
     headerTitleColor: '#fff',
