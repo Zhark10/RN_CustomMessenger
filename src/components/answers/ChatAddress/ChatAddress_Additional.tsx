@@ -1,31 +1,23 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {FC, useState} from 'react';
-import {View, TouchableOpacity, Keyboard, ScrollView} from 'react-native';
+import React, {FC} from 'react';
+import {View, TouchableOpacity, ScrollView} from 'react-native';
 import {TChatProps} from '../../../types';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import {ChatAddressAdditionalStyles} from './S_ChatAddress_Additional';
 import {TextField} from 'react-native-material-textfield';
 import {USE_Address} from '../../../utils/hooks/USE_AddressChecking';
-import {screenHeight, getBottomSpace, screenWidth} from '../../../utils/helpers/screen';
+import {
+  screenHeight,
+  getBottomSpace,
+  screenWidth,
+} from '../../../utils/helpers/screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useKeyboardData } from '../../../utils/hooks/USE_KeyboardData';
+import {useKeyboardData} from '../../../utils/hooks/USE_KeyboardData';
 
 const ChatAddressAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
-
     const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
     const {
-      saveCountry,
-      country,
-      saveCity,
-      city,
-      saveStreet,
-      street,
-      saveHouse,
-      house,
-      saveApartment,
-      savePostCode,
-      postCode,
+      states,
       onHidePanel,
       title,
       getPlaceByFields,
@@ -47,32 +39,11 @@ const ChatAddressAdditional: FC<TChatProps> = React.memo(
           ChatAddressAdditionalStyles.main,
           {backgroundColor: answerFieldColor, height: screenHeight},
         ]}>
-        <View
-          style={{
-            backgroundColor: '#ffffff',
-            height: 64,
-            width: '100%',
-            opacity: 0.8,
-            top: 0,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+        <View style={ChatAddressAdditionalStyles.header}>
           <TouchableOpacity
             onPress={onHidePanel}
-            style={{
-              width: 32,
-              height: 32,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon
-              style={{
-                fontSize: 32,
-                color: '#4F4E4E',
-              }}
-              name="close"
-            />
+            style={ChatAddressAdditionalStyles.closeButton}>
+            <Icon style={ChatAddressAdditionalStyles.closeIcon} name="close" />
           </TouchableOpacity>
         </View>
         <View
@@ -95,45 +66,45 @@ const ChatAddressAdditional: FC<TChatProps> = React.memo(
             <TextField
               label={'Страна*'}
               error={
-                isNeedToFill && country.length === 0 ? 'Поле обязательное' : ''
+                isNeedToFill && states.country.length === 0 ? 'Поле обязательное' : ''
               }
               style={ChatAddressAdditionalStyles.inputText}
               tintColor={buttonColor}
               keyboardType="default"
-              onChangeText={saveCountry}
+              onChangeText={states.saveCountry}
               placeholderTextColor={buttonColor}
             />
             <TextField
               label={'Город*'}
               error={
-                isNeedToFill && city.length === 0 ? 'Поле обязательное' : ''
+                isNeedToFill && states.city.length === 0 ? 'Поле обязательное' : ''
               }
               style={ChatAddressAdditionalStyles.inputText}
               tintColor={buttonColor}
               keyboardType="default"
-              onChangeText={saveCity}
+              onChangeText={states.saveCity}
               placeholderTextColor={buttonColor}
             />
             <TextField
               label={'Улица*'}
               error={
-                isNeedToFill && street.length === 0 ? 'Поле обязательное' : ''
+                isNeedToFill && states.street.length === 0 ? 'Поле обязательное' : ''
               }
               style={ChatAddressAdditionalStyles.inputText}
               tintColor={buttonColor}
               keyboardType="default"
-              onChangeText={saveStreet}
+              onChangeText={states.saveStreet}
               placeholderTextColor={buttonColor}
             />
             <TextField
               label={'Дом*'}
               error={
-                isNeedToFill && house.length === 0 ? 'Поле обязательное' : ''
+                isNeedToFill && states.house.length === 0 ? 'Поле обязательное' : ''
               }
               style={ChatAddressAdditionalStyles.inputText}
               tintColor={buttonColor}
               keyboardType="default"
-              onChangeText={saveHouse}
+              onChangeText={states.saveHouse}
               placeholderTextColor={buttonColor}
             />
             <TextField
@@ -141,18 +112,18 @@ const ChatAddressAdditional: FC<TChatProps> = React.memo(
               style={ChatAddressAdditionalStyles.inputText}
               tintColor={buttonColor}
               keyboardType="default"
-              onChangeText={saveApartment}
+              onChangeText={states.saveApartment}
               placeholderTextColor={buttonColor}
             />
             <TextField
               label={'Индекс*'}
               error={
-                isNeedToFill && postCode.length === 0 ? 'Поле обязательное' : ''
+                isNeedToFill && states.postCode.length === 0 ? 'Поле обязательное' : ''
               }
               style={ChatAddressAdditionalStyles.inputText}
               tintColor={buttonColor}
               keyboardType="default"
-              onChangeText={savePostCode}
+              onChangeText={states.savePostCode}
               placeholderTextColor={buttonColor}
             />
           </ScrollView>

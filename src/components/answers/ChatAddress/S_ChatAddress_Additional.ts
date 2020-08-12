@@ -10,9 +10,25 @@ export const ChatAddressAdditionalStyles = StyleSheet.create({
     paddingTop: isIos ? 50 : undefined,
     paddingHorizontal: 16,
   },
-  backButton: {
-    width: 24,
-    height: 24,
+  header: {
+    backgroundColor: '#ffffff',
+    height: 64,
+    width: '100%',
+    opacity: 0.8,
+    top: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  closeButton: {
+    width: 32,
+    height: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeIcon: {
+    fontSize: 32,
+    color: '#4F4E4E',
   },
   form: {
     flex: 1,
