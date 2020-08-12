@@ -16,8 +16,12 @@ import CheckBox from 'react-native-check-box';
 import {ChatPaymentAdditionalStyles} from './S_ChatPayment_Additional';
 import {USE_PaymentMethod} from '../../../utils/hooks/USE_Payment';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {screenHeight, getBottomSpace, screenWidth} from '../../../utils/helpers/screen';
-import { useKeyboardData } from '../../../utils/hooks/USE_KeyboardData';
+import {
+  screenHeight,
+  getBottomSpace,
+  screenWidth,
+} from '../../../utils/helpers/screen';
+import {useKeyboardData} from '../../../utils/hooks/USE_KeyboardData';
 
 const ChatPaymentAdditional: FC<TChatProps> = React.memo(
   ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
@@ -82,32 +86,11 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
 
     return (
       <View style={ChatPaymentAdditionalStyles.main}>
-        <View
-          style={{
-            backgroundColor: '#ffffff',
-            height: 64,
-            width: '100%',
-            opacity: 0.8,
-            top: 0,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}>
+        <View style={ChatPaymentAdditionalStyles.header}>
           <TouchableOpacity
             onPress={onHidePanel}
-            style={{
-              width: 32,
-              height: 32,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Icon
-              style={{
-                fontSize: 32,
-                color: '#4F4E4E',
-              }}
-              name="close"
-            />
+            style={ChatPaymentAdditionalStyles.closeButton}>
+            <Icon style={ChatPaymentAdditionalStyles.closeIcon} name="close" />
           </TouchableOpacity>
         </View>
         {values.map(text => (
