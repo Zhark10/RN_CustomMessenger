@@ -1,6 +1,6 @@
 import React, {FC, useEffect, ReactNode} from 'react';
 import Animated from 'react-native-reanimated';
-import {KeyboardAvoidingView} from 'react-native';
+import {KeyboardAvoidingView, View} from 'react-native';
 
 import {TLibraryInputData} from './types/T_LibraryInputData';
 import {EAnswerType, TChatProps} from './types';
@@ -97,7 +97,9 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       keyboardVerticalOffset={isIos ? 35 : undefined}
       style={[MainStyles.main, {backgroundColor: chatBackgroundColor}]}>
       <MessagesField answerSize={answerSize} {...chatProps} />
-      {libraryInputData.chatHeaderComponent}
+      <View style={{position: 'absolute', width: '100%', alignItems: 'center', top: 0}}>
+        {libraryInputData.chatHeaderComponent}
+      </View>
       <Animated.View
         style={[
           MainStyles.animAnswerPanel,

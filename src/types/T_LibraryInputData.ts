@@ -9,8 +9,6 @@ export type TLibraryInputData = {
 }
 
 export type TViewStyles = {
-  headerBackgroundColor: string
-  headerTitleColor: string
   chatBackgroundColor: string
   answerFieldColor: string
   buttonColor: string

@@ -1,18 +1,46 @@
-import React, {FC} from 'react';
-import {Alert} from 'react-native';
-import {OfflineMessanger} from '../App';
-import {TLibraryInputData} from '../src/types/T_LibraryInputData';
-import PROVIDERS from './auth-providers-data';
+import React, { FC } from 'react'
+import { Alert, View, Image, Text } from 'react-native'
+import { OfflineMessanger } from '../App'
+import { TLibraryInputData } from '../src/types/T_LibraryInputData'
+import PROVIDERS from './auth-providers-data'
 
 const {
-  google: {googleMapApiKey},
-} = PROVIDERS;
+  google: { googleMapApiKey },
+} = PROVIDERS
 
 const example: TLibraryInputData = {
-  chatHeaderComponent: <></>, // empty header for example
+  chatHeaderComponent: (
+    <View
+      style={{
+        height: 64,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: -12,
+        },
+        shadowOpacity: 0.12,
+        shadowRadius: 8.0,
+        elevation: 8,
+      }}
+    >
+      <Image
+        style={{height: 64, width: 64}}
+        source={require('./profile-pic.png')}
+      />
+      <Text style={{
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'rgba(0,0,0,.87)',
+        paddingRight: 16
+      }}>https://github.com/Zhark10</Text>
+    </View>
+  ),
   viewStyles: {
-    headerBackgroundColor: '#fff',
-    headerTitleColor: '#fff',
     chatBackgroundColor: '#fff',
     answerFieldColor: '#fff',
     buttonColor: 'rgba(0,0,0,.54)',
@@ -65,7 +93,7 @@ const example: TLibraryInputData = {
             },
           ],
           endFunc: selected => {
-            console.log(selected);
+            console.log(selected)
           },
         },
       },
@@ -111,7 +139,7 @@ const example: TLibraryInputData = {
           numbersOfPhoto: 'one',
           startFunc: () => {},
           endFunc: (base64, photoType) => {
-            Alert.alert(`${base64}:${photoType}`);
+            Alert.alert(`${base64}:${photoType}`)
           },
         },
       },
@@ -127,7 +155,7 @@ const example: TLibraryInputData = {
           keyForFormData: 'bornDate',
           title: 'OK',
           endFunc: date => {
-            console.log('bornDate: ', date);
+            console.log('bornDate: ', date)
           },
         },
       },
@@ -143,10 +171,10 @@ const example: TLibraryInputData = {
           keyForFormData: 'cardData',
           title: 'OK',
           endFuncForBankAccount: (data, _cb) => {
-            console.log(data);
+            console.log(data)
           },
           endFuncForCreditCard: (data, _cb) => {
-            console.log(data);
+            console.log(data)
           },
           startFunc: () => {},
         },
@@ -155,11 +183,12 @@ const example: TLibraryInputData = {
   ],
   events: {
     startConversationEvent: () => Alert.alert('Chat started'),
-    endConversationEvent: (outputData) => console.log('Yeah, all your data is here!', JSON.stringify(outputData, null, 2)),
+    endConversationEvent: outputData =>
+      console.log('Yeah, all your data is here!', JSON.stringify(outputData, null, 2)),
     answerSended: data => console.log('formData for token (example)', data),
   },
-};
+}
 
-const StartAConversation: FC = () => <OfflineMessanger {...example} />;
+const StartAConversation: FC = () => <OfflineMessanger {...example} />
 
-export default StartAConversation;
+export default StartAConversation

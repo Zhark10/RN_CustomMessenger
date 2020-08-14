@@ -63,8 +63,8 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
 
     return answerDto
   }
-
   const sendAnswer = useCallback(
+
     (answer: any, type: EBubbleType, sendAnswerOutput?: boolean) => {
       setAnswerFieldVisible(false)
       let answerForSaving = answer
