@@ -40,7 +40,7 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
 
   useEffect(function startEventWhenPayment() {
     if (myAnswerType === EAnswerType.PAYMENT) {
-      chatMiddleware?.currentChatBotQuestion?.myAnswer?.PAYMENT?.startFunc();
+      chatMiddleware.currentChatBotQuestion.myAnswer.PAYMENT?.startFunc();
     }
   }, [chatMiddleware, myAnswerType]);
 

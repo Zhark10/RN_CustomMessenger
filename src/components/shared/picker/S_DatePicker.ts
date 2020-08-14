@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const DatePickerStyles = StyleSheet.create({
   main: {
@@ -22,4 +22,4 @@ export const DatePickerStyles = StyleSheet.create({
     fontFamily: 'Circe-Regular',
     fontSize: 20,
   },
-});
+})

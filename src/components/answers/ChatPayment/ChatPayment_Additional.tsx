@@ -1,102 +1,76 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {FC, useCallback} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import {TChatProps} from '../../../types';
-import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
-import {TextField} from 'react-native-material-textfield';
-import {cc_format} from '../../../utils/helpers/format-card-number';
-import {DatePicker} from '../../shared/picker/DatePicker';
-import CheckBox from 'react-native-check-box';
-import {ChatPaymentAdditionalStyles} from './S_ChatPayment_Additional';
-import {USE_PaymentMethod} from '../../../utils/hooks/USE_Payment';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {
-  screenHeight,
-  getBottomSpace,
-  screenWidth,
-} from '../../../utils/helpers/screen';
-import {useKeyboardStatus} from '../../../utils/hooks/USE_KeyboardStatus';
+import React, { FC, useCallback } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import { TChatProps } from '../../../types'
+import { ButtonComponent } from '../../shared/buttons/ButtonComponent'
+import { TextField } from 'react-native-material-textfield'
+import { cc_format } from '../../../utils/helpers/format-card-number'
+import { DatePicker } from '../../shared/picker/DatePicker'
+import CheckBox from 'react-native-check-box'
+import { ChatPaymentAdditionalStyles } from './S_ChatPayment_Additional'
+import { USE_PaymentMethod } from '../../../utils/hooks/USE_Payment'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import { screenHeight, getBottomSpace, screenWidth } from '../../../utils/helpers/screen'
+import { useKeyboardStatus } from '../../../utils/hooks/USE_KeyboardStatus'
 
 const ChatPaymentAdditional: FC<TChatProps> = React.memo(
-  ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
-    const values = ['Карта', 'Счет'];
+  ({ chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel }) => {
+    const values = ['Карта', 'Счет']
     const {
       title,
       endFuncForBankAccount,
       endFuncForCreditCard,
-    } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
-    const [selected, refreshSelected] = React.useState<string>(values[0]);
-    const isCreditCard = selected === values[0];
+    } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!
+    const [selected, refreshSelected] = React.useState<string>(values[0])
+    const isCreditCard = selected === values[0]
 
     const onValueChange = (text: string) => {
       if (selected !== text) {
-        refreshSelected(text);
+        refreshSelected(text)
       }
-    };
+    }
 
     const onHidePanel = useCallback(() => {
-      setVisibleAdditionalAnswerPanel(false);
-    }, [setVisibleAdditionalAnswerPanel]);
+      setVisibleAdditionalAnswerPanel(false)
+    }, [setVisibleAdditionalAnswerPanel])
 
-    const {
-      saveDate,
-      saveCardNumber,
-      saveCvc,
-      saveName,
-      creditErrors,
-      sendCardInfo,
-    } = USE_PaymentMethod.useCreditCard(
+    const { saveDate, saveCardNumber, saveCvc, saveName, creditErrors, sendCardInfo } = USE_PaymentMethod.useCreditCard(
       chatMiddleware,
       endFuncForCreditCard,
       onHidePanel,
-    );
+    )
 
-    const {
-      saveAccountNumber,
-      saveBankNumber,
-      bankErrors,
-      sendBankInfo,
-    } = USE_PaymentMethod.useBankAccount(
+    const { saveAccountNumber, saveBankNumber, bankErrors, sendBankInfo } = USE_PaymentMethod.useBankAccount(
       chatMiddleware,
       endFuncForBankAccount,
       onHidePanel,
-    );
+    )
 
     const onPress = () => {
       if (isCreditCard) {
-        sendCardInfo();
+        sendCardInfo()
       } else {
-        sendBankInfo();
+        sendBankInfo()
       }
-    };
+    }
 
-    const {keyboardHeight, keyboardShow} = useKeyboardStatus();
+    const { keyboardHeight, keyboardShow } = useKeyboardStatus()
 
-    const checkboxHeight = 34.2;
-    const headerHeight = 64;
-    const buttonContainerHeight = 48 + 16 + 16;
-    const customYOffset = 20;
-    const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
+    const checkboxHeight = 34.2
+    const headerHeight = 64
+    const buttonContainerHeight = 48 + 16 + 16
+    const customYOffset = 20
+    const { answerFieldColor, buttonColor } = libraryInputData.viewStyles
 
     return (
       <View style={ChatPaymentAdditionalStyles.main}>
         <View style={ChatPaymentAdditionalStyles.header}>
-          <TouchableOpacity
-            onPress={onHidePanel}
-            style={ChatPaymentAdditionalStyles.closeButton}>
+          <TouchableOpacity onPress={onHidePanel} style={ChatPaymentAdditionalStyles.closeButton}>
             <Icon style={ChatPaymentAdditionalStyles.closeIcon} name="close" />
           </TouchableOpacity>
         </View>
         {values.map(text => (
-          <TouchableWithoutFeedback
-            onPress={() => onValueChange(text)}
-            key={text}>
+          <TouchableWithoutFeedback onPress={() => onValueChange(text)} key={text}>
             <View style={ChatPaymentAdditionalStyles.checkboxBlock}>
               <CheckBox
                 onClick={() => onValueChange(text)}
@@ -105,9 +79,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                 checkedCheckBoxColor={buttonColor}
                 uncheckedCheckBoxColor={'#797979'}
               />
-              <Text style={ChatPaymentAdditionalStyles.checkboxText}>
-                {text}
-              </Text>
+              <Text style={ChatPaymentAdditionalStyles.checkboxText}>{text}</Text>
             </View>
           </TouchableWithoutFeedback>
         ))}
@@ -123,12 +95,14 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                     buttonContainerHeight -
                     getBottomSpace(),
                 }
-              : {flex: 1}
-          }>
+              : { flex: 1 }
+          }
+        >
           <ScrollView
             contentContainerStyle={{
               paddingBottom: keyboardShow ? buttonContainerHeight : 0,
-            }}>
+            }}
+          >
             {isCreditCard ? (
               <>
                 <TextField
@@ -138,9 +112,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveCardNumber}
-                  formatText={text =>
-                    cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
-                  }
+                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
                   placeholderTextColor={buttonColor}
                 />
                 <TextField
@@ -153,19 +125,14 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   placeholderTextColor={buttonColor}
                   formatText={text => cc_format(text.slice(0, 50))}
                 />
-                <Text style={ChatPaymentAdditionalStyles.dateTitle}>
-                  Expire date
-                </Text>
+                <Text style={ChatPaymentAdditionalStyles.dateTitle}>Expire date</Text>
                 <View
                   style={{
                     paddingTop: 8,
                     paddingBottom: 24,
-                  }}>
-                  <DatePicker
-                    onSaveDate={saveDate}
-                    mode={'creditCard'}
-                    viewStyles={libraryInputData.viewStyles}
-                  />
+                  }}
+                >
+                  <DatePicker onSaveDate={saveDate} mode={'creditCard'} viewStyles={libraryInputData.viewStyles} />
                 </View>
                 <TextField
                   label="Cvc"
@@ -174,9 +141,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveCvc}
-                  formatText={text =>
-                    cc_format(text.replace(/[^0-9]/g, '').slice(0, 3))
-                  }
+                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 3))}
                   placeholderTextColor={buttonColor}
                 />
               </>
@@ -189,9 +154,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveAccountNumber}
-                  formatText={text =>
-                    cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
-                  }
+                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
                   placeholderTextColor={buttonColor}
                 />
                 <TextField
@@ -201,9 +164,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveBankNumber}
-                  formatText={text =>
-                    cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))
-                  }
+                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
                   placeholderTextColor={buttonColor}
                 />
               </>
@@ -223,8 +184,8 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
           type="light"
         />
       </View>
-    );
+    )
   },
-);
+)
 
-export default ChatPaymentAdditional;
+export default ChatPaymentAdditional

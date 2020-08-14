@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const BubbleStyles = StyleSheet.create({
   container: {
@@ -53,4 +53,4 @@ export const BubbleStyles = StyleSheet.create({
     margin: 16,
     maxHeight: 45,
   },
-});
+})

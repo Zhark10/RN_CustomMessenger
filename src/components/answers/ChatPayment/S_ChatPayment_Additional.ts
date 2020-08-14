@@ -1,7 +1,7 @@
-import {screenHeight} from './../../../utils/helpers/screen';
-import {screenWidth} from '../../../utils/helpers/screen';
-import {StyleSheet} from 'react-native';
-import {isIos} from '../../../utils/helpers/platform';
+import { screenHeight } from './../../../utils/helpers/screen'
+import { screenWidth } from '../../../utils/helpers/screen'
+import { StyleSheet } from 'react-native'
+import { isIos } from '../../../utils/helpers/platform'
 
 export const ChatPaymentAdditionalStyles = StyleSheet.create({
   main: {
@@ -62,4 +62,4 @@ export const ChatPaymentAdditionalStyles = StyleSheet.create({
     marginLeft: 11,
     fontSize: 18,
   },
-});
+})

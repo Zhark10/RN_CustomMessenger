@@ -1,1 +1,1 @@
-declare module 'react-native-indicator';
+declare module 'react-native-indicator'

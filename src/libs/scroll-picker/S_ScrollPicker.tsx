@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
 export const ScrollPickerStyles = StyleSheet.create({
   itemWrapper: {
@@ -12,4 +12,4 @@ export const ScrollPickerStyles = StyleSheet.create({
   itemTextSelected: {
     color: '#333',
   },
-});
+})

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const ChatDatepickerStyles = StyleSheet.create({
   main: {
@@ -14,4 +14,4 @@ export const ChatDatepickerStyles = StyleSheet.create({
     margin: 2,
     fontSize: 18,
   },
-});
+})

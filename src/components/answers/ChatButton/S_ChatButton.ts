@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const ChatButtonStyles = StyleSheet.create({
   main: {
@@ -9,4 +9,4 @@ export const ChatButtonStyles = StyleSheet.create({
     margin: 2,
     fontSize: 18,
   },
-});
+})

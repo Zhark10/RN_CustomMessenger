@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const MessagesFieldStyles = StyleSheet.create({
   main: {
@@ -16,4 +16,4 @@ export const MessagesFieldStyles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-});
+})

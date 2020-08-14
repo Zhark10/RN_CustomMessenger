@@ -1,52 +1,39 @@
-import {useState, useCallback, useEffect} from 'react';
-import SimpleToast from 'react-native-simple-toast';
+import { useState, useCallback, useEffect } from 'react'
+import SimpleToast from 'react-native-simple-toast'
 
-import {TUseChatMiddleware, EBubbleType} from './USE_ChatMiddleware';
-import {getPlace} from '../apis/API_GMaps';
+import { TUseChatMiddleware, EBubbleType } from './USE_ChatMiddleware'
+import { getPlace } from '../apis/API_GMaps'
 
-const useAddressChecking = (
-  chatMiddleware: TUseChatMiddleware,
-  setVisibleAdditionalAnswerPanel: any,
-) => {
-  const {
-    title,
-    endFunc,
-    googleMapApiKey,
-  } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.ADDRESS!;
-  const [country, saveCountry] = useState('');
-  const [city, saveCity] = useState('');
-  const [street, saveStreet] = useState('');
-  const [house, saveHouse] = useState('');
-  const [apartment, saveApartment] = useState('');
-  const [postCode, savePostCode] = useState('');
-  const [isNeedToFill, setNeedToFill] = useState(false);
+const useAddressChecking = (chatMiddleware: TUseChatMiddleware, setVisibleAdditionalAnswerPanel: any) => {
+  const { title, endFunc, googleMapApiKey } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.ADDRESS!
+  const [country, saveCountry] = useState('')
+  const [city, saveCity] = useState('')
+  const [street, saveStreet] = useState('')
+  const [house, saveHouse] = useState('')
+  const [apartment, saveApartment] = useState('')
+  const [postCode, savePostCode] = useState('')
+  const [isNeedToFill, setNeedToFill] = useState(false)
 
-  useEffect(function requiredFieldsValidation(){
-    setNeedToFill(false);
-  }, [country, city, street, house, postCode]);
+  useEffect(
+    function requiredFieldsValidation() {
+      setNeedToFill(false)
+    },
+    [country, city, street, house, postCode],
+  )
 
   const onHidePanel = useCallback(() => {
-    setVisibleAdditionalAnswerPanel(false);
-  }, [setVisibleAdditionalAnswerPanel]);
+    setVisibleAdditionalAnswerPanel(false)
+  }, [setVisibleAdditionalAnswerPanel])
 
   const getPlaceByFields = () => {
-    (async () => {
-      if (
-        country.length > 0 &&
-        city.length > 0 &&
-        street.length > 0 &&
-        house.length > 0 &&
-        postCode.length > 0
-      ) {
-        const _apartment = apartment.length > 0 ? ', ' + apartment : '';
-        const addresForChecking = `${country}, ${city}, ${street}, ${house}, ${postCode}`;
-        const isFound = await getPlace(addresForChecking, googleMapApiKey);
+    ;(async () => {
+      if (country.length > 0 && city.length > 0 && street.length > 0 && house.length > 0 && postCode.length > 0) {
+        const _apartment = apartment.length > 0 ? ', ' + apartment : ''
+        const addresForChecking = `${country}, ${city}, ${street}, ${house}, ${postCode}`
+        const isFound = await getPlace(addresForChecking, googleMapApiKey)
         if (isFound) {
-          onHidePanel();
-          chatMiddleware.sendAnswer(
-            addresForChecking + _apartment,
-            EBubbleType.TEXT,
-          );
+          onHidePanel()
+          chatMiddleware.sendAnswer(addresForChecking + _apartment, EBubbleType.TEXT)
 
           const _address: any = {
             street,
@@ -54,21 +41,21 @@ const useAddressChecking = (
             postCode,
             city,
             country,
-          };
+          }
 
           if (apartment.length > 0) {
-            _address.apartment = apartment;
+            _address.apartment = apartment
           }
-          endFunc(_address);
+          endFunc(_address)
         } else {
-          setNeedToFill(true);
-          SimpleToast.show('Адрес не найден');
+          setNeedToFill(true)
+          SimpleToast.show('Адрес не найден')
         }
       } else {
-        setNeedToFill(true);
+        setNeedToFill(true)
       }
-    })();
-  };
+    })()
+  }
 
   return {
     getPlaceByFields,
@@ -89,9 +76,9 @@ const useAddressChecking = (
     onHidePanel,
     title,
     isNeedToFill,
-  };
-};
+  }
+}
 
 export const USE_Address = {
   useAddressChecking,
-};
+}

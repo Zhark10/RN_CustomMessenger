@@ -1,24 +1,21 @@
 export type TStore = {
-  messageStack: TStateManager<TMessageAddedInStack[]>;
-  currentMessage: TStateManager<TMessageIndexNumber>;
-  chatInfo: TStateManager<TSavedOneIterationAnswer>;
-};
+  messageStack: TStateManager<TMessageAddedInStack[]>
+  currentMessage: TStateManager<TMessageIndexNumber>
+  chatInfo: TStateManager<TSavedOneIterationAnswer>
+}
 
-type TStateManager<TDataForSave> = [
-  TDataForSave,
-  React.Dispatch<React.SetStateAction<TDataForSave>>
-];
+type TStateManager<TDataForSave> = [TDataForSave, React.Dispatch<React.SetStateAction<TDataForSave>>]
 
-export type TMessageIndexNumber = number;
-export type TSavedOneIterationAnswer = {[keyForFormData: string]: string};
+export type TMessageIndexNumber = number
+export type TSavedOneIterationAnswer = { [keyForFormData: string]: string }
 export type TMessageAddedInStack = {
-  id: number | string;
-  sender: ISender;
-  text?: string;
-  picture?: any;
-  twoSidePicture?: any;
-  creditCard?: any;
-  emoji?: string;
-};
+  id: number | string
+  sender: ISender
+  text?: string
+  picture?: any
+  twoSidePicture?: any
+  creditCard?: any
+  emoji?: string
+}
 
-export type ISender = 'me' | 'chatBot';
+export type ISender = 'me' | 'chatBot'

@@ -1,11 +1,11 @@
-import {GestureResponderEvent} from 'react-native';
+import { GestureResponderEvent } from 'react-native'
 
 export type TButtonComponent = {
-  onPress: (event: GestureResponderEvent) => void;
-  title: string;
-  type: 'light' | 'manual';
-  mainColor: string;
-  secondColor: string;
-  disabled?: boolean;
-  style?: any;
-};
+  onPress: (event: GestureResponderEvent) => void
+  title: string
+  type: 'light' | 'manual'
+  mainColor: string
+  secondColor: string
+  disabled?: boolean
+  style?: any
+}

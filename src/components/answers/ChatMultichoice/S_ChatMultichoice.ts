@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const ChatMultichoiceStyles = StyleSheet.create({
   main: {
@@ -18,4 +18,4 @@ export const ChatMultichoiceStyles = StyleSheet.create({
     marginLeft: 11,
     fontSize: 18,
   },
-});
+})

@@ -1,16 +1,16 @@
-import React, {FC} from 'react';
-import {TChatProps} from '../../../types';
-import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
+import React, { FC } from 'react'
+import { TChatProps } from '../../../types'
+import { ButtonComponent } from '../../shared/buttons/ButtonComponent'
 
 const ChatPayment: FC<TChatProps> = React.memo(
-  ({chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel}) => {
-    const {title} = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!;
+  ({ chatMiddleware, libraryInputData, setVisibleAdditionalAnswerPanel }) => {
+    const { title } = chatMiddleware!.currentChatBotQuestion!.myAnswer!.PAYMENT!
 
     const onVisibleAnswerPanel = () => {
-      setVisibleAdditionalAnswerPanel(true);
-    };
+      setVisibleAdditionalAnswerPanel(true)
+    }
 
-    const {answerFieldColor, buttonColor} = libraryInputData.viewStyles;
+    const { answerFieldColor, buttonColor } = libraryInputData.viewStyles
 
     return (
       <ButtonComponent
@@ -20,8 +20,8 @@ const ChatPayment: FC<TChatProps> = React.memo(
         onPress={onVisibleAnswerPanel}
         type="light"
       />
-    );
+    )
   },
-);
+)
 
-export default ChatPayment;
+export default ChatPayment

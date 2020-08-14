@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {screenWidth} from './utils/helpers/screen';
+import { StyleSheet } from 'react-native'
+import { screenWidth } from './utils/helpers/screen'
 
 export const MainStyles = StyleSheet.create({
   main: {
@@ -39,4 +39,4 @@ export const MainStyles = StyleSheet.create({
     width: screenWidth,
     position: 'absolute',
   },
-});
+})

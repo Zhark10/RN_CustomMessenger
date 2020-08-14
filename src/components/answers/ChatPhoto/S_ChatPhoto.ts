@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const ChatPhotoStyles = StyleSheet.create({
   main: {
@@ -15,4 +15,4 @@ export const ChatPhotoStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})

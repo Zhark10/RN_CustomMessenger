@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export const ChatChoiceStyles = StyleSheet.create({
   main: {
@@ -26,4 +26,4 @@ export const ChatChoiceStyles = StyleSheet.create({
     fontFamily: 'Circe-Regular',
     fontSize: 20,
   },
-});
+})

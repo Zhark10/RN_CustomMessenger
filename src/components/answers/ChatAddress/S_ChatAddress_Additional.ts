@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {screenWidth} from '../../../utils/helpers/screen';
-import {isIos} from '../../../utils/helpers/platform';
+import { StyleSheet } from 'react-native'
+import { screenWidth } from '../../../utils/helpers/screen'
+import { isIos } from '../../../utils/helpers/platform'
 
 export const ChatAddressAdditionalStyles = StyleSheet.create({
   main: {
@@ -55,4 +55,4 @@ export const ChatAddressAdditionalStyles = StyleSheet.create({
     marginBottom: 8,
     fontFamily: 'Circe-Bold',
   },
-});
+})

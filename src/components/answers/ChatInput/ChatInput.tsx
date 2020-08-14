@@ -1,39 +1,31 @@
-import React, {FC} from 'react';
-import {TextInput, View} from 'react-native';
-import {ChatInputStyles} from './S_ChatInput';
-import {TChatProps} from '../../../types';
-import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
-import SimpleToast from 'react-native-simple-toast';
+import React, { FC } from 'react'
+import { TextInput, View } from 'react-native'
+import { ChatInputStyles } from './S_ChatInput'
+import { TChatProps } from '../../../types'
+import { EBubbleType } from '../../../utils/hooks/USE_ChatMiddleware'
+import SimpleToast from 'react-native-simple-toast'
 
-const ChatInput: FC<TChatProps> = React.memo(({chatMiddleware}) => {
-  const inputQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer
-    .INPUT!;
-  const isNeedSended = inputQuestionData.sendAnswerOutput;
-  const [text, setText] = React.useState('');
-  const isValidated = text.length > 0 && text.length < 50;
+const ChatInput: FC<TChatProps> = React.memo(({ chatMiddleware }) => {
+  const inputQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer.INPUT!
+  const isNeedSended = inputQuestionData.sendAnswerOutput
+  const [text, setText] = React.useState('')
+  const isValidated = text.length > 0 && text.length < 50
 
-  const onChangeText = React.useCallback((value: string) => setText(value), [
-    setText,
-  ]);
+  const onChangeText = React.useCallback((value: string) => setText(value), [setText])
 
   const onEndEditing = React.useCallback(() => {
     if (isValidated) {
-      chatMiddleware.sendAnswer(text, EBubbleType.TEXT, isNeedSended);
+      chatMiddleware.sendAnswer(text, EBubbleType.TEXT, isNeedSended)
     } else {
-      SimpleToast.show('Поле заполнено некорректно');
+      SimpleToast.show('Поле заполнено некорректно')
     }
-  }, [chatMiddleware, isNeedSended, isValidated, text]);
+  }, [chatMiddleware, isNeedSended, isValidated, text])
 
   return (
     <View style={ChatInputStyles.main}>
-      <TextInput
-        autoFocus
-        style={ChatInputStyles.input}
-        onChangeText={onChangeText}
-        onEndEditing={onEndEditing}
-      />
+      <TextInput autoFocus style={ChatInputStyles.input} onChangeText={onChangeText} onEndEditing={onEndEditing} />
     </View>
-  );
-});
+  )
+})
 
-export default ChatInput;
+export default ChatInput
