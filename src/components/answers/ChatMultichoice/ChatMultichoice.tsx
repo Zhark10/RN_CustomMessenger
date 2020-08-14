@@ -21,7 +21,8 @@ const ChatMultichoice: FC<TChatProps> = React.memo(({ libraryInputData, chatMidd
   }
 
   const onPress = React.useCallback(() => {
-    chatMiddleware.sendAnswer(selected, EBubbleType.TEXT)
+    const text = selected.join(', ')
+    chatMiddleware.sendAnswer(text, EBubbleType.TEXT)
   }, [chatMiddleware, selected])
   return (
     <View style={ChatMultichoiceStyles.main}>

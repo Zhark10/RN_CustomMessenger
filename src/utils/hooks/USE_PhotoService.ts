@@ -35,11 +35,12 @@ export const usePhotoService = (
         skipBackup: true,
         path: 'images',
       },
+      quality: 0.3,
     }
 
     const openPhotoModal = () => {
       startSendingCallback()
-      ImagePicker.launchCamera(options, (response: ImagePickerResponse) => {
+      ImagePicker.showImagePicker(options, (response: ImagePickerResponse) => {
         if (response.didCancel || response.error) {
           startSendingCallback()
           setPhotoLimit(0)

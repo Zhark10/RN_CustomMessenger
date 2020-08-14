@@ -70,19 +70,21 @@ const example: TLibraryInputData = {
         },
       },
     },
-    {
-      botMessage: [{text: 'What`s your address'}],
-      myAnswer: {
-        ADDRESS: {
-          keyForFormData: 'address',
-          title: 'ОК',
-          endFunc: address => {
-            console.log(address);
-          },
-          googleMapApiKey,
-        },
-      },
-    },
+    // it doesn't work because of a fake google api key (just enter your key:))
+
+    // {
+    //   botMessage: [{text: 'What`s your address'}],
+    //   myAnswer: {
+    //     ADDRESS: {
+    //       keyForFormData: 'address',
+    //       title: 'ОК',
+    //       endFunc: address => {
+    //         console.log(address);
+    //       },
+    //       googleMapApiKey,
+    //     },
+    //   },
+    // },
     {
       botMessage: [
         {
@@ -153,7 +155,7 @@ const example: TLibraryInputData = {
   ],
   events: {
     startConversationEvent: () => Alert.alert('Chat started'),
-    endConversationEvent: () => Alert.alert('Chat ended'),
+    endConversationEvent: (outputData) => console.log('Yeah, all your data is here!', JSON.stringify(outputData, null, 2)),
     answerSended: data => console.log('formData for token (example)', data),
   },
 };

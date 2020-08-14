@@ -88,9 +88,7 @@ const useCreditCard = (
         expirationYear: +expirationYear,
         name: _name,
       },
-      () => {
-        chatMiddleware.sendAnswer('Привязал банковскую карту, отправляю', EBubbleType.TEXT)
-      },
+      chatMiddleware.sendAnswer('Привязал банковскую карту, отправляю', EBubbleType.TEXT),
     )
   }, [cardNumber, chatMiddleware, cvc, endFunc, expirationMonth, expirationYear, name, onHidePanel])
 
@@ -157,9 +155,7 @@ const useBankAccount = (
         number_1: accountNumber,
         number_2: bankNumber,
       },
-      () => {
-        chatMiddleware.sendAnswer('Привязал банковский счет, отправляю', EBubbleType.TEXT)
-      },
+      chatMiddleware.sendAnswer('Привязал банковский счет, отправляю', EBubbleType.TEXT),
     )
   }, [accountNumber, bankNumber, chatMiddleware, endFunc, onHidePanel])
 
