@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "npx jetify && react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
