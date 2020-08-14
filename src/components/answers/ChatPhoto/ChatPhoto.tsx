@@ -13,22 +13,16 @@ const ChatPhoto: FC<TChatProps> = React.memo(
     const isOnlyPhoto = photoQuestionData.numbersOfPhoto === 'one';
     const {sendPhotos} = usePhotoService(
       data => {
-        if (isOnlyPhoto) {
-          chatMiddleware.sendAnswer(data, EBubbleType.PHOTO);
-        } else {
-          chatMiddleware.sendAnswer(data, EBubbleType.DOUBLE_PHOTO);
-        }
+        const type = isOnlyPhoto ? EBubbleType.PHOTO : EBubbleType.DOUBLE_PHOTO;
+        chatMiddleware.sendAnswer(data, type);
       },
       photoQuestionData.startFunc,
       photoQuestionData.endFunc,
     );
 
     const onPress = React.useCallback(() => {
-      if (isOnlyPhoto) {
-        sendPhotos(1);
-      } else {
-        sendPhotos(2);
-      }
+      const photoAmount = isOnlyPhoto ? 1 : 2
+      sendPhotos(photoAmount)
     }, [isOnlyPhoto, sendPhotos]);
 
     const {chatBackgroundColor, buttonColor} = libraryInputData.viewStyles;

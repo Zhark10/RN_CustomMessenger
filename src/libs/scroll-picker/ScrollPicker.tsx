@@ -13,6 +13,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { ScrollPickerStyles } from './S_ScrollPicker';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -135,8 +136,8 @@ export default class ScrollPicker extends Component<
       <Text
         style={
           isSelected
-            ? [styles.itemText, styles.itemTextSelected]
-            : styles.itemText
+            ? [ScrollPickerStyles.itemText, ScrollPickerStyles.itemTextSelected]
+            : ScrollPickerStyles.itemText
         }>
         {data}
       </Text>
@@ -147,7 +148,7 @@ export default class ScrollPicker extends Component<
     }
 
     return (
-      <View style={[styles.itemWrapper, {height: this.itemHeight}]} key={index}>
+      <View style={[ScrollPickerStyles.itemWrapper, {height: this.itemHeight}]} key={index}>
         {item}
       </View>
     );
@@ -229,16 +230,3 @@ export default class ScrollPicker extends Component<
   }
 }
 
-let styles = StyleSheet.create({
-  itemWrapper: {
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  itemText: {
-    color: '#999',
-  },
-  itemTextSelected: {
-    color: '#333',
-  },
-});
