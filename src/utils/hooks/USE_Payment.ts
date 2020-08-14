@@ -1,5 +1,6 @@
-import {TUseChatMiddleware, EBubbleType} from './USE_ChatMiddleware';
 import React, {useState} from 'react';
+
+import {TUseChatMiddleware, EBubbleType} from './USE_ChatMiddleware';
 import {IDate} from '../../components/shared/picker/T_DatePicker';
 import {IBankAccount, IPaymentCard} from '../../types';
 

@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 import {View, Text} from 'react-native';
 import {ChatChoiceStyles} from './S_ChatChoice';
 import {TChatProps, TCheckboxData} from '../../../types';
-import ScrollPicker from '../../../libs/scroll-picker/scroll-picker';
+import ScrollPicker from '../../../libs/scroll-picker/ScrollPicker';
 import {ButtonComponent} from '../../shared/buttons/ButtonComponent';
 import {EBubbleType} from '../../../utils/hooks/USE_ChatMiddleware';
 
@@ -31,11 +31,7 @@ const ChatChoice: FC<TChatProps> = React.memo(
 
     return (
       <View style={ChatChoiceStyles.main}>
-        <View
-          style={{
-            height: 100,
-            alignItems: 'center',
-          }}>
+        <View style={ChatChoiceStyles.scrollPickerWrapper}>
           <ScrollPicker
             dataSource={checkboxTitles}
             selectedIndex={0}
@@ -43,17 +39,12 @@ const ChatChoice: FC<TChatProps> = React.memo(
             wrapperHeight={100}
             wrapperColor={answerFieldColor}
             highlightColor={buttonColor}
-            renderItem={(
-              data: TCheckboxData,
-              index: number,
-              isSelected: boolean,
-            ) => (
+            renderItem={(data: TCheckboxData, isSelected: boolean) => (
               <Text
-                style={{
-                  fontFamily: 'Circe-Regular',
-                  fontSize: 20,
-                  color: isSelected ? '#4F4E4E' : '#C3C3C3',
-                }}>
+                style={[
+                  ChatChoiceStyles.scrollPickerText,
+                  {color: isSelected ? '#4F4E4E' : '#C3C3C3'},
+                ]}>
                 {data.checkboxTitle.toUpperCase()}
               </Text>
             )}

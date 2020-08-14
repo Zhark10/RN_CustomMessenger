@@ -1,6 +1,7 @@
 import {useState, useCallback, useEffect} from 'react';
-import {TUseChatMiddleware, EBubbleType} from './USE_ChatMiddleware';
 import SimpleToast from 'react-native-simple-toast';
+
+import {TUseChatMiddleware, EBubbleType} from './USE_ChatMiddleware';
 import {getPlace} from '../apis/API_GMaps';
 
 const useAddressChecking = (

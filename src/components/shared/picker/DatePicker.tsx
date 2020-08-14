@@ -1,9 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import {TDatePicker} from './T_DatePicker';
 import {Text, View} from 'react-native';
 import {DatePickerStyles} from './S_DatePicker';
-import ScrollPicker from '../../../libs/scroll-picker/scroll-picker';
+import ScrollPicker from '../../../libs/scroll-picker/ScrollPicker';
 import {
   YEARS_FOR_BORN_DATE,
   YEARS_FOR_CREDIT_CARD,
@@ -56,8 +55,7 @@ export const DatePicker: React.FC<TDatePicker> = ({
             renderItem={(data: string, index: number, isSelected: boolean) => (
               <Text
                 style={{
-                  fontFamily: 'Circe-Regular',
-                  fontSize: 20,
+                  ...DatePickerStyles.text,
                   color: isSelected ? '#4F4E4E' : '#C3C3C3',
                 }}>
                 {data}
@@ -84,8 +82,7 @@ export const DatePicker: React.FC<TDatePicker> = ({
               ) => (
                 <Text
                   style={{
-                    fontFamily: 'Circe-Regular',
-                    fontSize: 20,
+                    ...DatePickerStyles.text,
                     color: isSelected ? '#4F4E4E' : '#C3C3C3',
                   }}>
                   {data}
@@ -114,8 +111,7 @@ export const DatePicker: React.FC<TDatePicker> = ({
             renderItem={(data: string, index: number, isSelected: boolean) => (
               <Text
                 style={{
-                  fontFamily: 'Circe-Regular',
-                  fontSize: 20,
+                  ...DatePickerStyles.text,
                   color: isSelected ? '#4F4E4E' : '#C3C3C3',
                 }}>
                 {data}

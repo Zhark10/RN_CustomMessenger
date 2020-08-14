@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ImagePicker, {
   ImagePickerOptions,
   ImagePickerResponse,
 } from 'react-native-image-picker';
 import {PermissionsAndroid} from 'react-native';
 import Toast from 'react-native-simple-toast';
+
 import {isIos} from '../helpers/platform';
 import {IPhotoType} from '../../types';
 

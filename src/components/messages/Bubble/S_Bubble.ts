@@ -1,6 +1,13 @@
 import {StyleSheet} from 'react-native';
 
 export const BubbleStyles = StyleSheet.create({
+  container: {
+    maxWidth: '60%',
+    minHeight: 45,
+    flexDirection: 'row',
+    marginHorizontal: 24,
+    borderRadius: 16,
+  },
   main: {
     flex: 1,
   },
@@ -12,6 +19,17 @@ export const BubbleStyles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 16,
+  },
+  text: {
+    fontSize: 16,
+    fontFamily: 'Circe-Regular',
+    paddingHorizontal: 16,
+    alignSelf: 'center',
+    paddingVertical: 10,
+  },
+  cardImage: {
+    width: 191,
+    height: 120,
   },
   firstPictureInDoubleBox: {
     width: 120,
@@ -30,5 +48,9 @@ export const BubbleStyles = StyleSheet.create({
     left: 16,
     borderRadius: 10,
     borderWidth: 2,
+  },
+  dotsLoader: {
+    margin: 16,
+    maxHeight: 45,
   },
 });

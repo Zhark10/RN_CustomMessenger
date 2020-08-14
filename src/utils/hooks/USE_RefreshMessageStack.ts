@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {TUseChatMiddleware} from './USE_ChatMiddleware';
+import {Keyboard} from 'react-native';
 import shortid from 'shortid';
+
+import {TUseChatMiddleware} from './USE_ChatMiddleware';
 import {useAutoScrollMessages} from './USE_AutoScrollForMessages';
 import {isIos} from '../helpers/platform';
-import {Keyboard} from 'react-native';
 
 export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
   const [index, setIndex] = useState(0);

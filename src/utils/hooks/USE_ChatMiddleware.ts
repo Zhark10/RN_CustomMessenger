@@ -1,9 +1,9 @@
+import {useContext, useState, useCallback} from 'react';
+
 import {TMessageAddedInStack} from '../../store/T_ChatProvider';
 import {TOnlyOneMessageIteration} from '../../types';
-import {useContext, useState} from 'react';
 import {ChatContext} from '../../store/ChatProvider';
 import {TLibraryInputData, TOutputData} from '../../types/T_LibraryInputData';
-import React from 'react';
 
 export type TUseChatMiddleware = {
   currentChatBotQuestion: TOnlyOneMessageIteration;
@@ -74,7 +74,7 @@ export const useChatMiddleware = (
     return answerDto;
   };
 
-  const sendAnswer = React.useCallback(
+  const sendAnswer = useCallback(
     (answer: any, type: EBubbleType, sendAnswerOutput?: boolean) => {
       setAnswerFieldVisible(false);
       let answerForSaving = answer;

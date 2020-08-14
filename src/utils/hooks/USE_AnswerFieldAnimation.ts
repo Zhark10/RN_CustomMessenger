@@ -1,5 +1,6 @@
 import Animated, {Easing} from 'react-native-reanimated';
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
+
 import {screenWidth} from '../helpers/screen';
 
 const {Value, timing} = Animated;

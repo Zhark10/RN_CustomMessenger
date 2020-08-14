@@ -18,4 +18,8 @@ export const DatePickerStyles = StyleSheet.create({
     marginLeft: 11,
     fontSize: 18,
   },
+  text: {
+    fontFamily: 'Circe-Regular',
+    fontSize: 20,
+  },
 });

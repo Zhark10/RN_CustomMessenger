@@ -18,4 +18,12 @@ export const ChatChoiceStyles = StyleSheet.create({
     marginLeft: 11,
     fontSize: 18,
   },
+  scrollPickerWrapper: {
+    height: 100,
+    alignItems: 'center',
+  },
+  scrollPickerText: {
+    fontFamily: 'Circe-Regular',
+    fontSize: 20,
+  },
 });

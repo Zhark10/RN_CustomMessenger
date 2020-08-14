@@ -4,7 +4,7 @@ import {View, Text, ViewStyle, TextStyle, Image} from 'react-native';
 import Animated from 'react-native-reanimated';
 import {DotsLoader} from 'react-native-indicator';
 import {isIos} from '../../../utils/helpers/platform';
-import {useBubbleAnimation} from '../../../utils/hooks/USE_Bubble_animation';
+import {useBubbleAnimation} from '../../../utils/hooks/USE_BubbleAnimation';
 import {TMessageAddedInStack} from '../../../store/T_ChatProvider';
 import {TViewStyles} from '../../../types/T_LibraryInputData';
 import {BubbleStyles} from './S_Bubble';
@@ -49,39 +49,27 @@ export const Bubble: React.FC<IBubbleProps> = React.memo(
         }}>
         <View
           style={{
-            maxWidth: '60%',
-            minHeight: 45,
-            flexDirection: 'row',
+            ...BubbleStyles.container,
             backgroundColor: isBot
               ? bubblesConfigForBot.backgroundColor
               : message!.twoSidePicture
               ? chatBackgroundColor
               : bubblesConfigForMe.backgroundColor,
-            marginHorizontal: 24,
-            borderRadius: 16,
             alignSelf: isBot ? 'flex-start' : 'flex-end',
             ...wrapperStyles,
           }}>
           {!message ? (
             <View
-              style={{
-                margin: 16,
-                maxHeight: 45,
-              }}>
+              style={BubbleStyles.dotsLoader}>
               <DotsLoader color={bubblesConfigForBot.textColor} size={12} />
             </View>
           ) : message.text ? (
             <Text
               style={{
-                fontSize: 16,
-                fontFamily: 'Circe-Regular',
-                paddingHorizontal: 16,
-                // lineHeight: 16,
-                paddingVertical: 10,
+                ...BubbleStyles.text,
                 color: isBot
                   ? bubblesConfigForBot.textColor
                   : bubblesConfigForMe.textColor,
-                alignSelf: 'center',
                 ...messageTextStyles,
               }}>
               {message!.text}
@@ -110,7 +98,7 @@ export const Bubble: React.FC<IBubbleProps> = React.memo(
             </View>
           ) : (
             <Image
-              style={{width: 191, height: 120}}
+              style={BubbleStyles.cardImage}
               resizeMode="stretch"
               source={require('../../../../assets/CARD.png')}
             />
