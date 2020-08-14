@@ -1,4 +1,4 @@
-import { useContext, useState, useCallback } from 'react'
+import { useContext, useState, useCallback, useEffect } from 'react'
 
 import { TMessageAddedInStack } from '../../store/T_ChatProvider'
 import { TOnlyOneMessageIteration } from '../../types'
@@ -12,7 +12,6 @@ export type TUseChatMiddleware = {
   answerFieldVisible: boolean
   setAnswerFieldVisible: React.Dispatch<React.SetStateAction<boolean>>
   savedChatInfo: TOutputData
-  isLastMessageInModel: boolean
   refreshMessages: React.Dispatch<React.SetStateAction<TMessageAddedInStack[]>>
   messages: TMessageAddedInStack[]
 }
@@ -32,12 +31,18 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
   } = useContext(ChatContext)!
 
   const [answerFieldVisible, setAnswerFieldVisible] = useState(false)
-  const isLastMessageInModel = messageIndex === libraryInputData.messages.length - 1
 
   const currentChatBotQuestion = libraryInputData.messages[messageIndex]
-  const myAnswerType = Object.getOwnPropertyNames(currentChatBotQuestion.myAnswer)[0]
+  const myAnswerType = currentChatBotQuestion.myAnswer && Object.getOwnPropertyNames(currentChatBotQuestion.myAnswer)[0]
 
-  const currentKeyForFormdata = currentChatBotQuestion.myAnswer[myAnswerType].keyForFormData
+  useEffect(()=>{
+    if (messageIndex === libraryInputData.messages.length - 1) {
+      libraryInputData.events.endConversationEvent(savedChatInfo)
+    }
+  }, [messageIndex])
+
+  const currentKeyForFormdata =
+    currentChatBotQuestion.myAnswer && myAnswerType && currentChatBotQuestion.myAnswer[myAnswerType].keyForFormData
 
   const dto = (answer: any, type: EBubbleType, answerForSaving: any) => {
     const answerDto: TMessageAddedInStack = {
@@ -64,7 +69,6 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
     return answerDto
   }
   const sendAnswer = useCallback(
-
     (answer: any, type: EBubbleType, sendAnswerOutput?: boolean) => {
       setAnswerFieldVisible(false)
       let answerForSaving = answer
@@ -88,18 +92,13 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
       })
 
       const timeout = setTimeout(() => {
-        if (!isLastMessageInModel) {
-          setNewMessageIndex(current => current + 1)
-        } else {
-          libraryInputData.events.endConversationEvent(savedChatInfo)
-        }
+        setNewMessageIndex(current => current + 1)
         refreshMessages(currentStack => [...currentStack, answerDto])
       }, answerForSaving.length * 100)
       return () => clearTimeout(timeout)
     },
     [
       currentKeyForFormdata,
-      isLastMessageInModel,
       libraryInputData.events,
       refreshChatInfo,
       refreshMessages,
@@ -116,7 +115,6 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
     answerFieldVisible,
     setAnswerFieldVisible,
     savedChatInfo,
-    isLastMessageInModel,
     refreshMessages,
     messages,
   }

@@ -7,7 +7,7 @@ import { EBubbleType } from '../../../utils/hooks/USE_ChatMiddleware'
 import { usePhotoService } from '../../../utils/hooks/USE_PhotoService'
 
 const ChatPhoto: FC<TChatProps> = React.memo(({ chatMiddleware, libraryInputData }) => {
-  const photoQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer.PHOTO!
+  const photoQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer?.PHOTO!
   const isOnlyPhoto = photoQuestionData.numbersOfPhoto === 'one'
   const { sendPhotos } = usePhotoService(
     data => {

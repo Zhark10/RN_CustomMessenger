@@ -40,7 +40,7 @@ export const usePhotoService = (
 
     const openPhotoModal = () => {
       startSendingCallback()
-      ImagePicker.showImagePicker(options, (response: ImagePickerResponse) => {
+      ImagePicker.launchCamera(options, (response: ImagePickerResponse) => {
         if (response.didCancel || response.error) {
           startSendingCallback()
           setPhotoLimit(0)

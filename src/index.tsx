@@ -33,14 +33,14 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     currentChatBotQuestion: {myAnswer},
     answerFieldVisible,
   } = chatMiddleware;
-  const myAnswerType = Object.getOwnPropertyNames(myAnswer)[0];
+  const myAnswerType = myAnswer && Object.getOwnPropertyNames(myAnswer)[0];
   const isShowAdditionalPanel =
     myAnswerType === EAnswerType.ADDRESS ||
     myAnswerType === EAnswerType.PAYMENT;
 
   useEffect(function startEventWhenPayment() {
     if (myAnswerType === EAnswerType.PAYMENT) {
-      chatMiddleware.currentChatBotQuestion.myAnswer.PAYMENT?.startFunc();
+      chatMiddleware.currentChatBotQuestion.myAnswer?.PAYMENT?.startFunc();
     }
   }, [chatMiddleware, myAnswerType]);
 
@@ -52,13 +52,15 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
     libraryInputData,
     setVisibleAdditionalAnswerPanel: additionalAnswerFieldAnimation.setVisible,
   };
-  const answerSize = getAnswerSize(myAnswer);
+  const answerSize = myAnswer && getAnswerSize(myAnswer);
   const answerFieldAnimation = useAnswerFieldAnimation(
     answerFieldVisible,
     answerSize,
   );
 
   const selectAnswerField = (): ReactNode => {
+    if (!myAnswerType) return <></>
+
     const answerFields = {
       [EAnswerType.INPUT]: ChatInput,
       [EAnswerType.MULTICHOICE]: ChatMultichoice,
@@ -74,6 +76,8 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
   };
 
   const selectAdditionalPanelForAnswer = (): ReactNode => {
+    if (!myAnswerType) return <></>
+
     const answerFields = {
       [EAnswerType.PAYMENT]: ChatPaymentAdditional,
       [EAnswerType.ADDRESS]: ChatAddressAdditional,
@@ -100,16 +104,21 @@ export const MessangerStack: FC<TLibraryInputData> = libraryInputData => {
       <View style={{position: 'absolute', width: '100%', alignItems: 'center', top: 0}}>
         {libraryInputData.chatHeaderComponent}
       </View>
-      <Animated.View
-        style={[
-          MainStyles.animAnswerPanel,
-          {
-            height: answerFieldAnimation.offsetValue,
-            backgroundColor: answerFieldColor,
-          },
-        ]}>
-        {answerFieldVisible && selectAnswerField()}
-      </Animated.View>
+      {
+        answerFieldAnimation ?
+          <Animated.View
+            style={[
+              MainStyles.animAnswerPanel,
+              {
+                height: answerFieldAnimation.offsetValue,
+                backgroundColor: answerFieldColor,
+              },
+            ]}
+          >
+            {answerFieldVisible && selectAnswerField()}
+          </Animated.View> 
+        : <></>
+      }
       {isShowAdditionalPanel && (
         <Animated.View
           style={[

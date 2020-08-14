@@ -9,7 +9,7 @@ import { screenHeight } from '../../../utils/helpers/screen'
 import Animated from 'react-native-reanimated'
 
 interface IProps extends TChatProps {
-  answerSize: number
+  answerSize?: number
 }
 
 const MessagesField: FC<IProps> = React.memo(({ chatMiddleware, libraryInputData, answerSize }) => {
@@ -20,7 +20,7 @@ const MessagesField: FC<IProps> = React.memo(({ chatMiddleware, libraryInputData
   const emptyContentForAnimation = () => <View style={{ height: screenHeight - 200, width: 0 }} />
 
   return (
-    <Animated.View style={[MessagesFieldStyles.main, { height: answerSize }]}>
+    <Animated.View style={[MessagesFieldStyles.main]}>
       <ScrollView
         ref={scrollView}
         decelerationRate="normal"

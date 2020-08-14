@@ -6,7 +6,7 @@ import { EBubbleType } from '../../../utils/hooks/USE_ChatMiddleware'
 import SimpleToast from 'react-native-simple-toast'
 
 const ChatInput: FC<TChatProps> = React.memo(({ chatMiddleware }) => {
-  const inputQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer.INPUT!
+  const inputQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer?.INPUT!
   const isNeedSended = inputQuestionData.sendAnswerOutput
   const [text, setText] = React.useState('')
   const isValidated = text.length > 0 && text.length < 50

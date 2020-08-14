@@ -2,7 +2,7 @@ import { TUseChatMiddleware } from './utils/hooks/USE_ChatMiddleware'
 import { TLibraryInputData } from './types/T_LibraryInputData'
 export type TOnlyOneMessageIteration = {
   botMessage: IMessage[]
-  myAnswer: IAnswer
+  myAnswer?: IAnswer
 }
 
 export const EAnswerType = {
