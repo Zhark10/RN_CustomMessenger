@@ -36,7 +36,7 @@ const MessagesField: FC<IProps> = React.memo(({ chatMiddleware, libraryInputData
       >
         {emptyContentForAnimation()}
         <View style={[MessagesFieldStyles.messageField, { backgroundColor: viewStyles.chatBackgroundColor }]}>
-          {messages.map(message => (
+          {messages.map((message) => (
             <View style={{ zIndex: 2 }}>
               <Bubble key={message.id} message={message} viewStyles={viewStyles} />
             </View>

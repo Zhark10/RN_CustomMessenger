@@ -10,7 +10,7 @@ const ChatPhoto: FC<TChatProps> = React.memo(({ chatMiddleware, libraryInputData
   const photoQuestionData = chatMiddleware.currentChatBotQuestion.myAnswer?.PHOTO!
   const isOnlyPhoto = photoQuestionData.numbersOfPhoto === 'one'
   const { sendPhotos } = usePhotoService(
-    data => {
+    (data) => {
       const type = isOnlyPhoto ? EBubbleType.PHOTO : EBubbleType.DOUBLE_PHOTO
       chatMiddleware.sendAnswer(data, type)
     },

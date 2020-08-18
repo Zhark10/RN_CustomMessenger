@@ -13,10 +13,10 @@ const ChatMultichoice: FC<TChatProps> = React.memo(({ libraryInputData, chatMidd
 
   const [selected, refreshSelected] = React.useState<string[]>([])
   const onValueChange = (title: string) => {
-    if (selected.some(elem => elem === title)) {
-      refreshSelected(currentValues => currentValues.filter(value => value !== title))
+    if (selected.some((elem) => elem === title)) {
+      refreshSelected((currentValues) => currentValues.filter((value) => value !== title))
     } else {
-      refreshSelected(currentValues => [...currentValues, title])
+      refreshSelected((currentValues) => [...currentValues, title])
     }
   }
 
@@ -26,11 +26,11 @@ const ChatMultichoice: FC<TChatProps> = React.memo(({ libraryInputData, chatMidd
   }, [chatMiddleware, selected])
   return (
     <View style={ChatMultichoiceStyles.main}>
-      {values.map(title => (
+      {values.map((title) => (
         <View key={title} style={ChatMultichoiceStyles.checkboxBlock}>
           <CheckBox
             onClick={() => onValueChange(title)}
-            isChecked={selected.some(elem => elem === title)}
+            isChecked={selected.some((elem) => elem === title)}
             disabled={false}
             checkedCheckBoxColor={buttonColor}
             uncheckedCheckBoxColor={'#797979'}

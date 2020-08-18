@@ -12,7 +12,7 @@ export const useAnswerFieldAnimation = (
   const [offsetValue] = useState(new Value(-500))
 
   const scaleConfig = {
-    toValue: (answerFieldVisible && answerHeight) ? answerHeight : 0,
+    toValue: answerFieldVisible && answerHeight ? answerHeight : 0,
     duration: 250,
     easing: Easing.inOut(Easing.ease),
   }

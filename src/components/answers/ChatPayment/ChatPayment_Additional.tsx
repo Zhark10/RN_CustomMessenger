@@ -69,7 +69,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
             <Icon style={ChatPaymentAdditionalStyles.closeIcon} name="close" />
           </TouchableOpacity>
         </View>
-        {values.map(text => (
+        {values.map((text) => (
           <TouchableWithoutFeedback onPress={() => onValueChange(text)} key={text}>
             <View style={ChatPaymentAdditionalStyles.checkboxBlock}>
               <CheckBox
@@ -112,7 +112,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveCardNumber}
-                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
+                  formatText={(text) => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
                   placeholderTextColor={buttonColor}
                 />
                 <TextField
@@ -123,7 +123,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   keyboardType="email-address"
                   onChangeText={saveName}
                   placeholderTextColor={buttonColor}
-                  formatText={text => cc_format(text.slice(0, 50))}
+                  formatText={(text) => cc_format(text.slice(0, 50))}
                 />
                 <Text style={ChatPaymentAdditionalStyles.dateTitle}>Expire date</Text>
                 <View
@@ -141,7 +141,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveCvc}
-                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 3))}
+                  formatText={(text) => cc_format(text.replace(/[^0-9]/g, '').slice(0, 3))}
                   placeholderTextColor={buttonColor}
                 />
               </>
@@ -154,7 +154,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveAccountNumber}
-                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
+                  formatText={(text) => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
                   placeholderTextColor={buttonColor}
                 />
                 <TextField
@@ -164,7 +164,7 @@ const ChatPaymentAdditional: FC<TChatProps> = React.memo(
                   tintColor={buttonColor}
                   keyboardType="numeric"
                   onChangeText={saveBankNumber}
-                  formatText={text => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
+                  formatText={(text) => cc_format(text.replace(/[^0-9]/g, '').slice(0, 16))}
                   placeholderTextColor={buttonColor}
                 />
               </>

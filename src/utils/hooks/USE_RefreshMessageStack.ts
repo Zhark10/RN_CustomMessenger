@@ -46,12 +46,12 @@ export const useRefreshMessageStack = (chatMiddleware: TUseChatMiddleware) => {
     const timeToShowNextMessage = botMessage[index].text ? botMessage[index].text!.length * 50 : 2000
     setTyping(true)
     const toShowNextMessage = setTimeout(() => {
-      setIndex(currentIndex => currentIndex + 1)
+      setIndex((currentIndex) => currentIndex + 1)
 
       const formattedBotMessage = botMessage[index].text
         ? { text: botMessage[index].text }
         : { picture: botMessage[index].picture }
-      chatMiddleware.refreshMessages(currentStack => [
+      chatMiddleware.refreshMessages((currentStack) => [
         ...currentStack,
         {
           id: shortid.generate(),

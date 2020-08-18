@@ -35,7 +35,7 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
   const currentChatBotQuestion = libraryInputData.messages[messageIndex]
   const myAnswerType = currentChatBotQuestion.myAnswer && Object.getOwnPropertyNames(currentChatBotQuestion.myAnswer)[0]
 
-  useEffect(()=>{
+  useEffect(() => {
     if (messageIndex === libraryInputData.messages.length - 1) {
       libraryInputData.events.endConversationEvent(savedChatInfo)
     }
@@ -79,7 +79,7 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
 
       const answerDto = dto(answer, type, answerForSaving)
 
-      refreshChatInfo(currentState => {
+      refreshChatInfo((currentState) => {
         const dataForSaving = {
           ...currentState,
           [currentKeyForFormdata]: answer,
@@ -92,8 +92,8 @@ export const useChatMiddleware = (libraryInputData: TLibraryInputData): TUseChat
       })
 
       const timeout = setTimeout(() => {
-        setNewMessageIndex(current => current + 1)
-        refreshMessages(currentStack => [...currentStack, answerDto])
+        setNewMessageIndex((current) => current + 1)
+        refreshMessages((currentStack) => [...currentStack, answerDto])
       }, answerForSaving.length * 100)
       return () => clearTimeout(timeout)
     },

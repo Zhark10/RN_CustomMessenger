@@ -8,8 +8,8 @@ export const useKeyboardStatus = () => {
   }>({ keyboardShow: false, keyboardHeight: 0 })
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', event => keyboardDidShow(event))
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', event => keyboardDidHide(event))
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => keyboardDidShow(event))
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', (event) => keyboardDidHide(event))
 
     return () => {
       keyboardDidShowListener.remove()

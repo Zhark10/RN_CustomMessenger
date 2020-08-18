@@ -23,7 +23,7 @@ export const usePhotoService = (
         type,
         uri,
       }
-      refreshUploadedPhoto(currentPhotos => [...currentPhotos, pictureData])
+      refreshUploadedPhoto((currentPhotos) => [...currentPhotos, pictureData])
     }
   }
 

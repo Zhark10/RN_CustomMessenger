@@ -87,7 +87,7 @@ export default class ScrollPicker extends Component<ScrollPickerProps, ScrollPic
       <View style={wrapperStyle}>
         <View style={highlightStyle} />
         <ScrollView
-          ref={sview => {
+          ref={(sview) => {
             this.sview = sview
           }}
           bounces={false}
