@@ -58,24 +58,24 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Привет! Меня зовут Аркадий! Я фронтенд-разработчик! Удели, пожалуйста, немного времени!',
+          text: 'Hello! My name is Arkady. I need a moment of your time.',
         },
         {
-          text: 'Возможно, я разработал этот модуль именно для твоего проекта!',
+          text: 'I might have developed a module which fits your project best :)',
         },
         {
-          text: 'Он позволит тебе заблаговременно запросить у пользователя определенную информацию',
-        },
-        {
-          text:
-            'Какую именно, ты определяешь сам, но она может быть полезна, например, при регистрации, опроснике и т.д.',
+          text: 'It will help you to request some information from a user beforehand.',
         },
         {
           text:
-            'Я уже использовал данную библиотеку в двух коммерческих проектах',
+            'You can choose what information to ask yourself, for example, you can query a user during the registration, questionnaire, etc.',
         },
         {
-          text: 'Итак, как тебя зовут?',
+          text:
+            'I have already used this library in a couple of commercial projects.',
+        },
+        {
+          text: 'So what is your name?',
         },
       ],
       myAnswer: {
@@ -88,10 +88,10 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Хорошее имя! Кстати, сейчас идет демонстрация функционала библиотеки :)',
+          text: 'Nice! By the way, now you see the demo of the library :)',
         },
         {
-          text: 'На следующем шаге нужно указать свой пол',
+          text: 'In the next step you need to indicate gender',
         },
       ],
       myAnswer: {
@@ -100,11 +100,11 @@ const example: TLibraryInputData = {
           checkboxTitles: [
             {
               key: 'MALE',
-              checkboxTitle: 'Мужской',
+              checkboxTitle: 'Male',
             },
             {
               key: 'FEMALE',
-              checkboxTitle: 'Женский',
+              checkboxTitle: 'Female',
             },
           ],
           endFunc: selected => {
@@ -131,13 +131,13 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Какой эмоцией можешь описать себя?',
+          text: 'What emotion describes you best?',
         },
       ],
       myAnswer: {
         MULTICHOICE: {
           keyForFormData: 'selections',
-          checkboxTitles: ['Улыбка 😀', 'Смех 😂', 'УГ 😒'],
+          checkboxTitles: ['Smile 😀', 'Laugh 😂', 'Sad 😒'],
           buttonFunc: () => {},
         },
       },
@@ -145,7 +145,7 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Понял! А теперь сделай селфи, будь добр(-а)! Это фото увидишь только ты, можешь не волноваться :)',
+          text: 'I see. Now, please, make a selfie! This photo will be seen only by you, don’t worry :)',
         },
       ],
       myAnswer: {
@@ -154,7 +154,7 @@ const example: TLibraryInputData = {
           numbersOfPhoto: 'one',
           startFunc: () => {},
           endFunc: (base64, photoType) => {
-            console.log(`Фото типа "${photoType}": ${base64.slice(0,50)}`)
+            console.log(`Photo by type "${photoType}": ${base64.slice(0,50)}`)
           },
         },
       },
@@ -162,7 +162,7 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Кстати, а когда ты родился(-ась)?',
+          text: 'By the way, when were you born?',
         },
       ],
       myAnswer: {
@@ -178,10 +178,10 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Сейчас будет форма с дополнительной страницей для формирования данных по карте или счету клиента',
+          text: 'Now you will see the form with the page for data generation on the customer’s card or bill.',
         },
         {
-          text: 'Это может быть так же полезно для твоих задач! Пока просто можешь ввести любые данные',
+          text: 'It also can be necessary for your tasks! Now you can just fill it in with random data',
         },
       ],
       myAnswer: {
@@ -201,7 +201,7 @@ const example: TLibraryInputData = {
     {
       botMessage: [
         {
-          text: 'Вот и все! В твоем console.log() уже появилась конечная модель со всеми ответами по ключам!',
+          text: 'That’s it! There is the final model with all key answers in your console.log()',
         },
       ],
     },
@@ -209,7 +209,7 @@ const example: TLibraryInputData = {
   events: {
     startConversationEvent: () => Alert.alert('Chat started'),
     endConversationEvent: outputData =>
-      console.log('А вот и сформированная модель:', JSON.stringify(outputData, null, 2)),
+      console.log('Output model:', JSON.stringify(outputData, null, 2)),
     answerSended: data => console.log('formData for token (example)', data),
   },
 }
