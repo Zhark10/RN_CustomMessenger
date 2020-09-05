@@ -3,10 +3,6 @@
 
 ### Offline chat that you can use in your projects for interesting registration, surveys and other purposes.
 
-## Demonstration
-
-![chat example](./assets/ScreenRecord.gif)
-
 ### Build and run (example demonstration)
 
 ```bash
