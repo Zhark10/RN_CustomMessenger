@@ -41,7 +41,7 @@
     "bubble"
   ],
   "devDependencies": {
-    "@babel/core": "7.6.2",
+    "@babel/core": "7.29.6",
     "@babel/runtime": "7.6.2",
     "@react-native-community/eslint-config": "0.0.5",
     "@types/react-native": "0.62.3",
